@@ -31,7 +31,7 @@
         <form action="{{ url_for('process_login') }}" method="POST">
           <div class="input-group mb-3">
             <span class="input-group-text"><i class="fa fa-user-circle-o"><img src="images/familiar_face_and_zone_FILL0_wght400_GRAD0_opsz24.svg" alt=""></i></span>
-            {{ form.username_entry() }} <!--Пароль-->
+            {{ form.username() }} <!--Пароль-->
           </div>
           </div>
           <div class="input-group mb-3">
@@ -46,7 +46,7 @@
             <label for="remember-me" class="form-check-label px-2">Запомнить меня</label>
           </div>
           <div class="d-grid mt-3">
-            <button type="button" class="btn btn-primary">Готово</button>
+            {{ form.submit() }}
           </div>
 
         </form>

@@ -12,6 +12,6 @@ class LoginForm(FlaskForm):
   
   
 class LoginForm(FlaskForm):
-  username_entry = StringField("Ник", validators=[DataRequired()], render_kw={"class": "form-control", "placeholder" : "Ваш ник"})
+  username = StringField("Ник", validators=[DataRequired()], render_kw={"class": "form-control", "placeholder" : "Ваш ник"})
   password_entry = PasswordField("Пароль", validators=[DataRequired()], render_kw={"class": "form-control", "placeholder" : "Ваш пароль"})
   submit = SubmitField("Войти!", render_kw={"class": "btn btn-primary"})
