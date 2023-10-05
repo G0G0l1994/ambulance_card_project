@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
   <title>Sign up and Login</title>
+  <title>{{ page_title }}</title>
 </head>
 <body>
   <div class="container">
@@ -18,30 +19,31 @@
           <span class="login-link"><a href="login.html" class="login-btn px-2">Войти</a></span>
         </p>
         <!--Form start-->
-        <form action="#">
+        <form action="#" method="POST">
+          {{ form.csrf_token }}
           <div class="input-group mb-3">
             <span class="input-group-text"><i class="fa fa-user-circle-o"><img src="images/account_circle_FILL0_wght400_GRAD0_opsz24.svg" alt=""></i></span>
-            <input type="text" class="form-control" placeholder="Ваш ник">
+            {{ form.username() }} <!--Ник-->
           </div>
           <div class="input-group mb-3">
             <span class="input-group-text"><i class="fa fa-user-circle-o"><img src="images/person_FILL0_wght400_GRAD0_opsz24.svg" alt=""></i></span>
-            <input type="text" class="form-control" placeholder="Ваше имя">
+            {{ form.name()}} <!--Имя-->
           </div>
           <div class="input-group mb-3">
             <span class="input-group-text"><i class="fa fa-user-circle-o"><img src="images/person_FILL0_wght400_GRAD0_opsz24.svg" alt=""></i></span>
-            <input type="text" class="form-control" placeholder="Ваша фамилия">
+            {{ form.surname() }} <!--Фамилия-->
           </div>
           <div class="input-group mb-3">
             <span class="input-group-text"><i class="fa fa-user-circle-o"><img src="images/lock_FILL0_wght400_GRAD0_opsz24.svg" alt=""></i></span>
-            <input type="text" class="form-control" placeholder="Ваш пароль">
+            {{ form.password() }} <!--Пароль-->
           </div>
           <div class="input-group mb-3">
             <span class="input-group-text"><i class="fa fa-user-circle-o"><img src="images/lock_FILL0_wght400_GRAD0_opsz24.svg" alt=""></i></span>
-            <input type="text" class="form-control" placeholder="Повторите пароль">
+            {{ form.password_2() }} <!--Повторить пароль-->
           </div>
 
           <div class="d-grid">
-            <button type="button" class="btn btn-primary">Готово</button>
+            {{ form.submit() }} <!--Кнопка отвправить-->
           </div>
 
         </form>

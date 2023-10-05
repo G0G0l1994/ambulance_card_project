@@ -22,11 +22,13 @@
         <form action="#">
           <div class="input-group mb-3">
             <span class="input-group-text"><i class="fa fa-user-circle-o"><img src="images/familiar_face_and_zone_FILL0_wght400_GRAD0_opsz24.svg" alt=""></i></span>
-            <input type="text" class="form-control" placeholder="Ваш ник">
+            {{ form.username_entry() }} <!--Пароль-->
+          </div>
           </div>
           <div class="input-group mb-3">
             <span class="input-group-text"><i class="fa fa-user-circle-o"><img src="images/door_open_FILL0_wght400_GRAD0_opsz24.svg" alt=""></i></span>
-            <input type="text" class="form-control" placeholder="Пароль">
+            {{ form.password_entry() }} <!--Пароль-->
+          </div>
           </div>
           <div class="checkbox">
             <input type="checkbox" value="remember-me" id="remember-me"
