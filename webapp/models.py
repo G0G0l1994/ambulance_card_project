@@ -1,9 +1,10 @@
 from sqlalchemy import Column, Integer, String, DATE, DateTime, Float, Boolean
-from db import Base, engine
+from werkzeug.security import generate_password_hash, check_password_hash
+from webapp.db import Base, engine
 
 #-------------------Основные сущности-------------------
 class Doctors(Base):
-    __tablename__ = "Врач"
+    __tablename__ = "Doctor"
     
     id_table = Column(Integer)
     id_doctor = Column(Integer, primary_key = True)
@@ -12,12 +13,17 @@ class Doctors(Base):
     username = Column(String(), unique = True)
     password = Column(String(),unique = True)
     
+    def set_password(self, password):
+        self.password = generate_password_hash(password)
+    
+    def check_password(self, password):
+        return check_password_hash(self.password, password)
     def __repr__(self):
         return f"Doctor {self.id_doctor}, {self.username}"
 
 
 class Patient(Base):
-    __tablename__ = "Пациент"
+    __tablename__ = "Patient"
     
     id_table = Column(Integer)
     id_patient = Column(Integer, primary_key = True)
@@ -26,11 +32,11 @@ class Patient(Base):
     adress = Column(String())
 
     def __repr__(self):
-        return f"Пациент {self.id_patient} {self.first_name} {self.last_name}"
+        return f"Patient {self.id_patient} {self.first_name} {self.last_name}"
     
     
 class Card(Base):
-    __tablename__ = "Карта"
+    __tablename__ = "Card"
     
     id_table = Column(Integer)
     id_patient = Column(Integer)
@@ -47,8 +53,8 @@ class Card(Base):
     
     
 class Patient_Card_History(Base):
-    __tablename__ = "История пациента"
-    
+    __tablename__ = "History"
+    id = Column(Integer, primary_key = True)
     id_table = Column(Integer)
     id_patient = Column(Integer)
     id_card = Column(Integer)
@@ -57,7 +63,7 @@ class Patient_Card_History(Base):
 
 class Doctor_Card_History(Base):
     __tablename__ = "История вызовов врача"
-
+    id = Column(Integer, primary_key = True)
     id_table = Column(Integer)
     id_card = Column(Integer)
     id_doctor = Column(Integer)
@@ -66,7 +72,7 @@ class Doctor_Card_History(Base):
 
 class Complaint(Base): #Жалобы
     __tablename__ = "Жалобы"
-    
+    id = Column(Integer, primary_key = True)
     id_table = Column(Integer)
     id_card = Column(Integer)
     сomplaint = Column(String())
@@ -74,7 +80,7 @@ class Complaint(Base): #Жалобы
 
 class Anamnesis(Base): #Анамнез
     __tablename__ = "Анамнез"
-    
+    id = Column(Integer, primary_key = True)
     id_table = Column(Integer)
     id_card = Column(Integer)
     anamnesis = Column(String())
@@ -82,7 +88,7 @@ class Anamnesis(Base): #Анамнез
 
 class General_Assessment(Base): #Общие данные
     __tablename__ = "Общие данные"
-    
+    id = Column(Integer, primary_key = True)
     id_table = Column(Integer)
     id_card = Column(Integer)
     
@@ -94,7 +100,7 @@ class General_Assessment(Base): #Общие данные
 
 class Indicators_before(Base): #показатели до оказания помощи
     __tablename__ = "Показатели до оказания помощи"
-    
+    id = Column(Integer, primary_key = True)
     id_card = Column(Integer)
     id_table = Column(Integer)
     temperature = Column(Float)
@@ -110,6 +116,7 @@ class Indicators_before(Base): #показатели до оказания по�
 class Skin(Base):
     __tablename__ = "Кожные покровы"
     
+    id = Column(Integer, primary_key = True)
     id_card = Column(Integer)
     id_table = Column(Integer)
     dry_skin = Column (String())
@@ -125,6 +132,7 @@ class Skin(Base):
 class  Respiratory_system(Base):
     __tablename__ = "Дыхательная система"
     
+    id=Column(Integer, primary_key = True)
     id_card = Column(Integer)
     id_table = Column(Integer)
     respiratory_type = Column(String())
@@ -134,7 +142,7 @@ class  Respiratory_system(Base):
     
 class Cardiovascular_System(Base):
     __tablename__ = "Сердечно-сосудистая система"
-    
+    id = Column(Integer, primary_key = True)
     id_card = Column(Integer)
     id_table = Column(Integer)
     heart_sounds = Column(String()) #тоны сердца

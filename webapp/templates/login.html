@@ -18,8 +18,17 @@
           Нет аккаунта?  
           <span class="login-link"><a href="index.html" class="login-btn px-2">Зарегистрироваться</a></span>
         </p>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="alert alert-warning" role="alert">
+              {% for message in messages %}
+                {{ message }}<br>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
         <!--Form start-->
-        <form action="#">
+        <form action="{{ url_for('process_login') }}" method="POST">
           <div class="input-group mb-3">
             <span class="input-group-text"><i class="fa fa-user-circle-o"><img src="images/familiar_face_and_zone_FILL0_wght400_GRAD0_opsz24.svg" alt=""></i></span>
             {{ form.username_entry() }} <!--Пароль-->
