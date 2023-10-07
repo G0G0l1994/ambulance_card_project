@@ -19,12 +19,15 @@ def create_app():
   def load_user(user_id):
     return Doctors.query.get(user_id)
   
+  @app.route('/')
+  def main():
+    return render_template('main.html')
   
-  @app.route('/index')
-  def index():
-    title = "Регистрация"
-    register_form = LoginForm()
-    return render_template('index.html', page_title=title, form=register_form)
+  #@app.route('/index')
+  #def index():
+  # title = "Регистрация"
+  #  register_form = LoginForm()
+  #  return render_template('index.html', page_title=title, form=register_form)
   
   @app.route('/login')
   def login():
