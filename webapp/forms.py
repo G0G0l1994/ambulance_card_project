@@ -2,6 +2,8 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired
 
+
+#это будет форма регистрации
 #class LoginForm(FlaskForm):
   #username = StringField("Ник", validators=[DataRequired()], render_kw={"class": "form-control", "placeholder" : "Ваш ник"})
   #name = StringField('Фамилия', validators=[DataRequired()], render_kw={"class": "form-control", "placeholder" : "Ваше имя"})

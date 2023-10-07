@@ -41,11 +41,11 @@ def create_app():
     if form.validate_on_submit():
       username = form.username.data
       password = form.password_entry.data
-      user = Doctors.query.filter(Doctors.username == form.username.data).first()
+      user = Doctors.query.filter(Doctors.username == username).first()
       if user and user.check_password(password):
         login_user(user)
         flash("Вы успешно вошли на сайт")
-        return redirect(url_for('index'))
+        return redirect(url_for('main'))
     flash("Неправильное имя пользователя или пароль")
     return redirect(url_for('login'))
   
