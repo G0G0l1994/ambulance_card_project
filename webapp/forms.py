@@ -15,5 +15,5 @@ from wtforms.validators import DataRequired
 
 class LoginForm(FlaskForm):
   username = StringField("Ник", validators=[DataRequired()], render_kw={"class": "form-control", "placeholder" : "Ваш ник"})
-  password_entry = PasswordField("Пароль", validators=[DataRequired()], render_kw={"class": "form-control", "placeholder" : "Ваш пароль"})
+  password = PasswordField("Пароль", validators=[DataRequired()], render_kw={"class": "form-control", "placeholder" : "Ваш пароль"})
   submit = SubmitField("Войти!", render_kw={"class": "btn btn-primary"})
