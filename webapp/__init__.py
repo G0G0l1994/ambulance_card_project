@@ -51,7 +51,7 @@ def create_app():
       password = form.password_entry.data
       user = Doctors.query.filter(Doctors.username == form.username.data).first()
       if user and user.check_password(password):
-        login_user(user, remember=form.remember_me.data)
+        login_user(user, remember=form.remember_me.data) #запоминание пользователя
         flash("Вы успешно вошли на сайт")
         return redirect(url_for('main'))
     else:
