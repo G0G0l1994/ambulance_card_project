@@ -29,7 +29,7 @@
           {% endif %}
         {% endwith %}
         <!--Form start-->
-        <form action="{{ url_for('process_login') }}" method="POST">
+        <form action="{{ url_for('user.process_login') }}" method="POST">
           {{ form.csrf_token }}
           <div class="form-group mb-3">
             {{ form.username() }} <!--Пароль-->
