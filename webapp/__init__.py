@@ -3,6 +3,17 @@ from webapp.forms import LoginForm
 from flask_login import LoginManager, login_user, logout_user
 from webapp.models import Doctors
 from webapp.db import Base, engine, db_session
+import logging
+
+
+logging.basicConfig(
+    level=logging.DEBUG, 
+    filename = "mylog.log", 
+    format = "%(asctime)s - %(module)s - %(levelname)s - %(funcName)s: %(lineno)d - %(message)s", 
+    datefmt='%H:%M:%S',
+    )
+
+logging.info('Hello')
 
 def create_app():
   app = Flask(__name__, template_folder="templates")
@@ -39,11 +50,10 @@ def create_app():
   def process_login():
     form = LoginForm()
     if form.validate_on_submit():
-      username = form.username.data
       password = form.password_entry.data
       user = Doctors.query.filter(Doctors.username == form.username.data).first()
       if user and user.check_password(password):
-        login_user(user)
+        login_user(user, remember=form.remember_me.data)
         flash("Вы успешно вошли на сайт")
         return redirect(url_for('index'))
     flash("Неправильное имя пользователя или пароль")
