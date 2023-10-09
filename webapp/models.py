@@ -1,17 +1,17 @@
-from sqlalchemy import Column, Integer, String, DATE, DateTime, Float, Boolean
+from sqlalchemy import Column, Integer, String, DATE, DateTime, Float, Boolean, Text
 from werkzeug.security import generate_password_hash, check_password_hash
 from webapp.db import Base, engine
 
 #-------------------Основные сущности-------------------
 class Doctors(Base):
-    __tablename__ = "Doctor"
+    __tablename__ = "Doctors"
     
     id_table = Column(Integer)
     id_doctor = Column(Integer, primary_key = True)
     first_name = Column(String())
     last_name = Column(String())
     username = Column(String(), unique = True)
-    password = Column(String(),unique = True)
+    password = Column(String())
     
     def set_password(self, password):
         self.password = generate_password_hash(password)
@@ -52,8 +52,9 @@ class Card(Base):
     call_end_time = Column(DateTime) # время окончания вызова
     
     
-class Patient_Card_History(Base):
-    __tablename__ = "History"
+class PatientCardHistory(Base):
+    __tablename__ = "Patient_Card_History"
+    
     id = Column(Integer, primary_key = True)
     id_table = Column(Integer)
     id_patient = Column(Integer)
@@ -61,8 +62,9 @@ class Patient_Card_History(Base):
     date_card = Column(DATE)
 
 
-class Doctor_Card_History(Base):
-    __tablename__ = "История вызовов врача"
+class DoctorCardHistory(Base):
+    __tablename__ = "Doctor_Card_History"
+    
     id = Column(Integer, primary_key = True)
     id_table = Column(Integer)
     id_card = Column(Integer)
@@ -71,23 +73,26 @@ class Doctor_Card_History(Base):
 #-------------------Раздел составных частей карт-------------------
 
 class Complaint(Base): #Жалобы
-    __tablename__ = "Жалобы"
+    __tablename__ = "Complaint"
+    
     id = Column(Integer, primary_key = True)
     id_table = Column(Integer)
     id_card = Column(Integer)
-    сomplaint = Column(String())
+    сomplaint = Column(Text)
     
 
 class Anamnesis(Base): #Анамнез
-    __tablename__ = "Анамнез"
+    __tablename__ = "Anamnesis"
+    
     id = Column(Integer, primary_key = True)
     id_table = Column(Integer)
     id_card = Column(Integer)
-    anamnesis = Column(String())
+    anamnesis = Column(Text)
 
 
-class General_Assessment(Base): #Общие данные
-    __tablename__ = "Общие данные"
+class GeneralAssessment(Base): #Общие данные
+    __tablename__ = "General_Assessment"
+    
     id = Column(Integer, primary_key = True)
     id_table = Column(Integer)
     id_card = Column(Integer)
@@ -98,8 +103,9 @@ class General_Assessment(Base): #Общие данные
     body_position = Column(String()) # положение тела
 
 
-class Indicators_before(Base): #показатели до оказания помощи
-    __tablename__ = "Показатели до оказания помощи"
+class IndicatorsBefore(Base): #показатели до оказания помощи
+    __tablename__ = "Indicators_before"
+    
     id = Column(Integer, primary_key = True)
     id_card = Column(Integer)
     id_table = Column(Integer)
@@ -114,7 +120,7 @@ class Indicators_before(Base): #показатели до оказания по�
 
 
 class Skin(Base):
-    __tablename__ = "Кожные покровы"
+    __tablename__ = "Skin"
     
     id = Column(Integer, primary_key = True)
     id_card = Column(Integer)
@@ -129,10 +135,10 @@ class Skin(Base):
     swelling = Column(String()) #отёки
 
 
-class  Respiratory_system(Base):
-    __tablename__ = "Дыхательная система"
+class  RespiratorySystem(Base):
+    __tablename__ = "Respiratory_System"
     
-    id=Column(Integer, primary_key = True)
+    id = Column(Integer, primary_key = True)
     id_card = Column(Integer)
     id_table = Column(Integer)
     respiratory_type = Column(String())
@@ -140,8 +146,9 @@ class  Respiratory_system(Base):
     dyspnea = Column(String()) #одышка
     
     
-class Cardiovascular_System(Base):
-    __tablename__ = "Сердечно-сосудистая система"
+class CardiovascularSystem(Base):
+    __tablename__ = "Cardiovascular_System"
+    
     id = Column(Integer, primary_key = True)
     id_card = Column(Integer)
     id_table = Column(Integer)
@@ -150,8 +157,91 @@ class Cardiovascular_System(Base):
     pulse_characteristic = Column(String())
     heart_rate_deficit = Column(Boolean)
     heart_tone_accent = Column(Boolean) #акцент тона
+
+class DigestiveSystem(Base):
+    __tablename__ = "Digestive_System"
     
+    id = Column(Integer, primary_key = True)
+    id_card = Column(Integer)
+    id_table = Column(Integer)
+    stomach = Column(String())
+    symptoms_of_peritoneal_irritation = Column(String())# симптомы раздражения брюшины, возможно вынести в свою таблицу
+    liver = Column(String()) # печень
+    bowel_movement = Column(String()) #стул 
+    frequency_of_bowel_movement = Column(String()) # частота стула
+
+class NervousSystem(Base):
+    __tablename__ = "Nervous_System"
     
+    id = Column(Integer, primary_key = True)
+    id_card = Column(Integer)
+    id_table = Column(Integer)
+    behavior = Column(String())
+    meningeal_symptoms = Column(String())
+    reaction_to_light = Column(String())
+    pupils_of_the_eyes = Column(String())
+    anisocoria = Column(Boolean)
+    nystagmus = Column(Boolean)
+    focal_sings = Column(Boolean)
+    speech = Column(String())
+    paralysis = Column(String()) # возможно в отдельную
+    sensitivity = Column(String()) # возможно в отдельную
+
+class GenitourinarySystem(Base):
+    __tablename__ = "Genitourinary_System"
+    
+    id = Column(Integer, primary_key = True)
+    id_card = Column(Integer)
+    id_table = Column(Integer)
+    urination = Column(String) #возможно в отдельную
+    kidney_punch = Column(String) #симптом покалачивания
+    urine = Column(String)
+
+class StatusLocalis(Base):
+    __tablename__ = "Status_Localis"
+    
+    id = Column(Integer, primary_key = True)
+    id_card = Column(Integer)
+    id_table = Column(Integer)
+    status_localis = Column(Text)
+    
+class ECG(Base):
+    __tablename__ = "ECG" #ЭКГ
+    
+    id = Column(Integer, primary_key = True)
+    id_card = Column(Integer)
+    id_table = Column(Integer)    
+    ECG_before = Column(Text)
+    ECG_after = Column(Text)
+    
+class AID(Base):
+    __tablename__ = "AID"
+    id = Column(Integer, primary_key = True)
+    id_card = Column(Integer)
+    id_table = Column(Integer)
+    aid = Column(Text)
+
+class IndicatorsAfter(Base): #показатели после оказания помощи
+    __tablename__ = "Indicators_after"
+    
+    id = Column(Integer, primary_key = True)
+    id_card = Column(Integer)
+    id_table = Column(Integer)
+    temperature = Column(Float)
+    respiratory_rate = Column(Integer)
+    heartbite = Column(Integer)
+    saturation = Column(Integer)
+    pulse = Column(Integer)
+    blood_pressure = Column(String()) # подумать как привести к int"/"int
+    blood_glucose = Column(Float)
+ 
+class Diagnosis(Base):
+    __tablename__ = "Diagnosis"
+    
+    id = Column(Integer, primary_key = True)
+    id_card = Column(Integer)
+    id_table = Column(Integer)
+    diagnosis = Column(String)
 
 if __name__ == "__main__":
     Base.metadata.create_all(bind=engine)

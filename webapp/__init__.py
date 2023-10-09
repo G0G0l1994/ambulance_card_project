@@ -16,12 +16,10 @@ logging.basicConfig(
 logging.info('Hello')
 
 def create_app():
-  app = Flask(__name__, template_folder="templates")
+  app = Flask(__name__, template_folder="templates", static_folder="static")
   app.config.from_pyfile("config.py")
+  db.init_app(app)
 
-  Base.query = db_session.query_property()
-  Base.metadata.create_all(engine)
-  
   login_manager = LoginManager()
   login_manager.init_app(app)
   login_manager.login_view = "login"
@@ -40,11 +38,11 @@ def create_app():
   #  register_form = LoginForm()
   #  return render_template('index.html', page_title=title, form=register_form)
   
-  @app.route('/login')
+  @app.route('/login', methods=['POST'])
   def login():
     title = "Войти"
     login_form = LoginForm()
-    return render_template('login.html', page_title=title, form=login_form)
+    return render_template('try.html', page_title=title, form=login_form)
 
   @app.route('/process-login', methods=['POST'])
   def process_login():
@@ -55,9 +53,11 @@ def create_app():
       if user and user.check_password(password):
         login_user(user, remember=form.remember_me.data)
         flash("Вы успешно вошли на сайт")
-        return redirect(url_for('index'))
-    flash("Неправильное имя пользователя или пароль")
-    return redirect(url_for('login'))
+        return redirect(url_for('main'))
+    else:
+      print("Ошибка")
+      flash("Неправильное имя пользователя или пароль")
+      return redirect(url_for('login'))
   
   @app.route('/logout')
   def logout():
