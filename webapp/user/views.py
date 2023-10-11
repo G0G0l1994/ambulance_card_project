@@ -23,12 +23,15 @@ def process_login():
     print(f'Результат работы функции check_password: {user.check_password(password)}')
     if user and user.check_password(password):
       login_user(user, remember=form.remember_me.data) #запоминание пользователя
-      print("Упех")
+      print("Уcпех")
       flash("Вы успешно вошли на сайт")
-      return redirect(url_for('main'))
+      return redirect(url_for('user.page1'))
   print("Ошибка")
   flash("Неправильное имя пользователя или пароль")
   return redirect(url_for('user.login'))
+@blueprint.route('/page1')
+def page1():
+  return render_template('page1.html')
 
 @blueprint.route('/logout')
 def logout():

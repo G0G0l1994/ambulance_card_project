@@ -7,7 +7,7 @@ class Doctors(Base, UserMixin):
     __tablename__ = "Doctors"
     
     id_table = Column(Integer)
-    id_doctor = Column(Integer, primary_key = True)
+    id = Column(Integer, primary_key = True)
     first_name = Column(String())
     last_name = Column(String())
     username = Column(String(), unique = True)
