@@ -1,5 +1,5 @@
 from db import db_session
-from webapp.user.models import Doctors
+from webapp.models import Doctors
 from getpass import getpass
 
 doctor = Doctors(id_table = 2, first_name = "Olga", last_name = "Ivanova", username = "Olga_new_11")

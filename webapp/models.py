@@ -1,6 +1,6 @@
 
 from werkzeug.security import generate_password_hash, check_password_hash
-from sqlalchemy import Column, Integer, String, Date, DateTime, Float, Boolean, Text, ForeignKey
+from sqlalchemy import Column, Integer, String, Date, Time, Float, Boolean, Text, ForeignKey
 from webapp.db import Base, engine
 from flask_login import UserMixin
 
@@ -13,18 +13,19 @@ class Doctors(Base, UserMixin):
     id = Column(Integer, primary_key = True)
     first_name = Column(String())
     last_name = Column(String())
-    username = Column(String(), unique = True)
+    username = Column(String(), unique = True, index=True)
     password = Column(String())
     
     def set_password(self, password):
         self.password = generate_password_hash(password)
-        print(f'результат работы функции set_password{self.password}')
+        print(f'результат работы функции set_password {self.password}')
     
     def check_password(self, password):
         print(f'Селф {self.password}')
-        print(f'Введенный пароль{password}')
+        print(f'Введенный пароль {password}')
         print(f'Результат проверки функции {check_password_hash(self.password, password)}')
         return check_password_hash(self.password, password)
+    
     def __repr__(self):
         return f"Doctor {self.id}, {self.username}"
 
@@ -49,13 +50,13 @@ class Card(Base):
     id_doctor = Column(Integer,ForeignKey(Doctors.id), index=True)
     id = Column(Integer, primary_key = True)
     date_card = Column(Date) # дата карты
-    time_of_receipt = Column(DateTime) # время приёма
-    transmission_time = Column(DateTime) # время передачи
-    departure_time = Column(DateTime) #время выезда бригады
-    arrival_time = Column(DateTime) #время прибытия
-    start_time_of_hospitalization = Column(DateTime) #время начала госпитализации
-    time_of_arrival_at_hospital = Column(DateTime) #время прибытия в больницу
-    call_end_time = Column(DateTime) # время окончания вызова
+    time_of_receipt = Column(Time) # время приёма
+    transmission_time = Column(Time) # время передачи
+    departure_time = Column(Time) #время выезда бригады
+    arrival_time = Column(Time) #время прибытия
+    start_time_of_hospitalization = Column(Time) #время начала госпитализации
+    time_of_arrival_at_hospital = Column(Time) #время прибытия в больницу
+    call_end_time = Column(Time) # время окончания вызова
     
     
 class PatientCardHistory(Base):
@@ -120,8 +121,10 @@ class IndicatorsBefore(Base): #показатели до оказания пом
     heartbite = Column(Integer)
     saturation = Column(Integer)
     pulse = Column(Integer)
-    blood_pressure = Column(String()) # подумать как привести к int"/"int
-    normal_blood_pressure = Column(String()) # подумать как привести к int"/"int
+    blood_pressure_systolic = Column(Integer)
+    blood_pressure_diastolic = Column(Integer)
+    normal_blood_pressure_systolic = Column(Integer) 
+    normal_blood_pressure_diastolic = Column(Integer)
     blood_glucose = Column(Float)
 
 
@@ -158,11 +161,37 @@ class CardiovascularSystem(Base):
     id = Column(Integer, primary_key = True)
     id_card = Column(Integer, ForeignKey(Card.id), index=True)
     id_table = Column(Integer)
-    heart_sounds = Column(String()) #тоны сердца
-    heart_murmur = Column(String()) #шум сердца
-    pulse_characteristic = Column(String())
     heart_rate_deficit = Column(Boolean)
     heart_tone_accent = Column(Boolean) #акцент тона
+class HeartSounds(Base):
+    __tablename__= "Heart_sounds"
+    
+    id = Column(Integer, primary_key=True)
+    rhythmic = Column(Boolean)
+    arrhythmic = Column(Boolean)
+    clear = Column(Boolean)
+    muffled = Column(Boolean)# глухие тоны
+    muted = Column(Boolean)# приглушенные
+    none_sounds = Column(Boolean) #отсутствуют
+
+class HeartMurmur(Base):
+    __tablename__ = "Heart_murmur"
+    
+    none_murmur = Column(Boolean)
+    systolic = Column(Boolean)
+    diastolic = Column(Boolean)
+    pericardial_friction_rub = Column(Boolean)
+    
+class PulseCharacteristic(Base):
+    __tablename__ = "Pulse_characteristic"
+    
+    id = Column(Integer, primary_key=True)
+    rhythmic = Column(Boolean)
+    arrhythmic = Column(Boolean)
+    weak = Column(Boolean)
+    thready = Column(Boolean)# нитевидный
+    tense = Column(Boolean)# напряжённый
+    non_pulse = Column(Boolean)
 
 class DigestiveSystem(Base):
     __tablename__ = "Digestive_System"
@@ -170,12 +199,49 @@ class DigestiveSystem(Base):
     id = Column(Integer, primary_key = True)
     id_card = Column(Integer, ForeignKey(Card.id), index=True)
     id_table = Column(Integer)
-    stomach = Column(String())
-    symptoms_of_peritoneal_irritation = Column(String())# симптомы раздражения брюшины, возможно вынести в свою таблицу
     liver = Column(String()) # печень
-    bowel_movement = Column(String()) #стул 
     frequency_of_bowel_movement = Column(String()) # частота стула
-
+    
+class Stomach(Base):
+    __tablename__ = "Stomach"
+    
+    id = Column(Integer, primary_key = True)
+    id_card = Column(Integer, ForeignKey(Card.id), index=True)
+    id_table = Column(Integer)
+    abdomens_soft = Column(Boolean)
+    painless = Column(Boolean)
+    pain = Column(Boolean)
+    tense = Column(Boolean) #напряжённый
+    swollen = Column(Boolean) # вздут
+    involved_in_the_act_of_breathing = Column(Boolean)
+    
+class BowelMovement(Base):
+    __tablename__ = "Bowel_movement"
+    
+    id = Column(Integer, primary_key = True)
+    id_card = Column(Integer, ForeignKey(Card.id), index=True)
+    id_table = Column(Integer)
+    formed_stool = Column(Boolean) #оформленый стул
+    thin_stool = Column(Boolean) #разжижен
+    unformed_stool = Column(Boolean) #жидкий
+    regular = Column(Boolean)
+    irregular = Column(Boolean)
+    
+    
+class AbdominalSymptoms(Base):
+    __tablename__ = "Abdominal_symptoms"
+    id = Column(Integer, primary_key = True)
+    id_card = Column(Integer, ForeignKey(Card.id), index=True)
+    id_table = Column(Integer)
+    Shchetkin_Blumberg = Column(Boolean)
+    Voskresensky = Column(Boolean)
+    Ortner = Column(Boolean)
+    Rovzinga = Column(Boolean)
+    Pasternatsky = Column(Boolean)
+    Sitkovsky = Column(Boolean)
+    Obraztsova = Column(Boolean)
+    Murphy = Column(Boolean)
+    
 class NervousSystem(Base):
     __tablename__ = "Nervous_System"
     
@@ -183,25 +249,79 @@ class NervousSystem(Base):
     id_card = Column(Integer, ForeignKey(Card.id), index=True)
     id_table = Column(Integer)
     behavior = Column(String())
-    meningeal_symptoms = Column(String())
     reaction_to_light = Column(String())
     pupils_of_the_eyes = Column(String())
     anisocoria = Column(Boolean)
     nystagmus = Column(Boolean)
     focal_sings = Column(Boolean)
     speech = Column(String())
-    paralysis = Column(String()) # возможно в отдельную
-    sensitivity = Column(String()) # возможно в отдельную
 
+
+class MeningealSymptoms(Base):
+    __tablename__ = "Meningeal_symptoms"
+    
+    id = Column(Integer, primary_key = True)
+    id_card = Column(Integer, ForeignKey(Card.id), index=True)
+    id_table = Column(Integer)
+    none_symptoms = Column(Boolean)
+    nuchal_rigidity = Column(Boolean)
+    Kernig_symptom = Column(Boolean)
+    Brudzinski_symptom = Column(Boolean)
+
+class Paralysis(Base):
+    __tablename__ = "Paralysis"
+    
+    id = Column(Integer, primary_key = True)
+    id_card = Column(Integer, ForeignKey(Card.id), index=True)
+    id_table = Column(Integer)
+    none_paralysis = Column(Boolean)
+    left = Column(Boolean)
+    right = Column(Boolean)
+    
+class Sensitivity(Base):
+    __tablename__ = "Sensitivity"
+    
+    id = Column(Integer, primary_key = True)
+    id_card = Column(Integer, ForeignKey(Card.id), index=True)
+    id_table = Column(Integer)
+    saved = Column(Boolean)
+    missing = Column(Boolean)
+    reduced = Column(Boolean)
+    left = Column(Boolean)
+    right = Column(Boolean)
+    
 class GenitourinarySystem(Base):
     __tablename__ = "Genitourinary_System"
     
     id = Column(Integer, primary_key = True)
     id_card = Column(Integer, ForeignKey(Card.id), index=True)
     id_table = Column(Integer)
-    urination = Column(String) #возможно в отдельную
     kidney_punch = Column(String) #симптом покалачивания
     urine = Column(String)
+
+class Urination(Base):
+    __tablename__ = "Urination"
+    
+    id = Column(Integer, primary_key = True)
+    id_card = Column(Integer, ForeignKey(Card.id), index=True)
+    id_table = Column(Integer)
+    painless = Column(Boolean)
+    free = Column(Boolean)
+    painful = Column(Boolean)
+    difficult = Column(Boolean)
+    missing = Column(Boolean)
+
+class Urine(Base):
+    __tablename__ = "Urine"
+    
+    id = Column(Integer, primary_key = True)
+    id_card = Column(Integer, ForeignKey(Card.id), index=True)
+    id_table = Column(Integer)
+    light_yellow = Column(Boolean)
+    cloudy = Column(Boolean)
+    with_inclusions = Column(Boolean)
+    with_sediment = Column(Boolean)
+
 
 class StatusLocalis(Base):
     __tablename__ = "Status_Localis"
@@ -210,6 +330,7 @@ class StatusLocalis(Base):
     id_card = Column(Integer, ForeignKey(Card.id), index=True)
     id_table = Column(Integer)
     status_localis = Column(Text)
+    
     
 class ECG(Base):
     __tablename__ = "ECG" #ЭКГ
@@ -238,7 +359,8 @@ class IndicatorsAfter(Base): #показатели после оказания �
     heartbite = Column(Integer)
     saturation = Column(Integer)
     pulse = Column(Integer)
-    blood_pressure = Column(String()) # подумать как привести к int"/"int
+    blood_pressure_systolic = Column(Integer)
+    blood_pressure_diastolic = Column(Integer)
     blood_glucose = Column(Float)
  
 class Diagnosis(Base):
@@ -248,6 +370,5 @@ class Diagnosis(Base):
     id_card = Column(Integer, ForeignKey(Card.id), index=True)
     id_table = Column(Integer)
     diagnosis = Column(String)
-
 
 Base.metadata.create_all(bind=engine)
