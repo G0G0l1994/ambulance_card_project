@@ -1,10 +1,10 @@
+
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import Column, Integer, String, Date, DateTime, Float, Boolean, Text, ForeignKey
 from webapp.db import Base, engine
 from flask_login import UserMixin
 
 #-------------------Основные сущности-------------------
-
 
 class Doctors(Base, UserMixin):
     __tablename__ = "Doctors"
@@ -27,7 +27,6 @@ class Doctors(Base, UserMixin):
         return check_password_hash(self.password, password)
     def __repr__(self):
         return f"Doctor {self.id}, {self.username}"
-
 
 class Patient(Base):
     __tablename__ = "Patient"

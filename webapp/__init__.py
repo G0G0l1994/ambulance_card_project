@@ -2,6 +2,7 @@ from flask import Flask, render_template, flash, redirect, url_for
 from webapp.user.forms import LoginForm
 from flask_login import LoginManager
 from webapp.models import Doctors
+
 from webapp.db import Base, engine, db_session
 from webapp.user.views import blueprint as user_blueprint
 import logging

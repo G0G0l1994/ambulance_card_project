@@ -23,4 +23,4 @@ class Doctors(Base, UserMixin):
         print(f'Результат проверки функции {check_password_hash(self.password, password)}')
         return check_password_hash(self.password, password)
     def __repr__(self):
-        return f"Doctor {self.id}, {self.username}"
+        return f"Doctor {self.id_doctor}, {self.username}"
