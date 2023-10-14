@@ -1,0 +1,45 @@
+.row{
+  margin-right: 0;
+}
+
+#sidemenu{
+  display: flex;
+  flex-direction: column;
+}
+
+#sidemenu li a{
+  text-align: center;
+}
+
+.flex-column *{
+  border: none;
+  outline: none;
+}
+
+
+.header-title{
+  font-weight: 700;
+}
+
+#triggerId{
+  background-color: blue;
+}
+
+.dropdown-menu a{
+  color: blue;
+}
+
+.login-link{
+  font-weight: 700;
+}
+
+.flex-column{
+  background-color: blue;
+}
+.nav-pills li a{
+  color: white;
+}
+.nav-pills li a:hover{
+  background-color: rgb(255, 255, 255);
+  color: blue;
+}

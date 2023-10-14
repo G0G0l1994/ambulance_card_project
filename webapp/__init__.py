@@ -7,7 +7,7 @@ from webapp.user.views import blueprint as user_blueprint
 import logging
 
 logging.basicConfig( 
-    filename = "mylog.log", level=logging.INFO
+    filename = "mylog.log", level=logging.DEBUG
     )
 
 def create_app():
