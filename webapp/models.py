@@ -1,7 +1,8 @@
 
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import Column, Integer, String, Date, Time, Float, Boolean, Text, ForeignKey
-from webapp.db import Base, engine
+from sqlalchemy.orm import relationship
+from db import Base, engine
 from flask_login import UserMixin
 
 #-------------------Основные сущности-------------------
@@ -9,7 +10,7 @@ from flask_login import UserMixin
 class Doctors(Base, UserMixin):
     __tablename__ = "Doctors"
     
-    id_table = Column(Integer)
+    
     id = Column(Integer, primary_key = True)
     first_name = Column(String())
     last_name = Column(String())
@@ -32,23 +33,24 @@ class Doctors(Base, UserMixin):
 class Patient(Base):
     __tablename__ = "Patient"
     
-    id_table = Column(Integer)
+    
     id = Column(Integer, primary_key = True)
-    first_name = Column(String())
-    last_name = Column(String())
-    adress = Column(String())
+    first_name = Column(String)
+    last_name = Column(String)
+    address = Column(String)
+    date_of_birth = Column(Date)
 
     def __repr__(self):
-        return f"Patient {self.id_patient} {self.first_name} {self.last_name}"
+        return f"Patient {self.id} {self.first_name} {self.last_name}"
     
     
 class Card(Base):
     __tablename__ = "Card"
     
-    id_table = Column(Integer)
-    id_patient = Column(Integer, ForeignKey(Patient.id), index=True)
-    id_doctor = Column(Integer,ForeignKey(Doctors.id), index=True)
     id = Column(Integer, primary_key = True)
+    patient_id = Column(Integer, ForeignKey(Patient.id), index=True)
+    doctor_id = Column(Integer,ForeignKey(Doctors.id), index=True)
+    
     date_card = Column(Date) # дата карты
     time_of_receipt = Column(Time) # время приёма
     transmission_time = Column(Time) # время передачи
@@ -57,15 +59,15 @@ class Card(Base):
     start_time_of_hospitalization = Column(Time) #время начала госпитализации
     time_of_arrival_at_hospital = Column(Time) #время прибытия в больницу
     call_end_time = Column(Time) # время окончания вызова
-    
+    # patient = relationship("Patient")
     
 class PatientCardHistory(Base):
     __tablename__ = "Patient_Card_History"
     
     id = Column(Integer, primary_key = True)
-    id_table = Column(Integer)
-    id_patient = Column(Integer, ForeignKey(Patient.id), index=True)
-    id_card = Column(Integer,ForeignKey(Card.id), index=True)
+    
+    patient_id = Column(Integer, ForeignKey(Patient.id), index=True)
+    card_id = Column(Integer,ForeignKey(Card.id), index=True)
     date_card = Column(Date)
 
 
@@ -73,9 +75,9 @@ class DoctorCardHistory(Base):
     __tablename__ = "Doctor_Card_History"
     
     id = Column(Integer, primary_key = True)
-    id_table = Column(Integer)
-    id_card = Column(Integer,ForeignKey(Card.id), index=True)
-    id_doctor = Column(Integer,ForeignKey(Doctors.id), index=True)
+    
+    card_id = Column(Integer,ForeignKey(Card.id), index=True)
+    doctor_id = Column(Integer,ForeignKey(Doctors.id), index=True)
 
 #-------------------Раздел составных частей карт-------------------
 
@@ -83,8 +85,8 @@ class Complaint(Base): #Жалобы
     __tablename__ = "Complaint"
     
     id = Column(Integer, primary_key = True)
-    id_table = Column(Integer)
     id_card = Column(Integer, ForeignKey(Card.id), index=True)
+    
     сomplaint = Column(Text)
     
 
@@ -92,8 +94,8 @@ class Anamnesis(Base): #Анамнез
     __tablename__ = "Anamnesis"
     
     id = Column(Integer, primary_key = True)
-    id_table = Column(Integer)
     id_card = Column(Integer, ForeignKey(Card.id), index=True)
+    
     anamnesis = Column(Text)
 
 
@@ -101,7 +103,6 @@ class GeneralAssessment(Base): #Общие данные
     __tablename__ = "General_Assessment"
     
     id = Column(Integer, primary_key = True)
-    id_table = Column(Integer)
     id_card = Column(Integer, ForeignKey(Card.id), index=True)
     
     general_assessment = Column(String())
@@ -114,8 +115,8 @@ class IndicatorsBefore(Base): #показатели до оказания пом
     __tablename__ = "Indicators_before"
     
     id = Column(Integer, primary_key = True)
-    id_card = Column(Integer, ForeignKey(Card.id), index=True)
-    id_table = Column(Integer)
+    card_id = Column(Integer, ForeignKey(Card.id), index=True)
+    
     temperature = Column(Float)
     respiratory_rate = Column(Integer)
     heartbite = Column(Integer)
@@ -132,8 +133,8 @@ class Skin(Base):
     __tablename__ = "Skin"
     
     id = Column(Integer, primary_key = True)
-    id_card = Column(Integer, ForeignKey(Card.id), index=True)
-    id_table = Column(Integer)
+    card_id = Column(Integer, ForeignKey(Card.id), index=True)
+    
     dry_skin = Column (String())
     color_skin = Column(String)
     jaundice = Column(String()) #желтушность
@@ -148,8 +149,8 @@ class  RespiratorySystem(Base):
     __tablename__ = "Respiratory_System"
     
     id = Column(Integer, primary_key = True)
-    id_card = Column(Integer, ForeignKey(Card.id), index=True)
-    id_table = Column(Integer)
+    card_id = Column(Integer, ForeignKey(Card.id), index=True)
+    
     respiratory_type = Column(String())
     wheezing = Column(String())# хрипы
     dyspnea = Column(String()) #одышка
@@ -159,14 +160,15 @@ class CardiovascularSystem(Base):
     __tablename__ = "Cardiovascular_System"
     
     id = Column(Integer, primary_key = True)
-    id_card = Column(Integer, ForeignKey(Card.id), index=True)
-    id_table = Column(Integer)
+    card_id = Column(Integer, ForeignKey(Card.id), index=True)
     heart_rate_deficit = Column(Boolean)
     heart_tone_accent = Column(Boolean) #акцент тона
+
 class HeartSounds(Base):
     __tablename__= "Heart_sounds"
     
     id = Column(Integer, primary_key=True)
+    card_id = Column(Integer, ForeignKey(Card.id), index=True)
     rhythmic = Column(Boolean)
     arrhythmic = Column(Boolean)
     clear = Column(Boolean)
@@ -177,6 +179,8 @@ class HeartSounds(Base):
 class HeartMurmur(Base):
     __tablename__ = "Heart_murmur"
     
+    id = Column(Integer, primary_key=True)
+    card_id = Column(Integer, ForeignKey(Card.id), index=True)
     none_murmur = Column(Boolean)
     systolic = Column(Boolean)
     diastolic = Column(Boolean)
@@ -186,6 +190,7 @@ class PulseCharacteristic(Base):
     __tablename__ = "Pulse_characteristic"
     
     id = Column(Integer, primary_key=True)
+    card_id = Column(Integer, ForeignKey(Card.id), index=True)
     rhythmic = Column(Boolean)
     arrhythmic = Column(Boolean)
     weak = Column(Boolean)
@@ -197,8 +202,7 @@ class DigestiveSystem(Base):
     __tablename__ = "Digestive_System"
     
     id = Column(Integer, primary_key = True)
-    id_card = Column(Integer, ForeignKey(Card.id), index=True)
-    id_table = Column(Integer)
+    card_id = Column(Integer, ForeignKey(Card.id), index=True)
     liver = Column(String()) # печень
     frequency_of_bowel_movement = Column(String()) # частота стула
     
@@ -206,8 +210,7 @@ class Stomach(Base):
     __tablename__ = "Stomach"
     
     id = Column(Integer, primary_key = True)
-    id_card = Column(Integer, ForeignKey(Card.id), index=True)
-    id_table = Column(Integer)
+    card_id = Column(Integer, ForeignKey(Card.id), index=True)
     abdomens_soft = Column(Boolean)
     painless = Column(Boolean)
     pain = Column(Boolean)
@@ -219,8 +222,7 @@ class BowelMovement(Base):
     __tablename__ = "Bowel_movement"
     
     id = Column(Integer, primary_key = True)
-    id_card = Column(Integer, ForeignKey(Card.id), index=True)
-    id_table = Column(Integer)
+    card_id = Column(Integer, ForeignKey(Card.id), index=True)
     formed_stool = Column(Boolean) #оформленый стул
     thin_stool = Column(Boolean) #разжижен
     unformed_stool = Column(Boolean) #жидкий
@@ -230,9 +232,9 @@ class BowelMovement(Base):
     
 class AbdominalSymptoms(Base):
     __tablename__ = "Abdominal_symptoms"
+    
     id = Column(Integer, primary_key = True)
-    id_card = Column(Integer, ForeignKey(Card.id), index=True)
-    id_table = Column(Integer)
+    card_id = Column(Integer, ForeignKey(Card.id), index=True)
     Shchetkin_Blumberg = Column(Boolean)
     Voskresensky = Column(Boolean)
     Ortner = Column(Boolean)
@@ -246,8 +248,7 @@ class NervousSystem(Base):
     __tablename__ = "Nervous_System"
     
     id = Column(Integer, primary_key = True)
-    id_card = Column(Integer, ForeignKey(Card.id), index=True)
-    id_table = Column(Integer)
+    card_id = Column(Integer, ForeignKey(Card.id), index=True)
     behavior = Column(String())
     reaction_to_light = Column(String())
     pupils_of_the_eyes = Column(String())
@@ -261,8 +262,7 @@ class MeningealSymptoms(Base):
     __tablename__ = "Meningeal_symptoms"
     
     id = Column(Integer, primary_key = True)
-    id_card = Column(Integer, ForeignKey(Card.id), index=True)
-    id_table = Column(Integer)
+    card_id = Column(Integer, ForeignKey(Card.id), index=True)
     none_symptoms = Column(Boolean)
     nuchal_rigidity = Column(Boolean)
     Kernig_symptom = Column(Boolean)
@@ -272,8 +272,7 @@ class Paralysis(Base):
     __tablename__ = "Paralysis"
     
     id = Column(Integer, primary_key = True)
-    id_card = Column(Integer, ForeignKey(Card.id), index=True)
-    id_table = Column(Integer)
+    card_id = Column(Integer, ForeignKey(Card.id), index=True)
     none_paralysis = Column(Boolean)
     left = Column(Boolean)
     right = Column(Boolean)
@@ -282,8 +281,7 @@ class Sensitivity(Base):
     __tablename__ = "Sensitivity"
     
     id = Column(Integer, primary_key = True)
-    id_card = Column(Integer, ForeignKey(Card.id), index=True)
-    id_table = Column(Integer)
+    card_id = Column(Integer, ForeignKey(Card.id), index=True)
     saved = Column(Boolean)
     missing = Column(Boolean)
     reduced = Column(Boolean)
@@ -294,8 +292,7 @@ class GenitourinarySystem(Base):
     __tablename__ = "Genitourinary_System"
     
     id = Column(Integer, primary_key = True)
-    id_card = Column(Integer, ForeignKey(Card.id), index=True)
-    id_table = Column(Integer)
+    card_id = Column(Integer, ForeignKey(Card.id), index=True)
     kidney_punch = Column(String) #симптом покалачивания
     urine = Column(String)
 
@@ -303,8 +300,7 @@ class Urination(Base):
     __tablename__ = "Urination"
     
     id = Column(Integer, primary_key = True)
-    id_card = Column(Integer, ForeignKey(Card.id), index=True)
-    id_table = Column(Integer)
+    card_id = Column(Integer, ForeignKey(Card.id), index=True)
     painless = Column(Boolean)
     free = Column(Boolean)
     painful = Column(Boolean)
@@ -315,8 +311,7 @@ class Urine(Base):
     __tablename__ = "Urine"
     
     id = Column(Integer, primary_key = True)
-    id_card = Column(Integer, ForeignKey(Card.id), index=True)
-    id_table = Column(Integer)
+    card_id = Column(Integer, ForeignKey(Card.id), index=True)
     light_yellow = Column(Boolean)
     cloudy = Column(Boolean)
     with_inclusions = Column(Boolean)
@@ -327,8 +322,7 @@ class StatusLocalis(Base):
     __tablename__ = "Status_Localis"
     
     id = Column(Integer, primary_key = True)
-    id_card = Column(Integer, ForeignKey(Card.id), index=True)
-    id_table = Column(Integer)
+    card_id = Column(Integer, ForeignKey(Card.id), index=True)
     status_localis = Column(Text)
     
     
@@ -336,24 +330,23 @@ class ECG(Base):
     __tablename__ = "ECG" #ЭКГ
     
     id = Column(Integer, primary_key = True)
-    id_card = Column(Integer, ForeignKey(Card.id), index=True)
-    id_table = Column(Integer)    
+    card_id = Column(Integer, ForeignKey(Card.id), index=True)    
     ECG_before = Column(Text)
     ECG_after = Column(Text)
     
 class AID(Base):
     __tablename__ = "AID"
+    
     id = Column(Integer, primary_key = True)
-    id_card = Column(Integer, ForeignKey(Card.id), index=True)
-    id_table = Column(Integer)
+    card_id = Column(Integer, ForeignKey(Card.id), index=True)
     aid = Column(Text)
 
 class IndicatorsAfter(Base): #показатели после оказания помощи
     __tablename__ = "Indicators_after"
     
     id = Column(Integer, primary_key = True)
-    id_card = Column(Integer, ForeignKey(Card.id), index=True)
-    id_table = Column(Integer)
+    card_id = Column(Integer, ForeignKey(Card.id), index=True)
+    
     temperature = Column(Float)
     respiratory_rate = Column(Integer)
     heartbite = Column(Integer)
@@ -367,7 +360,7 @@ class Diagnosis(Base):
     __tablename__ = "Diagnosis"
     
     id = Column(Integer, primary_key = True)
-    id_card = Column(Integer, ForeignKey(Card.id), index=True)
+    card_id = Column(Integer, ForeignKey(Card.id), index=True)
     id_table = Column(Integer)
     diagnosis = Column(String)
 

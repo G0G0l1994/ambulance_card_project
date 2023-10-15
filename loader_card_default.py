@@ -1,9 +1,19 @@
 from webapp.db import db_session
 from datetime import date, datetime
 from webapp.models import *
+from webapp.create_patient import Create_patient
 
 def default_card():
-    card = Card(
+    patient_dict = Create_patient()
+    patient = Patient(first_name=patient_dict['first_name'],
+                      last_name=patient_dict['last_name'],
+                      address=patient_dict['address'],
+                      date_of_birth = patient_dict['age'],
+                      id_table=3)
+    
+    db_session.add(patient)
+    db_session.commit()
+    card = Card(id_patient = Patient.id,
                 date_card=date.today(),
                 time_of_receipt=datetime.now(),
                 transmission_time=datetime.now(),
@@ -20,14 +30,13 @@ def default_card():
     anamnesis = Anamnesis(id_table=7,anamnesis="введите анамнез")
     db_session.add(anamnesis)
     
-    general_assessment = GeneralAssessment(id_table=9,
-                                           general_assessment="удовлетворительно",
+    general_assessment = GeneralAssessment(general_assessment="удовлетворительно",
                                            сonsciousness="ясное",
                                            glasgow_scale=15, 
                                            body_position="активное")
     db_session.add(general_assessment)
     
-    indicators_before = IndicatorsBefore(id_table=8,temperature=36.0,
+    indicators_before = IndicatorsBefore(temperature=36.0,
                                          respiratory_rate=16,
                                          heartbite=70,
                                          saturation=98,
@@ -39,8 +48,7 @@ def default_card():
                                          blood_glucose=3.3)
     db_session.add(indicators_before)
     
-    skin = Skin(id_table=10,
-                dry_skin="сухие",
+    skin = Skin(dry_skin="сухие",
                 color_skin="обычной окраски",
                 jaundice="нет",
                 rash="нет",
@@ -50,13 +58,10 @@ def default_card():
                 swelling="нет")
     db_session.add(skin)
     
-    respiratory_system = RespiratorySystem(id_table=11,
-                                           respiratory_type="везикулярное",
+    respiratory_system = RespiratorySystem(respiratory_type="везикулярное",
                                            wheezing="нет",
                                            dyspnea="нет")
     db_session.add(respiratory_system)
-    
-    cardiovascular_system = CardiovascularSystem(id_table=12,)
     db_session.commit()
 
 default_card()
