@@ -5,8 +5,6 @@ from flask_login import UserMixin
 
 class Doctors(Base, UserMixin):
     __tablename__ = "Doctors"
-    
-    id_table = Column(Integer)
     id = Column(Integer, primary_key = True)
     first_name = Column(String())
     last_name = Column(String())

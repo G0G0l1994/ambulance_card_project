@@ -3,7 +3,6 @@
 }
 
 #sidemenu{
-  display: flex;
   flex-direction: column;
 }
 
