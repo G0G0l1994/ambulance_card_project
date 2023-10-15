@@ -2,7 +2,7 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import Column, Integer, String, Date, Time, Float, Boolean, Text, ForeignKey
 from sqlalchemy.orm import relationship
-from db import Base, engine
+from webapp.db import Base, engine
 from flask_login import UserMixin
 
 #-------------------Основные сущности-------------------
