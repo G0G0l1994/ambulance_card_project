@@ -1,11 +1,12 @@
-
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import Column, Integer, String, Date, Time, Float, Boolean, Text, ForeignKey
 from sqlalchemy.orm import relationship
+from sqlalchemy import Column, Integer, String, DateTime, Float, Boolean, Text
 from webapp.db import Base, engine
 from flask_login import UserMixin
 
 #-------------------Основные сущности-------------------
+
 
 class Doctors(Base, UserMixin):
     __tablename__ = "Doctors"
@@ -336,7 +337,7 @@ class ECG(Base):
     
 class AID(Base):
     __tablename__ = "AID"
-    
+
     id = Column(Integer, primary_key = True)
     card_id = Column(Integer, ForeignKey(Card.id), index=True)
     aid = Column(Text)

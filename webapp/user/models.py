@@ -5,8 +5,6 @@ from flask_login import UserMixin
 
 class Doctors(Base, UserMixin):
     __tablename__ = "Doctors"
-    
-    id_table = Column(Integer)
     id = Column(Integer, primary_key = True)
     first_name = Column(String())
     last_name = Column(String())
@@ -23,4 +21,4 @@ class Doctors(Base, UserMixin):
         print(f'Результат проверки функции {check_password_hash(self.password, password)}')
         return check_password_hash(self.password, password)
     def __repr__(self):
-        return f"Doctor {self.id_doctor}, {self.username}"
+        return f"Doctor {self.id}, {self.username}"
