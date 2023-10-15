@@ -7,9 +7,12 @@ def save_patient():
     patient = Patient(first_name=patient_dict['first_name'],
                       last_name=patient_dict['last_name'],
                       address=patient_dict['address'],
+                      date_of_birth = patient_dict['age'],
                       id_table=3)
+    
     db_session.add(patient)
     db_session.commit()
     print(f"Пациент {patient_dict['first_name']} добавлен")
+
 
 save_patient()
