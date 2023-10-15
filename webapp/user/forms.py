@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import BooleanField, StringField, PasswordField, SubmitField
+from wtforms import BooleanField, StringField, PasswordField, SubmitField, TextAreaField
 from wtforms.validators import DataRequired
 
 
@@ -18,3 +18,7 @@ class LoginForm(FlaskForm):
   password_entry = PasswordField("Пароль", validators=[DataRequired()], render_kw={"class": "form-control", "placeholder" : "Ваш пароль"})
   remember_me = BooleanField("Запомнить меня", default=True, render_kw={'class': "form-check-input"})
   submit = SubmitField("Войти!", render_kw={"class": "btn btn-primary"})
+  
+class PatienForm(FlaskForm):
+  complaints = TextAreaField("Жалобы", validators=[DataRequired()], render_kw={"class": "form-control", "placeholder" : "Жалобы пациента..."})
+  anamnesis = TextAreaField("Анамнез", validators=[DataRequired()], render_kw={"class": "form-control", "placeholder" : "Анамнез..."})
