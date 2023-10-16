@@ -24,10 +24,10 @@ def default_card():
                 call_end_time=datetime.now())
     db_session.add(card)
     
-    complaint = Complaint(id_table=6,сomplaint="введите жалобы")
+    complaint = Complaint(сomplaint="введите жалобы")
     db_session.add(complaint)
     
-    anamnesis = Anamnesis(id_table=7,anamnesis="введите анамнез")
+    anamnesis = Anamnesis(anamnesis="введите анамнез")
     db_session.add(anamnesis)
     
     general_assessment = GeneralAssessment(general_assessment="удовлетворительно",

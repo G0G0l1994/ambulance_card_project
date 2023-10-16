@@ -1,8 +1,8 @@
 from flask import flash, render_template, redirect, url_for
 from flask_login import login_user, logout_user
 from flask import Blueprint
-from webapp.user.forms import LoginForm
-from webapp.models import Doctors
+from webapp.user.forms import LoginForm, PatienForm
+from webapp.user.models import Doctors
 import sys
 
 blueprint = Blueprint('user', __name__, url_prefix='/users')
@@ -37,4 +37,9 @@ def page1():
 def logout():
   flash("Вы разлогинились")
   logout_user()
-  return redirect(url_for('main'))
+  return redirect(url_for('user.main'))
+
+@blueprint.route('/main', methods=["GET", 'POST'])
+def main():
+  form = PatienForm()
+  return render_template('main.html', form=form)

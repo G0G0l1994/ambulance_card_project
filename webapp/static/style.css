@@ -1,5 +1,14 @@
+*{
+  box-sizing: border-box;
+}
+
 .row{
   margin-right: 0;
+  width: fit-content;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 17vw;
 }
 
 #sidemenu{
@@ -41,4 +50,27 @@
 .nav-pills li a:hover{
   background-color: rgb(255, 255, 255);
   color: blue;
+}
+
+.ms-2{
+  white-space: nowrap;
+  text-align: center;
+}
+
+.main{
+  width: 80vw;
+  margin-left: 17vw;
+}
+
+.form-group{
+  margin-top: 25px;
+}
+
+@media (max-width: 1540px) {
+  .ms-2{
+    white-space: wrap;
+  }
+  .nav-link{
+    text-align: center;
+  }
 }
