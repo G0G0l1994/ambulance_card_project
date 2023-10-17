@@ -4,11 +4,11 @@ from flask_login import LoginManager
 from webapp.user.models import Doctors
 from webapp.db import Base, engine, db_session
 from webapp.user.views import blueprint as user_blueprint
+from webapp.patient.views import blueprint as patient_blueprint
+
 import logging
 
-logging.basicConfig( 
-    filename = "mylog.log", level=logging.DEBUG
-    )
+logging.basicConfig(filename = "mylog.log", level=logging.INFO)
 
 def create_app():
   app = Flask(__name__, template_folder="templates", static_folder="static")
@@ -18,6 +18,7 @@ def create_app():
   login_manager.init_app(app)
   login_manager.login_view = "user.login"
   app.register_blueprint(user_blueprint)
+  app.register_blueprint(patient_blueprint)
   
   @login_manager.user_loader
   def load_user(user_id):

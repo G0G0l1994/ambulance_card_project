@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> <!--https://codehandbook.org/create-login-page-python-flask-bootstrap/-->
+  <!--button{-webkit-appearance:button}[type=button]:not(:disabled),-->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <!--<link rel="stylesheet" href="css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">-->
+  <title>Пациент</title>
+</head>
+<body>
+  <form action="{{ url_for('user.main') }}" methor="POST">
+    {{ form.hidden_tag() }}
+    <div class="container">
+      <h1>Данные пациента</h1>
+        <div class = "row">
+          <div class = "col-4">
+  
+          {{form.last_name.label()}}{{form.last_name(value=form.patient.last_name)}}
+          {{form.first_name.label()}}{{form.first_name(value=form.patient.first_name)}}
+          {{form.surname.label()}}{{form.surname(value=form.patient.surname)}}
+          {{form.age.label()}}{{form.age(value=form.patient.age)}}
+          {{form.address.label()}}{{form.address(value=form.patient.address)}}<br>
+          {{form.submit}}
+        </div>
+      </div>    
+  </form>
+
+
+  <script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
