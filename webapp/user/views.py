@@ -1,7 +1,7 @@
 from flask import flash, render_template, redirect, url_for
 from flask_login import login_user, logout_user, current_user
 from flask import Blueprint
-from webapp.user.forms import LoginForm, PatienForm, RegistrationForm
+from webapp.user.forms import LoginForm, RegistrationForm
 from webapp.user.models import Doctors
 from webapp.db import Base, db_session
 import sys
@@ -27,29 +27,24 @@ def process_login():
       login_user(user, remember=form.remember_me.data) #запоминание пользователя
       print("Уcпех")
       flash("Вы успешно вошли на сайт")
-      return redirect(url_for('user.page1'))
+      return redirect(url_for('patient.create'))
   print("Ошибка")
   flash("Неправильное имя пользователя или пароль")
   return redirect(url_for('user.login'))
-@blueprint.route('/page1')
+@blueprint.route('/patient')
 def page1():
-  return render_template('page1.html')
+  return render_template('patient.html')
 
 @blueprint.route('/logout')
 def logout():
   flash("Вы разлогинились")
   logout_user()
-  return redirect(url_for('user.main'))
-
-@blueprint.route('/main_card', methods=["GET", 'POST'])
-def main_card():
-  form = PatienForm()
-  return render_template('main_card.html', form=form)
+  return redirect(url_for('user.login'))
 
 @blueprint.route('/register')
 def register():
   if current_user.is_authenticated:
-    return redirect(url_for('user.page1'))
+    return redirect(url_for('patient.create'))
   form = RegistrationForm()
   title = "Регистрация"
   return render_template('registration.html', page_title=title, form=form)
@@ -63,6 +58,6 @@ def process_reg():
     db_session.add(new_user)
     db_session.commit()
     flash("Вы зарегистрировались!")
-    return redirect(url_for('user.page1'))
+    return redirect(url_for('patient.create'))
   flash("Исправьте ошибки в форме")
   return redirect(url_for('user.register'))

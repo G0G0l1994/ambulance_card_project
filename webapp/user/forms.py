@@ -18,6 +18,3 @@ class LoginForm(FlaskForm):
   remember_me = BooleanField("Запомнить меня", default=True, render_kw={'class': "form-check-input"})
   submit = SubmitField("Войти!", render_kw={"class": "btn btn-primary"})
   
-class PatienForm(FlaskForm):
-  complaints = TextAreaField("Жалобы", validators=[DataRequired()], render_kw={"class": "form-control", "placeholder" : "Жалобы пациента..."})
-  anamnesis = TextAreaField("Анамнез", validators=[DataRequired()], render_kw={"class": "form-control", "placeholder" : "Анамнез..."})

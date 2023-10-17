@@ -97,7 +97,7 @@
     <div class="main">
       <section id="section_general">
       <h2>Общие сведения</h2>
-        <form action="{{ url_for('user.main')}}" method="POST" class="patien-form">
+        <form action="{{ url_for('patient.main_card')}}" method="POST" class="patien-form">
           {{ form.csrf_token }}
           <div class="form-group mb-3">
             {{ form.complaints() }}
