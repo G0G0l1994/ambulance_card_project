@@ -24,7 +24,10 @@ def create_app():
     return Doctors.query.get(user_id)
   
 
-  
+  @app.route('/')
+  def main():
+    title = "Главная страница"
+    return render_template('main.html', page_title=title)
   #@app.route('/registration')
   #def index():
   # title = "Регистрация"
