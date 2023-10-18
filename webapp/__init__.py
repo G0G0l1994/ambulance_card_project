@@ -1,5 +1,5 @@
 from flask import Flask, render_template, flash, redirect, url_for
-from webapp.user.forms import LoginForm, PatienForm
+from webapp.user.forms import LoginForm
 from flask_login import LoginManager
 from webapp.user.models import Doctors
 from webapp.db import Base, engine, db_session
@@ -25,7 +25,10 @@ def create_app():
     return Doctors.query.get(user_id)
   
 
-  
+  @app.route('/')
+  def main():
+    title = "Главная страница"
+    return render_template('main.html', page_title=title)
   #@app.route('/registration')
   #def index():
   # title = "Регистрация"

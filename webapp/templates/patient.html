@@ -10,11 +10,16 @@
   <title>Пациент</title>
 </head>
 <body>
+<<<<<<< HEAD
   <form action="/users/main" methor="POST">
+=======
+  <form action="{{ url_for('patient.create') }}" methor="POST">
+>>>>>>> development
     {{ form.hidden_tag() }}
     <div class="container">
       <h1>Данные пациента</h1>
         <div class = "row">
+<<<<<<< HEAD
           <div class = "col-8">
             <div class = "col-4">
               {{form.last_name.label()}}{{form.last_name(value=form.patient.last_name)}}
@@ -24,6 +29,16 @@
               {{form.address.label()}}{{form.address(value=form.patient.address)}}<br>
               {{form.submit}}
           
+=======
+          <div class = "col-4">
+  
+          {{form.last_name.label()}}{{form.last_name(value=form.patient.last_name)}}
+          {{form.first_name.label()}}{{form.first_name(value=form.patient.first_name)}}
+          {{form.surname.label()}}{{form.surname(value=form.patient.surname)}}
+          {{form.age.label()}}{{form.age(value=form.patient.age)}}
+          {{form.address.label()}}{{form.address(value=form.patient.address)}}<br>
+          {{form.submit}}
+>>>>>>> development
         </div>
       </div>    
   </form>
