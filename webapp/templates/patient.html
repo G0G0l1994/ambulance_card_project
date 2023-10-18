@@ -10,7 +10,7 @@
   <title>Пациент</title>
 </head>
 <body>
-  <form action="{{ url_for('user.main_card') }}" methor="POST">
+  <form action="{{ url_for('patient.create') }}" methor="POST">
     {{ form.hidden_tag() }}
     <div class="container">
       <h1>Данные пациента</h1>
