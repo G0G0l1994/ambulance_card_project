@@ -5,6 +5,7 @@ from webapp.user.models import Doctors
 from webapp.db import Base, engine, db_session
 from webapp.user.views import blueprint as user_blueprint
 from webapp.patient.views import blueprint as patient_blueprint
+from webapp.card.views import blueprint as card_blueprint
 
 import logging
 
@@ -19,6 +20,7 @@ def create_app():
   login_manager.login_view = "user.login"
   app.register_blueprint(user_blueprint)
   app.register_blueprint(patient_blueprint)
+  app.register_blueprint(card_blueprint)
   
   @login_manager.user_loader
   def load_user(user_id):

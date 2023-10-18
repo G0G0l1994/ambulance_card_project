@@ -36,7 +36,7 @@ class Anamnesis(Base): #Анамнез
 
 
 class GeneralAssessment(Base): #Общие данные
-    __tablename__ = "General_Assessment"
+    __tablename__ = "GeneralAssessment"
     
     id = Column(Integer, primary_key = True)
     id_card = Column(Integer,  index=True)
