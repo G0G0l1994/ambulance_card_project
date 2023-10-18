@@ -10,23 +10,20 @@
   <title>Пациент</title>
 </head>
 <body>
-  <form action="/" methor="POST">
+  <form action="/users/main" methor="POST">
     {{ form.hidden_tag() }}
     <div class="container">
       <h1>Данные пациента</h1>
         <div class = "row">
           <div class = "col-8">
-          <label for="lname">Фамилия:</label><br>
-          <input type="text" id="lname" name="fname" value="{{ form.last_name }}"><br>
-          <label for="fname">Имя:</label><br>
-          <input type="text" id="fname" name="lname" value="{{ form.first_name }}"><br>
-          <label for="sname">Отчество:</label><br>
-          <input type="text" id="sname" name="sname" value= "{{ form.surname }}"><br>
-          <label for="date">Дата рождения:</label><br>
-          <input type="text" id="date" name="date" value="{{ form.age }}"><br>
-          <label for="address">Адрес:</label><br>
-          <input type="text" id="address" name="address" size=50px value="{{ form.address }}"><br><br>
-          <input type="submit" value = "Карта вызова">
+            <div class = "col-4">
+              {{form.last_name.label()}}{{form.last_name(value=form.patient.last_name)}}
+              {{form.first_name.label()}}{{form.first_name(value=form.patient.first_name)}}
+              {{form.surname.label()}}{{form.surname(value=form.patient.surname)}}
+              {{form.age.label()}}{{form.age(value=form.patient.age)}}
+              {{form.address.label()}}{{form.address(value=form.patient.address)}}<br>
+              {{form.submit}}
+          
         </div>
       </div>    
   </form>
