@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import  StringField, SubmitField, TextAreaField
+from wtforms import  StringField, SubmitField, TextAreaField, SelectField, IntegerField, FloatField, IntegerRangeField
 from wtforms.validators import DataRequired
 from webapp.patient.create_patient import create_patient
 

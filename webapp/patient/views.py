@@ -1,8 +1,9 @@
-from flask import render_template
+from flask import render_template, flash
 from flask import Blueprint
-from webapp.patient.forms import PatientForm
-
+from webapp.card.forms import CardForm
 from webapp.patient.forms import NewPatient
+from webapp.card.models import Complaint, Anamnesis, GeneralAssessment
+from webapp.db import db_session
 
 
 blueprint = Blueprint('patient', __name__, url_prefix='/new_patient')
@@ -15,8 +16,17 @@ def create():
 
 @blueprint.route('/main_card', methods=["GET", 'POST'])
 def main_card():
-  form = PatientForm()
+  form = CardForm()
   return render_template('main_card.html', form=form)
 
-    
-    
+@blueprint.route('/main_card', methods=["GET", 'POST'])
+def main_card_forms():
+  form = CardForm()
+  if form.validate_on_submit():
+    anamnesis = Anamnesis(anamnesis=form.anamnesis.data)
+    db_session.add(anamnesis)
+    db_session.commit()
+    complaint = Complaint(complaint=form.complaints.data)
+    db_session.add(complaint)
+    db_session.commit()
+    flash("Отправлено")
