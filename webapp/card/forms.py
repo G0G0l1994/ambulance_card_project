@@ -50,7 +50,36 @@ class DysgestionSystem(FlaskForm):
   stool_frequence_general = SelectField("Реглярность", choices=[("Регулярный", "Регулярный"), ("Нерегулярный", "Нерегулярный"), ("отсутствует", "Отсутствует")], default=("Регулярный", "Регулярный"))
   stool_frequence_specific = IntegerField("Частота стула")
 
+class NervousSystem(FlaskForm):
+  behaviour = SelectField("Поведение", choices=[("Спокойное", "Спокойное"), ("Возбуждённое", "Возбуждённое"), ("Агрессивное", "Агрессивное"), ("Депрессивное", "Депрессивное")], default=[("Спокойное", "Спокойное")])
+  meningial_symptoms = SelectMultipleField("Менингиальные симптомы", choices=[("Нет", "Нет"), ("Ригидность затылочных мыщц", "Ригидность затылочных мышц"), ("Синдром Кернинга", "Синдром Кернинга"), ("Синдром Брудзинского", "Синдром Брудзинского")], default=[("Нет", "Нет")])
+  reaction_to_light = SelectField("Реакция на свет", choices=[("Есть", "Есть"), ("Нет", "Нет")], default=[("Есть", "Есть")])
+  pupils = SelectField("Зрачки", choices=[("Нормальные", "Нормальные"), ("Широкие", "Широкие"), ("Узкие", "Узкие")], default=[("Нормальные", "Нормальные")])
+  anisocoria = SelectField("Анизокория", choices=[("Есть", "Есть"), ("Нет", "Нет")], default=[("Есть", "Есть")])
+  nystagmus = SelectField("Анизокория", choices=[("Есть", "Есть"), ("Нет", "Нет")], default=[("Есть", "Есть")])
+  focal_signs =  SelectField("Анизокория", choices=[("Есть", "Есть"), ("Нет", "Нет")], default=[("Есть", "Есть")])
+  speech = SelectField("Речь", choices=[("Внятная", "Внятная"), ("Афазия", "Афазия"), ("Дизартрия", "Дизартрия")], default=[("Внятная", "Внятная")])
+  paralysis = SelectField("Параличи, парезы", choices=[("Нет", "Нет"), ("Справа", "Справа"), ("Слева", "Слева")], default=[("Нет", "Нет")])
+  sensitivity = SelectMultipleField("Чувствительность", choices=[("Сохранена", "Сохранена"), ("Отсутствует", "Отсутствует"), ("Снижена", "Снижена"), ("Слева", "Слева"), ("Справа", "Справа")], default=[("Сохранена", "Сохранена")])
+
 class UrogentitalSystem(FlaskForm):
   urination =  SelectMultipleField("Мочеиспускание", choices=[("Безболезненное", "Безболезненное"), ("Свободное", "Свободное"), ("Болезненное", "Болезненное"), ("Затруднено", "Затруднено"), ("Отсутствует", "Отсутствует")], default=[("Безболезненное", "Безболезненное"), ("Свободное", "Свободное")])
   pounding_symptom = SelectField("Симптом поколачивания", choices=[("Отрицательный с обеих сторон", "Отрицательный с обеих сторон"), ("Положительный слева", "Положительный слева"), ("Положительный справа", "Положительный справа"), ("Положительный с обеих сторон", "Положительный с обеих сторон"), ("Слабоположительный слева", "Слабоположительный слева"), ("Слабоположительный справа", "Слабоположительный справа"), ("Слабоположительный с обеих сторон", "Слабоположительный с обеих сторон")], default=("Отрицательный с обеих сторон", "Отрицательный с обеих сторон"))
   urine = SelectMultipleField("Моча", choices=[("Светло-жёлтая", "Светло-жёлтая"), ("Мутная", "Мутная"), ("С включениями", "С включениями"), ("С осадком", "С осадком")])
+
+class StatusLocalis(FlaskForm):
+  status_localis = TextAreaField("Локальный статус", render_kw={"class": "form-control", "placeholder" : "Локальный статус..."})
+
+class AidForm(FlaskForm):
+  ecg_before_aid =  TextAreaField("ЭКГ до оказания помощи", render_kw={"class": "form-control", "placeholder" : "ЭКГ до оказания помощи..."})
+  ecg_after_aid =  TextAreaField("ЭКГ после оказания помощи", render_kw={"class": "form-control", "placeholder" : "ЭКГ после оказания помощи..."})
+  aid_provided = TextAreaField("Оказанная помощь", render_kw={"class": "form-control", "placeholder" : "Оказанная помощь..."})
+  t_body_after_aid = FloatField("Температура тела", default=36.6)
+  breath_frequence_after_aid = IntegerField("ЧДД")
+  oxygen_saturation_after_aid = IntegerField("SpO2")
+  heart_rate_after_aid = IntegerField("ЧСС")
+  pulse_after_aid = IntegerField("Пульс")
+  sugar_after_aid = FloatField("Сахар крови")
+
+class DiagnosisForm(FlaskForm):
+  diagnosis = TextAreaField("Диагноз", render_kw={"class": "form-control", "placeholder" : "Диагноз..."})
