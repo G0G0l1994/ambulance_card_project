@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect, url_for
 from flask import Blueprint
-from webapp.card.forms import CardForm
+from webapp.card.forms import CardFormGeneral
 from webapp.patient.forms import NewPatient
 from webapp.card.models import Complaint, Anamnesis, GeneralAssessment
 from webapp.db import db_session
@@ -15,7 +15,7 @@ def main_card():
 
 @blueprint.route('/process_card', methods=["GET", 'POST'])
 def process_card():
-  form = CardForm()
+  form = CardFormGeneral()
   anamnesis = Anamnesis(anamnesis=form.anamnesis.data)
   print(anamnesis)
   db_session.add(anamnesis)
