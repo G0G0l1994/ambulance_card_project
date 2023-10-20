@@ -25,35 +25,37 @@ class SkinForm(FlaskForm):
   skin_yellowness = StringField("Желтушность", default="Нет")
   skin_rash = SelectField("Сыпь", choices=[("Нет", "Нет"), ("Петехиальная", "Петехиальная"), ("Пустулёзная", "Пустулёзная"), ("Везикулярная", "Везикулярная"), ("Узелковая", "Узелковая"), ("Другое", "Другое")], default=("Нет", "Нет"))
   skin_throat = SelectField("Зев", choices=[("Спокоен", "Спокоен"), ("Гиперемирован", "Гиперемирован")], default=("Спокоен", "Спокоен"))
-  skin_tonsils = StringField("Миндилины", default="Не увеличинены")
-  skin_tonsils = StringField("Миндилины", default="Не увеличинены")
+  skin_tonsils = StringField("Миндfлины", default="Не увеличинены")
   skin_lymph_nodes = StringField("Лимфоузлы", default="Не увеличинены")
-  skin_edema = SelectMultipleField("Отеки", choices=[("Нет", "Нет"), ("Голени", "Голени"), ("Лицо", "Лицо"), ("Туловище", "Туловище"), ("Руки", "Руки")], default=("Нет", "Нет"))
+  skin_swelling = SelectMultipleField("Отеки", choices=[("Нет", "Нет"), ("Голени", "Голени"), ("Лицо", "Лицо"), ("Туловище", "Туловище"), ("Руки", "Руки")], default=("Нет", "Нет"))
   submit = SubmitField("Готово!", render_kw={"class": "btn btn-primary"})
   
 class BreathingSysthem(FlaskForm):
-  breathin_type = SelectField("Тип дыхания", choices=[("Везикулярное", "Везикулярное"), ("Жёсткое", "Жёсткое"), ("Бронхиальное", "Бронхиальное"), ("Пуэриальное", "Пуэрильное"), ("Ослабленное", "Ослабленное"), ("Отсутствует", "Отсутствует")], default=("Везикулярное", "Везикулярное"))
+  respiratory_type = SelectField("Тип дыхания", choices=[("Везикулярное", "Везикулярное"), ("Жёсткое", "Жёсткое"), ("Бронхиальное", "Бронхиальное"), ("Пуэриальное", "Пуэрильное"), ("Ослабленное", "Ослабленное"), ("Отсутствует", "Отсутствует")], default=("Везикулярное", "Везикулярное"))
   breath_wheezing = SelectField("Хрипы", choices=[("Нет", "Нет"), ("Влажные", "Влажные"), ("Сухие", "Сухие")], default=("Нет", "Нет"))
-  breath_wheezing_localization = StringField("Локализация хрипов", default="Нет хрипов")
+  breath_wheezing_localisation = StringField("Локализация хрипов", default="Нет хрипов")
   breath_dyspnea = SelectField("Одышка", choices=[("Нет", "Нет"), ("Инспираторная", "Инспираторная"), ("Экспираторная", "Экспираторная"), ("Смешанная", "Смешанная")], default=("Нет", "Нет"))
+  submit = SubmitField("Готово!", render_kw={"class": "btn btn-primary"})
   
 class HeartForm(FlaskForm):
   heart_sounds = SelectField("Тоны сердца", choices=[("Ритмичные", "Ритмичные"), ("Аритмичные", "Аритмичные")], default=("Ритмичные", "Ритмичные"))
   heart_sounds_type = SelectField("Тоны сердца", choices=[("Ясные", "Ясные"), ("Глухие", "Глухие"), ("Приглушены", "Приглушены"), ("Отсутствуют", "Отсутствуют")], default=("Ясные", "Ясные"))
   heart_murmur = SelectMultipleField("Шум", choices=[("Нет", "Нет"), ("Систолический", "Систолический"),("Диастолический", "Диастолический"), ("Трения перикарда", "Трения перикарда"), ("Другое", "Другое")], default=("Нет", "Нет"))
-  heart_beat = SelectMultipleField("Пульс", choices=[("Ритмичный", "Ритмичный"), ("Аритмичный", "Аритмичный"), ("Слабого наполнения", "Слабого наполнения"), ("Напряжённый", "Напряжённый"), ("Нитевидный", "Нитевидный"), ("Отсутсвует", "Отсутствует")], default=[("Ритмичный", "Ритмичный"), ("Нормальный", "Нормальный")])
-  heart_pulse_deficit = SelectField("Дефицит пульса", choices=[("Нет", "Нет"), ("Да", "Да")], default=("Нет", "Нет"))
-  heart_accent_tone = StringField("Акцент тона", default=("Нет", "Нет"))
+  heart_pulse = SelectMultipleField("Пульс", choices=[("Ритмичный", "Ритмичный"), ("Аритмичный", "Аритмичный"), ("Слабого наполнения", "Слабого наполнения"), ("Напряжённый", "Напряжённый"), ("Нитевидный", "Нитевидный"), ("Отсутсвует", "Отсутствует")], default=[("Ритмичный", "Ритмичный"), ("Нормальный", "Нормальный")])
+  heart_rate_deficit = SelectField("Дефицит пульса", choices=[(False, "Нет"), (True, "Да")], default=( [(False, "Нет")]))
+  heart_accent_tone = StringField("Акцент тона", default=("Нет хрипов"))
+  submit = SubmitField("Готово!", render_kw={"class": "btn btn-primary"})
 
-class DysgestionSystem(FlaskForm):
+class DisgestionSystem(FlaskForm):
   abdominal_condition = SelectMultipleField("Живот", choices=[("Мягкий", "Мягкий"), ("Безболезненный", "Безболезненный"), ("Напряжён", "Напряжён"), ("Участвует в акте дыхания", "Участвует в акте дыхания"), ("Вздут", "Вздут"), ("Болезненный", "Болезненный")], default=[("Мягкий", "Мягкий"), ("Безболезненный", "Безболезненный")])
   peritoneal_irritation_symptoms = SelectMultipleField("Симптомы раздражения брюшины", choices=[("Отрицательны", "Отрицательны"), ("Щёткина-Блюмберга", "Щёткина-Блюмберга"), ("Воскресенского", "Воскресенского"), ("Ортнера", "Ортнера"), ("Ровзинга", "Ровзинга"), ("Пастернацкого", "Пастернацкого"), ("Ситковского", "Ситковского"), ("Образцова", "Образцова"), ("Мерфи", "Мерфи"), ("Другое", "Другое")], default=[("Отрицательны", "Отрицательны")])
   liver = StringField("Печень", default=("Не увеличена"))
   stool_type = SelectField("Стул", choices=[("Оформлен", "Оформлен"), ("Разжижен", "Разжижен"), ("Жидкий", "Жидкий"), ("Отсутсвует", "Отсутствует")], default=[("Оформлен", "Оформлен")])
   stool_frequence_general = SelectField("Реглярность", choices=[("Регулярный", "Регулярный"), ("Нерегулярный", "Нерегулярный"), ("отсутствует", "Отсутствует")], default=("Регулярный", "Регулярный"))
   stool_frequence_specific = IntegerField("Частота стула")
+  submit = SubmitField("Готово!", render_kw={"class": "btn btn-primary"})
 
-class NervousSystem(FlaskForm):
+class NervousSystemForm(FlaskForm):
   behaviour = SelectField("Поведение", choices=[("Спокойное", "Спокойное"), ("Возбуждённое", "Возбуждённое"), ("Агрессивное", "Агрессивное"), ("Депрессивное", "Депрессивное")], default=[("Спокойное", "Спокойное")])
   meningial_symptoms = SelectMultipleField("Менингиальные симптомы", choices=[("Нет", "Нет"), ("Ригидность затылочных мыщц", "Ригидность затылочных мышц"), ("Синдром Кернинга", "Синдром Кернинга"), ("Синдром Брудзинского", "Синдром Брудзинского")], default=[("Нет", "Нет")])
   reaction_to_light = SelectField("Реакция на свет", choices=[("Есть", "Есть"), ("Нет", "Нет")], default=[("Есть", "Есть")])
@@ -64,11 +66,13 @@ class NervousSystem(FlaskForm):
   speech = SelectField("Речь", choices=[("Внятная", "Внятная"), ("Афазия", "Афазия"), ("Дизартрия", "Дизартрия")], default=[("Внятная", "Внятная")])
   paralysis = SelectField("Параличи, парезы", choices=[("Нет", "Нет"), ("Справа", "Справа"), ("Слева", "Слева")], default=[("Нет", "Нет")])
   sensitivity = SelectMultipleField("Чувствительность", choices=[("Сохранена", "Сохранена"), ("Отсутствует", "Отсутствует"), ("Снижена", "Снижена"), ("Слева", "Слева"), ("Справа", "Справа")], default=[("Сохранена", "Сохранена")])
+  submit = SubmitField("Готово!", render_kw={"class": "btn btn-primary"})
 
 class UrogentitalSystem(FlaskForm):
   urination =  SelectMultipleField("Мочеиспускание", choices=[("Безболезненное", "Безболезненное"), ("Свободное", "Свободное"), ("Болезненное", "Болезненное"), ("Затруднено", "Затруднено"), ("Отсутствует", "Отсутствует")], default=[("Безболезненное", "Безболезненное"), ("Свободное", "Свободное")])
   pounding_symptom = SelectField("Симптом поколачивания", choices=[("Отрицательный с обеих сторон", "Отрицательный с обеих сторон"), ("Положительный слева", "Положительный слева"), ("Положительный справа", "Положительный справа"), ("Положительный с обеих сторон", "Положительный с обеих сторон"), ("Слабоположительный слева", "Слабоположительный слева"), ("Слабоположительный справа", "Слабоположительный справа"), ("Слабоположительный с обеих сторон", "Слабоположительный с обеих сторон")], default=("Отрицательный с обеих сторон", "Отрицательный с обеих сторон"))
   urine = SelectMultipleField("Моча", choices=[("Светло-жёлтая", "Светло-жёлтая"), ("Мутная", "Мутная"), ("С включениями", "С включениями"), ("С осадком", "С осадком")])
+  submit = SubmitField("Готово!", render_kw={"class": "btn btn-primary"})
 
 class StatusLocalis(FlaskForm):
   status_localis = TextAreaField("Локальный статус", render_kw={"class": "form-control", "placeholder" : "Локальный статус..."})
@@ -83,6 +87,8 @@ class AidForm(FlaskForm):
   heart_rate_after_aid = IntegerField("ЧСС")
   pulse_after_aid = IntegerField("Пульс")
   sugar_after_aid = FloatField("Сахар крови")
+  submit = SubmitField("Готово!", render_kw={"class": "btn btn-primary"})
 
 class DiagnosisForm(FlaskForm):
   diagnosis = TextAreaField("Диагноз", render_kw={"class": "form-control", "placeholder" : "Диагноз..."})
+  submit = SubmitField("Готово!", render_kw={"class": "btn btn-primary"})
