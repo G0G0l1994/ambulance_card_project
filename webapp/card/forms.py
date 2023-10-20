@@ -3,19 +3,21 @@ from wtforms import  StringField, SubmitField, TextAreaField, SelectField, Integ
 from wtforms.validators import DataRequired
 
 class CardFormGeneral(FlaskForm):
-    complaints = TextAreaField("Жалобы", validators=[DataRequired()], render_kw={"class": "form-control", "placeholder" : "Жалобы пациента..."})
-    anamnesis = TextAreaField("Анамнез", validators=[DataRequired()], render_kw={"class": "form-control", "placeholder" : "Анамнез..."})
-    condition = SelectField("Общее состояние", choices=[("Удовлетворительное", "Удовлетворительное"), ("Средней степени тяжести", "Средней степени тяжести"), ("Тяжелое", "Тяжелое"), ("Терминальное", "Терминальное")], default=("Удовлетворительное", "Удовлетворительное"))
-    conscience = SelectField("Сознание", choices=[("Ясное", "Ясное"), ("Оглушение", "Оглушение"), ("Сопор", "Сопор"), ("Кома", "Кома")])
-    glazgo_scale = IntegerField("Шкала Глазго",default=15)
-    body_position = SelectField("Положение тела", choices=[("Активное", "Активное"), ("Пассивное", "Пассивное"), ("Вынужденное", "Вынужденное")], default=("Активное", "Активное"))
-    t_body = FloatField("Температура тела", default=36.6)
-    breath_frequence = IntegerField("ЧДД")
-    oxygen_saturation = IntegerField("SpO2")
-    heart_rate = IntegerField("ЧСС")
-    pulse = IntegerField("Пульс")
-    sugar = FloatField("Сахар крови")
-    submit = SubmitField("Готово!", render_kw={"class": "btn btn-primary"})
+  complaints = TextAreaField("Жалобы", validators=[DataRequired()], render_kw={"class": "form-control", "placeholder" : "Жалобы пациента..."})
+  anamnesis = TextAreaField("Анамнез", validators=[DataRequired()], render_kw={"class": "form-control", "placeholder" : "Анамнез..."})
+  condition = SelectField("Общее состояние", choices=[("Удовлетворительное", "Удовлетворительное"), ("Средней степени тяжести", "Средней степени тяжести"), ("Тяжелое", "Тяжелое"), ("Терминальное", "Терминальное")], default=("Удовлетворительное", "Удовлетворительное"))
+  conscience = SelectField("Сознание", choices=[("Ясное", "Ясное"), ("Оглушение", "Оглушение"), ("Сопор", "Сопор"), ("Кома", "Кома")])
+  glazgow_scale = IntegerField("Шкала Глазго",default=15)
+  body_position = SelectField("Положение тела", choices=[("Активное", "Активное"), ("Пассивное", "Пассивное"), ("Вынужденное", "Вынужденное")], default=("Активное", "Активное"))
+  t_body = FloatField("Температура тела", default=36.6)
+  respiratory_rate = IntegerField("ЧДД")
+  oxygen_saturation = IntegerField("SpO2")
+  heart_rate = IntegerField("ЧСС")
+  pulse = IntegerField("Пульс")
+  pressure_systolic = IntegerField("Систолическое давление")
+  pressure_diastolic = IntegerField("Диастолическое давление")
+  blood_glucose = FloatField("Сахар крови")
+  submit = SubmitField("Готово!", render_kw={"class": "btn btn-primary"})
 
 class SkinForm(FlaskForm):
   skin_dryness = SelectField("Кожные покровы", choices=[("Сухие", "Сухие"), ("Влажные", "Влажные")], default=("Сухие", "Сухие"))
@@ -27,6 +29,7 @@ class SkinForm(FlaskForm):
   skin_tonsils = StringField("Миндилины", default="Не увеличинены")
   skin_lymph_nodes = StringField("Лимфоузлы", default="Не увеличинены")
   skin_edema = SelectMultipleField("Отеки", choices=[("Нет", "Нет"), ("Голени", "Голени"), ("Лицо", "Лицо"), ("Туловище", "Туловище"), ("Руки", "Руки")], default=("Нет", "Нет"))
+  submit = SubmitField("Готово!", render_kw={"class": "btn btn-primary"})
   
 class BreathingSysthem(FlaskForm):
   breathin_type = SelectField("Тип дыхания", choices=[("Везикулярное", "Везикулярное"), ("Жёсткое", "Жёсткое"), ("Бронхиальное", "Бронхиальное"), ("Пуэриальное", "Пуэрильное"), ("Ослабленное", "Ослабленное"), ("Отсутствует", "Отсутствует")], default=("Везикулярное", "Везикулярное"))
