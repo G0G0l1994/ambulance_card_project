@@ -13,3 +13,4 @@ class Patient(Base):
 
     def __repr__(self):
         return f"Patient {self.id} {self.first_name} {self.last_name}"
+
