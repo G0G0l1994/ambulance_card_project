@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='font-awesome.min.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   
-  <title>Sign up and Login</title>
+  <title>Заполнить карту</title>
 </head>
 <body>
   <div class='container-fluid d-flex'>
@@ -97,85 +97,285 @@
     <div class="main">
       <section id="section_general">
       <h2>Общие сведения</h2>
-        <form action="{{ url_for('card.main_card')}}" method="POST" class="patien-form">
-          {{ form.csrf_token }}
+        <form action="{{ url_for('card.general')}}" method="POST" class="patien-form">
+          {{ form_general.csrf_token }}
           <div class="form-group mb-3">
-            {{ form.complaints() }}
+            {{ form_general.complaints() }}
           </div>
           <div class="form-group mb-3">
-            {{ form.anamnesis() }}
+            {{ form_general.anamnesis() }}
           </div>
 
-        Mauris nunc congue nisi vitae suscipit. Urna nec tincidunt praesent semper feugiat nibh sed pulvinar proin. Ut aliquam purus sit amet luctus venenatis lectus magna fringilla. Convallis convallis tellus id interdum. Nec sagittis aliquam malesuada bibendum arcu vitae elementum curabitur. Amet mattis vulputate enim nulla aliquet. Ut sem viverra aliquet eget. Lectus mauris ultrices eros in cursus turpis. Purus in massa tempor nec. Ullamcorper sit amet risus nullam eget felis. Consequat ac felis donec et odio pellentesque diam volutpat commodo. Interdum varius sit amet mattis. Enim nec dui nunc mattis enim ut. Id semper risus in hendrerit gravida rutrum quisque.
+          <div class="form-group mb-3">
+            {{form_general.condition.label}}
+            {{ form_general.condition() }}
+          </div>
+
+          <div class="form-group mb-3">
+            {{form_general.glazgow_scale.label}}
+            {{ form_general.glazgow_scale() }}
+          </div>
+          <div class="form-group mb-3">
+            {{form_general.body_position.label}}
+            {{ form_general.body_position() }}
+          </div>
         
-        Ullamcorper morbi tincidunt ornare massa eget. Viverra mauris in aliquam sem. Tortor dignissim convallis aenean et tortor at risus. Nibh sit amet commodo nulla facilisi nullam vehicula. Id venenatis a condimentum vitae sapien pellentesque habitant morbi tristique. Tristique risus nec feugiat in fermentum posuere urna. Aliquet risus feugiat in ante metus dictum at tempor. Lectus arcu bibendum at varius vel pharetra vel turpis. Urna condimentum mattis pellentesque id. Et odio pellentesque diam volutpat commodo. Eget magna fermentum iaculis eu non diam. A diam sollicitudin tempor id. Nisi lacus sed viverra tellus in hac habitasse platea. Et odio pellentesque diam volutpat commodo.
-        
-        Tellus orci ac auctor augue. Vestibulum mattis ullamcorper velit sed ullamcorper morbi. Egestas congue quisque egestas diam in arcu cursus euismod quis. Donec pretium vulputate sapien nec sagittis aliquam malesuada bibendum. Maecenas accumsan lacus vel facilisis volutpat est velit. Mattis ullamcorper velit sed ullamcorper morbi tincidunt ornare massa eget. Quis risus sed vulputate odio ut. Egestas tellus rutrum tellus pellentesque eu tincidunt tortor aliquam nulla. Adipiscing elit duis tristique sollicitudin. Scelerisque fermentum dui faucibus in ornare quam viverra orci. Porttitor eget dolor morbi non arcu risus quis varius. Amet consectetur adipiscing elit pellentesque habitant morbi tristique senectus et. At ultrices mi tempus imperdiet nulla malesuada pellentesque elit. Imperdiet massa tincidunt nunc pulvinar. Convallis posuere morbi leo urna molestie. Ut sem viverra aliquet eget sit amet tellus cras. Faucibus turpis in eu mi bibendum neque.
-        
-        Feugiat in ante metus dictum at. Eleifend mi in nulla posuere sollicitudin aliquam ultrices. Tellus pellentesque eu tincidunt tortor aliquam nulla facilisi cras. Mi in nulla posuere sollicitudin aliquam. Nibh praesent tristique magna sit amet purus. Sit amet dictum sit amet justo donec enim diam vulputate. Viverra maecenas accumsan lacus vel facilisis volutpat. Ut porttitor leo a diam sollicitudin tempor id. Senectus et netus et malesuada fames ac. Nulla pellentesque dignissim enim sit amet venenatis urna cursus eget. Suscipit adipiscing bibendum est ultricies integer quis. Quisque egestas diam in arcu cursus euismod quis viverra. Mauris pellentesque pulvinar pellentesque habitant morbi tristique. Aliquam sem et tortor consequat id porta nibh venenatis. Eu facilisis sed odio morbi quis commodo.</p>
+          <h2>Показатели до оказания помощи</h2>
+          <div class="form-group mb-3">
+            {{form_general.t_body.label}}
+            {{ form_general.t_body() }}
+          </div>
+          <div class="form-group mb-3">
+            {{form_general.oxygen_saturation.label}}
+            {{ form_general.oxygen_saturation(min="0", max="100") }}
+          </div>
+          <div class="form-group mb-3">
+            {{form_general.respiratory_rate.label}}
+            {{ form_general.respiratory_rate() }}
+          </div>
+          <div class="form-group mb-3">
+            {{form_general.heart_rate.label}}
+            {{ form_general.heart_rate() }}
+          </div>
+          <div class="form-group mb-3">
+            {{form_general.pulse.label}}
+            {{ form_general.pulse() }}
+          </div>
+
+          <div class="form-group mb-3">
+            {{form_general.blood_glucose.label}}
+            {{ form_general.blood_glucose() }}
+          </div>
+
+          <div class="d-grid">
+            {{ form_general.submit() }} <!--Кнопка отвправить-->
+          </div>
+        </form>
       </section>
       <section id="section_skin">
       <h2>Кожные покровы</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Et tortor consequat id porta nibh venenatis. Leo vel orci porta non pulvinar. Lorem donec massa sapien faucibus et molestie ac. Justo donec enim diam vulputate. Netus et malesuada fames ac turpis egestas sed tempus. Scelerisque fermentum dui faucibus in ornare quam viverra. Amet volutpat consequat mauris nunc congue nisi vitae suscipit. Nulla facilisi morbi tempus iaculis urna id volutpat lacus laoreet. Aenean vel elit scelerisque mauris. Nunc consequat interdum varius sit amet. Ut sem viverra aliquet eget sit amet tellus. Orci eu lobortis elementum nibh tellus molestie nunc. Purus in mollis nunc sed id semper risus in hendrerit. Maecenas accumsan lacus vel facilisis volutpat est velit. Mauris sit amet massa vitae tortor condimentum lacinia quis. Nec dui nunc mattis enim ut tellus elementum. Morbi non arcu risus quis varius quam quisque. Interdum posuere lorem ipsum dolor sit amet.
+      <form action="{{ url_for('card.skin')}}" method="POST" class="patien-form">
+        {{ form_skin.csrf_token }}
+        <div class="form-group mb-3">
+          {{form_skin.skin_dryness.label}}
+          {{ form_skin.skin_dryness() }}
+        </div>
 
-        Mauris nunc congue nisi vitae suscipit. Urna nec tincidunt praesent semper feugiat nibh sed pulvinar proin. Ut aliquam purus sit amet luctus venenatis lectus magna fringilla. Convallis convallis tellus id interdum. Nec sagittis aliquam malesuada bibendum arcu vitae elementum curabitur. Amet mattis vulputate enim nulla aliquet. Ut sem viverra aliquet eget. Lectus mauris ultrices eros in cursus turpis. Purus in massa tempor nec. Ullamcorper sit amet risus nullam eget felis. Consequat ac felis donec et odio pellentesque diam volutpat commodo. Interdum varius sit amet mattis. Enim nec dui nunc mattis enim ut. Id semper risus in hendrerit gravida rutrum quisque.
-        
-        Ullamcorper morbi tincidunt ornare massa eget. Viverra mauris in aliquam sem. Tortor dignissim convallis aenean et tortor at risus. Nibh sit amet commodo nulla facilisi nullam vehicula. Id venenatis a condimentum vitae sapien pellentesque habitant morbi tristique. Tristique risus nec feugiat in fermentum posuere urna. Aliquet risus feugiat in ante metus dictum at tempor. Lectus arcu bibendum at varius vel pharetra vel turpis. Urna condimentum mattis pellentesque id. Et odio pellentesque diam volutpat commodo. Eget magna fermentum iaculis eu non diam. A diam sollicitudin tempor id. Nisi lacus sed viverra tellus in hac habitasse platea. Et odio pellentesque diam volutpat commodo.
-        
-        Tellus orci ac auctor augue. Vestibulum mattis ullamcorper velit sed ullamcorper morbi. Egestas congue quisque egestas diam in arcu cursus euismod quis. Donec pretium vulputate sapien nec sagittis aliquam malesuada bibendum. Maecenas accumsan lacus vel facilisis volutpat est velit. Mattis ullamcorper velit sed ullamcorper morbi tincidunt ornare massa eget. Quis risus sed vulputate odio ut. Egestas tellus rutrum tellus pellentesque eu tincidunt tortor aliquam nulla. Adipiscing elit duis tristique sollicitudin. Scelerisque fermentum dui faucibus in ornare quam viverra orci. Porttitor eget dolor morbi non arcu risus quis varius. Amet consectetur adipiscing elit pellentesque habitant morbi tristique senectus et. At ultrices mi tempus imperdiet nulla malesuada pellentesque elit. Imperdiet massa tincidunt nunc pulvinar. Convallis posuere morbi leo urna molestie. Ut sem viverra aliquet eget sit amet tellus cras. Faucibus turpis in eu mi bibendum neque.
-        
-        Feugiat in ante metus dictum at. Eleifend mi in nulla posuere sollicitudin aliquam ultrices. Tellus pellentesque eu tincidunt tortor aliquam nulla facilisi cras. Mi in nulla posuere sollicitudin aliquam. Nibh praesent tristique magna sit amet purus. Sit amet dictum sit amet justo donec enim diam vulputate. Viverra maecenas accumsan lacus vel facilisis volutpat. Ut porttitor leo a diam sollicitudin tempor id. Senectus et netus et malesuada fames ac. Nulla pellentesque dignissim enim sit amet venenatis urna cursus eget. Suscipit adipiscing bibendum est ultricies integer quis. Quisque egestas diam in arcu cursus euismod quis viverra. Mauris pellentesque pulvinar pellentesque habitant morbi tristique. Aliquam sem et tortor consequat id porta nibh venenatis. Eu facilisis sed odio morbi quis commodo.</p>
+        <div class="form-group mb-3">
+          {{form_skin.skin_colour.label}}
+          {{ form_skin.skin_colour() }}
+        </div>
+
+        <div class="form-group mb-3">
+          {{form_skin.skin_yellowness.label}}
+          {{ form_skin.skin_yellowness() }}
+        </div>
+        <div class="form-group mb-3">
+          {{form_skin.skin_rash.label}}
+          {{ form_skin.skin_rash() }}
+        </div>
+
+        <div class="form-group mb-3">
+          {{form_skin.skin_throat.label}}
+          {{ form_skin.skin_throat() }}
+        </div>
+
+        <div class="form-group mb-3">
+          {{form_skin.skin_tonsils.label}}
+          {{ form_skin.skin_tonsils() }}
+        </div>
+
+        <div class="form-group mb-3">
+          {{form_skin.skin_lymph_nodes.label}}
+          {{ form_skin.skin_lymph_nodes() }}
+        </div>
+
+        <div class="form-group mb-3">
+          {{form_skin.skin_swelling.label}}
+          {{ form_skin.skin_swelling() }}
+        </div>
+
+        <div class="d-grid">
+          {{ form_skin.submit() }} <!--Кнопка отвправить-->
+        </div>
+      </form>
+      
       </section>
       <section id="section_breath">
       <h2>Дыхательная система</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Et tortor consequat id porta nibh venenatis. Leo vel orci porta non pulvinar. Lorem donec massa sapien faucibus et molestie ac. Justo donec enim diam vulputate. Netus et malesuada fames ac turpis egestas sed tempus. Scelerisque fermentum dui faucibus in ornare quam viverra. Amet volutpat consequat mauris nunc congue nisi vitae suscipit. Nulla facilisi morbi tempus iaculis urna id volutpat lacus laoreet. Aenean vel elit scelerisque mauris. Nunc consequat interdum varius sit amet. Ut sem viverra aliquet eget sit amet tellus. Orci eu lobortis elementum nibh tellus molestie nunc. Purus in mollis nunc sed id semper risus in hendrerit. Maecenas accumsan lacus vel facilisis volutpat est velit. Mauris sit amet massa vitae tortor condimentum lacinia quis. Nec dui nunc mattis enim ut tellus elementum. Morbi non arcu risus quis varius quam quisque. Interdum posuere lorem ipsum dolor sit amet.
+      <form action="{{ url_for('card.breath')}}" method="POST" class="patient-form">
+        {{ form_breath.csrf_token }}
+        <div class="form-group mb-3">
+          {{form_breath.respiratory_type.label}}
+          {{ form_breath.respiratory_type() }}
+        </div>
 
-        Mauris nunc congue nisi vitae suscipit. Urna nec tincidunt praesent semper feugiat nibh sed pulvinar proin. Ut aliquam purus sit amet luctus venenatis lectus magna fringilla. Convallis convallis tellus id interdum. Nec sagittis aliquam malesuada bibendum arcu vitae elementum curabitur. Amet mattis vulputate enim nulla aliquet. Ut sem viverra aliquet eget. Lectus mauris ultrices eros in cursus turpis. Purus in massa tempor nec. Ullamcorper sit amet risus nullam eget felis. Consequat ac felis donec et odio pellentesque diam volutpat commodo. Interdum varius sit amet mattis. Enim nec dui nunc mattis enim ut. Id semper risus in hendrerit gravida rutrum quisque.
+        <div class="form-group mb-3">
+          {{form_breath.breath_wheezing.label}}
+          {{ form_breath.breath_wheezing() }}
+        </div>
+
         
-        Ullamcorper morbi tincidunt ornare massa eget. Viverra mauris in aliquam sem. Tortor dignissim convallis aenean et tortor at risus. Nibh sit amet commodo nulla facilisi nullam vehicula. Id venenatis a condimentum vitae sapien pellentesque habitant morbi tristique. Tristique risus nec feugiat in fermentum posuere urna. Aliquet risus feugiat in ante metus dictum at tempor. Lectus arcu bibendum at varius vel pharetra vel turpis. Urna condimentum mattis pellentesque id. Et odio pellentesque diam volutpat commodo. Eget magna fermentum iaculis eu non diam. A diam sollicitudin tempor id. Nisi lacus sed viverra tellus in hac habitasse platea. Et odio pellentesque diam volutpat commodo.
+        <div class="form-group mb-3">
+          {{form_breath.breath_wheezing_localisation.label}}
+          {{ form_breath.breath_wheezing_localisation() }}
+        </div>
+
         
-        Tellus orci ac auctor augue. Vestibulum mattis ullamcorper velit sed ullamcorper morbi. Egestas congue quisque egestas diam in arcu cursus euismod quis. Donec pretium vulputate sapien nec sagittis aliquam malesuada bibendum. Maecenas accumsan lacus vel facilisis volutpat est velit. Mattis ullamcorper velit sed ullamcorper morbi tincidunt ornare massa eget. Quis risus sed vulputate odio ut. Egestas tellus rutrum tellus pellentesque eu tincidunt tortor aliquam nulla. Adipiscing elit duis tristique sollicitudin. Scelerisque fermentum dui faucibus in ornare quam viverra orci. Porttitor eget dolor morbi non arcu risus quis varius. Amet consectetur adipiscing elit pellentesque habitant morbi tristique senectus et. At ultrices mi tempus imperdiet nulla malesuada pellentesque elit. Imperdiet massa tincidunt nunc pulvinar. Convallis posuere morbi leo urna molestie. Ut sem viverra aliquet eget sit amet tellus cras. Faucibus turpis in eu mi bibendum neque.
-        
-        Feugiat in ante metus dictum at. Eleifend mi in nulla posuere sollicitudin aliquam ultrices. Tellus pellentesque eu tincidunt tortor aliquam nulla facilisi cras. Mi in nulla posuere sollicitudin aliquam. Nibh praesent tristique magna sit amet purus. Sit amet dictum sit amet justo donec enim diam vulputate. Viverra maecenas accumsan lacus vel facilisis volutpat. Ut porttitor leo a diam sollicitudin tempor id. Senectus et netus et malesuada fames ac. Nulla pellentesque dignissim enim sit amet venenatis urna cursus eget. Suscipit adipiscing bibendum est ultricies integer quis. Quisque egestas diam in arcu cursus euismod quis viverra. Mauris pellentesque pulvinar pellentesque habitant morbi tristique. Aliquam sem et tortor consequat id porta nibh venenatis. Eu facilisis sed odio morbi quis commodo.</p>
+        <div class="form-group mb-3">
+          {{form_breath.breath_dyspnea.label}}
+          {{ form_breath.breath_dyspnea() }}
+        </div>
+
+        <div class="d-grid">
+          {{ form_breath.submit() }} <!--Кнопка отвправить-->
+        </div>
+      </form>
+    
       </section>
       <section id="section_heart">
       <h2>Сердечно сосудистая система</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Et tortor consequat id porta nibh venenatis. Leo vel orci porta non pulvinar. Lorem donec massa sapien faucibus et molestie ac. Justo donec enim diam vulputate. Netus et malesuada fames ac turpis egestas sed tempus. Scelerisque fermentum dui faucibus in ornare quam viverra. Amet volutpat consequat mauris nunc congue nisi vitae suscipit. Nulla facilisi morbi tempus iaculis urna id volutpat lacus laoreet. Aenean vel elit scelerisque mauris. Nunc consequat interdum varius sit amet. Ut sem viverra aliquet eget sit amet tellus. Orci eu lobortis elementum nibh tellus molestie nunc. Purus in mollis nunc sed id semper risus in hendrerit. Maecenas accumsan lacus vel facilisis volutpat est velit. Mauris sit amet massa vitae tortor condimentum lacinia quis. Nec dui nunc mattis enim ut tellus elementum. Morbi non arcu risus quis varius quam quisque. Interdum posuere lorem ipsum dolor sit amet.
+      <form action ="{{ url_for('card.heart')}}" method="POST" class="patien-form">
+        {{ form_breath.csrf_token }}
+        <div class="form-group mb-3">
+          {{form_heart.heart_sounds.label}}
+          {{ form_heart.heart_sounds() }}
+        </div>
+        <div class="form-group mb-3">
+          {{form_heart.heart_sounds_type.label}}
+          {{ form_heart.heart_sounds_type() }}
+        </div>
 
-        Mauris nunc congue nisi vitae suscipit. Urna nec tincidunt praesent semper feugiat nibh sed pulvinar proin. Ut aliquam purus sit amet luctus venenatis lectus magna fringilla. Convallis convallis tellus id interdum. Nec sagittis aliquam malesuada bibendum arcu vitae elementum curabitur. Amet mattis vulputate enim nulla aliquet. Ut sem viverra aliquet eget. Lectus mauris ultrices eros in cursus turpis. Purus in massa tempor nec. Ullamcorper sit amet risus nullam eget felis. Consequat ac felis donec et odio pellentesque diam volutpat commodo. Interdum varius sit amet mattis. Enim nec dui nunc mattis enim ut. Id semper risus in hendrerit gravida rutrum quisque.
+        <div class="form-group mb-3">
+          {{form_heart.heart_murmur.label}}
+          {{ form_heart.heart_murmur() }}
+        </div>
+
+        <div class="form-group mb-3">
+          {{form_heart.heart_pulse.label}}
+          {{ form_heart.heart_pulse() }}
+        </div>
         
-        Ullamcorper morbi tincidunt ornare massa eget. Viverra mauris in aliquam sem. Tortor dignissim convallis aenean et tortor at risus. Nibh sit amet commodo nulla facilisi nullam vehicula. Id venenatis a condimentum vitae sapien pellentesque habitant morbi tristique. Tristique risus nec feugiat in fermentum posuere urna. Aliquet risus feugiat in ante metus dictum at tempor. Lectus arcu bibendum at varius vel pharetra vel turpis. Urna condimentum mattis pellentesque id. Et odio pellentesque diam volutpat commodo. Eget magna fermentum iaculis eu non diam. A diam sollicitudin tempor id. Nisi lacus sed viverra tellus in hac habitasse platea. Et odio pellentesque diam volutpat commodo.
-        
-        Tellus orci ac auctor augue. Vestibulum mattis ullamcorper velit sed ullamcorper morbi. Egestas congue quisque egestas diam in arcu cursus euismod quis. Donec pretium vulputate sapien nec sagittis aliquam malesuada bibendum. Maecenas accumsan lacus vel facilisis volutpat est velit. Mattis ullamcorper velit sed ullamcorper morbi tincidunt ornare massa eget. Quis risus sed vulputate odio ut. Egestas tellus rutrum tellus pellentesque eu tincidunt tortor aliquam nulla. Adipiscing elit duis tristique sollicitudin. Scelerisque fermentum dui faucibus in ornare quam viverra orci. Porttitor eget dolor morbi non arcu risus quis varius. Amet consectetur adipiscing elit pellentesque habitant morbi tristique senectus et. At ultrices mi tempus imperdiet nulla malesuada pellentesque elit. Imperdiet massa tincidunt nunc pulvinar. Convallis posuere morbi leo urna molestie. Ut sem viverra aliquet eget sit amet tellus cras. Faucibus turpis in eu mi bibendum neque.
-        
-        Feugiat in ante metus dictum at. Eleifend mi in nulla posuere sollicitudin aliquam ultrices. Tellus pellentesque eu tincidunt tortor aliquam nulla facilisi cras. Mi in nulla posuere sollicitudin aliquam. Nibh praesent tristique magna sit amet purus. Sit amet dictum sit amet justo donec enim diam vulputate. Viverra maecenas accumsan lacus vel facilisis volutpat. Ut porttitor leo a diam sollicitudin tempor id. Senectus et netus et malesuada fames ac. Nulla pellentesque dignissim enim sit amet venenatis urna cursus eget. Suscipit adipiscing bibendum est ultricies integer quis. Quisque egestas diam in arcu cursus euismod quis viverra. Mauris pellentesque pulvinar pellentesque habitant morbi tristique. Aliquam sem et tortor consequat id porta nibh venenatis. Eu facilisis sed odio morbi quis commodo.</p>
+        <div class="form-group mb-3">
+          {{form_heart.heart_rate_deficit.label}}
+          {{ form_heart.heart_rate_deficit() }}
+        </div>
+
+        <div class="form-group mb-3">
+          {{form_heart.heart_accent_tone.label}}
+          {{ form_heart.heart_accent_tone() }}
+        </div>
+
+        <div class="d-grid">
+          {{ form_heart.submit() }} <!--Кнопка отвправить-->
+        </div>
+      </form>
       </section>
       <section id="section_stomach">
         <h2>Органы пищеварения</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Et tortor consequat id porta nibh venenatis. Leo vel orci porta non pulvinar. Lorem donec massa sapien faucibus et molestie ac. Justo donec enim diam vulputate. Netus et malesuada fames ac turpis egestas sed tempus. Scelerisque fermentum dui faucibus in ornare quam viverra. Amet volutpat consequat mauris nunc congue nisi vitae suscipit. Nulla facilisi morbi tempus iaculis urna id volutpat lacus laoreet. Aenean vel elit scelerisque mauris. Nunc consequat interdum varius sit amet. Ut sem viverra aliquet eget sit amet tellus. Orci eu lobortis elementum nibh tellus molestie nunc. Purus in mollis nunc sed id semper risus in hendrerit. Maecenas accumsan lacus vel facilisis volutpat est velit. Mauris sit amet massa vitae tortor condimentum lacinia quis. Nec dui nunc mattis enim ut tellus elementum. Morbi non arcu risus quis varius quam quisque. Interdum posuere lorem ipsum dolor sit amet.
-
-          Mauris nunc congue nisi vitae suscipit. Urna nec tincidunt praesent semper feugiat nibh sed pulvinar proin. Ut aliquam purus sit amet luctus venenatis lectus magna fringilla. Convallis convallis tellus id interdum. Nec sagittis aliquam malesuada bibendum arcu vitae elementum curabitur. Amet mattis vulputate enim nulla aliquet. Ut sem viverra aliquet eget. Lectus mauris ultrices eros in cursus turpis. Purus in massa tempor nec. Ullamcorper sit amet risus nullam eget felis. Consequat ac felis donec et odio pellentesque diam volutpat commodo. Interdum varius sit amet mattis. Enim nec dui nunc mattis enim ut. Id semper risus in hendrerit gravida rutrum quisque.
-          
-          Ullamcorper morbi tincidunt ornare massa eget. Viverra mauris in aliquam sem. Tortor dignissim convallis aenean et tortor at risus. Nibh sit amet commodo nulla facilisi nullam vehicula. Id venenatis a condimentum vitae sapien pellentesque habitant morbi tristique. Tristique risus nec feugiat in fermentum posuere urna. Aliquet risus feugiat in ante metus dictum at tempor. Lectus arcu bibendum at varius vel pharetra vel turpis. Urna condimentum mattis pellentesque id. Et odio pellentesque diam volutpat commodo. Eget magna fermentum iaculis eu non diam. A diam sollicitudin tempor id. Nisi lacus sed viverra tellus in hac habitasse platea. Et odio pellentesque diam volutpat commodo.
-          
-          Tellus orci ac auctor augue. Vestibulum mattis ullamcorper velit sed ullamcorper morbi. Egestas congue quisque egestas diam in arcu cursus euismod quis. Donec pretium vulputate sapien nec sagittis aliquam malesuada bibendum. Maecenas accumsan lacus vel facilisis volutpat est velit. Mattis ullamcorper velit sed ullamcorper morbi tincidunt ornare massa eget. Quis risus sed vulputate odio ut. Egestas tellus rutrum tellus pellentesque eu tincidunt tortor aliquam nulla. Adipiscing elit duis tristique sollicitudin. Scelerisque fermentum dui faucibus in ornare quam viverra orci. Porttitor eget dolor morbi non arcu risus quis varius. Amet consectetur adipiscing elit pellentesque habitant morbi tristique senectus et. At ultrices mi tempus imperdiet nulla malesuada pellentesque elit. Imperdiet massa tincidunt nunc pulvinar. Convallis posuere morbi leo urna molestie. Ut sem viverra aliquet eget sit amet tellus cras. Faucibus turpis in eu mi bibendum neque.
-          
-          Feugiat in ante metus dictum at. Eleifend mi in nulla posuere sollicitudin aliquam ultrices. Tellus pellentesque eu tincidunt tortor aliquam nulla facilisi cras. Mi in nulla posuere sollicitudin aliquam. Nibh praesent tristique magna sit amet purus. Sit amet dictum sit amet justo donec enim diam vulputate. Viverra maecenas accumsan lacus vel facilisis volutpat. Ut porttitor leo a diam sollicitudin tempor id. Senectus et netus et malesuada fames ac. Nulla pellentesque dignissim enim sit amet venenatis urna cursus eget. Suscipit adipiscing bibendum est ultricies integer quis. Quisque egestas diam in arcu cursus euismod quis viverra. Mauris pellentesque pulvinar pellentesque habitant morbi tristique. Aliquam sem et tortor consequat id porta nibh venenatis. Eu facilisis sed odio morbi quis commodo.</p>
+        <form action ="{{ url_for('card.digestion')}}" method="POST" class="patien-form">
+          {{ form_digestion.csrf_token }}
+          <div class="form-group mb-3">
+            {{form_digestion.abdominal_condition.label}}
+            {{ form_digestion.abdominal_condition() }}
+          </div>
+          <div class="form-group mb-3">
+            {{form_digestion.peritoneal_irritation_symptoms.label}}
+            {{ form_digestion.peritoneal_irritation_symptoms() }}
+          </div>
+          <div class="form-group mb-3">
+            {{form_digestion.stool_type.label}}
+            {{ form_digestion.stool_type() }}
+          </div>
+          <div class="form-group mb-3">
+            {{form_digestion.stool_type.label}}
+            {{ form_digestion.stool_type() }}
+          </div>
+          <div class="form-group mb-3">
+            {{form_digestion.stool_frequence_general.label}}
+            {{ form_digestion.stool_frequence_general() }}
+          </div>
+          <div class="form-group mb-3">
+            {{form_digestion.stool_frequence_specific.label}}
+            {{ form_digestion.stool_frequence_specific() }}
+          </div>
+          <div class="d-grid">
+            {{ form_heart.submit() }} <!--Кнопка отвправить-->
+          </div>
+        </form>
+        
       </section>
       <section id="section_nerves">
         <h2>Нервная система</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Et tortor consequat id porta nibh venenatis. Leo vel orci porta non pulvinar. Lorem donec massa sapien faucibus et molestie ac. Justo donec enim diam vulputate. Netus et malesuada fames ac turpis egestas sed tempus. Scelerisque fermentum dui faucibus in ornare quam viverra. Amet volutpat consequat mauris nunc congue nisi vitae suscipit. Nulla facilisi morbi tempus iaculis urna id volutpat lacus laoreet. Aenean vel elit scelerisque mauris. Nunc consequat interdum varius sit amet. Ut sem viverra aliquet eget sit amet tellus. Orci eu lobortis elementum nibh tellus molestie nunc. Purus in mollis nunc sed id semper risus in hendrerit. Maecenas accumsan lacus vel facilisis volutpat est velit. Mauris sit amet massa vitae tortor condimentum lacinia quis. Nec dui nunc mattis enim ut tellus elementum. Morbi non arcu risus quis varius quam quisque. Interdum posuere lorem ipsum dolor sit amet.
-
-          Mauris nunc congue nisi vitae suscipit. Urna nec tincidunt praesent semper feugiat nibh sed pulvinar proin. Ut aliquam purus sit amet luctus venenatis lectus magna fringilla. Convallis convallis tellus id interdum. Nec sagittis aliquam malesuada bibendum arcu vitae elementum curabitur. Amet mattis vulputate enim nulla aliquet. Ut sem viverra aliquet eget. Lectus mauris ultrices eros in cursus turpis. Purus in massa tempor nec. Ullamcorper sit amet risus nullam eget felis. Consequat ac felis donec et odio pellentesque diam volutpat commodo. Interdum varius sit amet mattis. Enim nec dui nunc mattis enim ut. Id semper risus in hendrerit gravida rutrum quisque.
-          
-          Ullamcorper morbi tincidunt ornare massa eget. Viverra mauris in aliquam sem. Tortor dignissim convallis aenean et tortor at risus. Nibh sit amet commodo nulla facilisi nullam vehicula. Id venenatis a condimentum vitae sapien pellentesque habitant morbi tristique. Tristique risus nec feugiat in fermentum posuere urna. Aliquet risus feugiat in ante metus dictum at tempor. Lectus arcu bibendum at varius vel pharetra vel turpis. Urna condimentum mattis pellentesque id. Et odio pellentesque diam volutpat commodo. Eget magna fermentum iaculis eu non diam. A diam sollicitudin tempor id. Nisi lacus sed viverra tellus in hac habitasse platea. Et odio pellentesque diam volutpat commodo.
-          
-          Tellus orci ac auctor augue. Vestibulum mattis ullamcorper velit sed ullamcorper morbi. Egestas congue quisque egestas diam in arcu cursus euismod quis. Donec pretium vulputate sapien nec sagittis aliquam malesuada bibendum. Maecenas accumsan lacus vel facilisis volutpat est velit. Mattis ullamcorper velit sed ullamcorper morbi tincidunt ornare massa eget. Quis risus sed vulputate odio ut. Egestas tellus rutrum tellus pellentesque eu tincidunt tortor aliquam nulla. Adipiscing elit duis tristique sollicitudin. Scelerisque fermentum dui faucibus in ornare quam viverra orci. Porttitor eget dolor morbi non arcu risus quis varius. Amet consectetur adipiscing elit pellentesque habitant morbi tristique senectus et. At ultrices mi tempus imperdiet nulla malesuada pellentesque elit. Imperdiet massa tincidunt nunc pulvinar. Convallis posuere morbi leo urna molestie. Ut sem viverra aliquet eget sit amet tellus cras. Faucibus turpis in eu mi bibendum neque.
-          
-          Feugiat in ante metus dictum at. Eleifend mi in nulla posuere sollicitudin aliquam ultrices. Tellus pellentesque eu tincidunt tortor aliquam nulla facilisi cras. Mi in nulla posuere sollicitudin aliquam. Nibh praesent tristique magna sit amet purus. Sit amet dictum sit amet justo donec enim diam vulputate. Viverra maecenas accumsan lacus vel facilisis volutpat. Ut porttitor leo a diam sollicitudin tempor id. Senectus et netus et malesuada fames ac. Nulla pellentesque dignissim enim sit amet venenatis urna cursus eget. Suscipit adipiscing bibendum est ultricies integer quis. Quisque egestas diam in arcu cursus euismod quis viverra. Mauris pellentesque pulvinar pellentesque habitant morbi tristique. Aliquam sem et tortor consequat id porta nibh venenatis. Eu facilisis sed odio morbi quis commodo.</p>
+        <form action ="{{ url_for('card.nerves')}}" method="POST" class="patien-form">
+          {{ form_nerves.csrf_token }}
+          <div class="form-group mb-3">
+            {{form_nerves.behaviour.label}}
+            {{ form_nerves.behaviour() }}
+          </div>
+          <div class="form-group mb-3">
+            {{form_nerves.meningial_symptoms.label}}
+            {{ form_nerves.meningial_symptoms() }}
+          </div>
+          <div class="form-group mb-3">
+            {{form_nerves.reaction_to_light.label}}
+            {{ form_nerves.reaction_to_light() }}
+          </div>
+          <div class="form-group mb-3">
+            {{form_nerves.pupils.label}}
+            {{ form_nerves.pupils() }}
+          </div>
+          <div class="form-group mb-3">
+            {{form_nerves.anisocoria.label}}
+            {{ form_nerves.anisocoria() }}
+          </div>
+          <div class="form-group mb-3">
+            {{form_nerves.nystagmus.label}}
+            {{ form_nerves.nystagmus() }}
+          </div>
+          <div class="form-group mb-3">
+            {{form_nerves.focal_signs.label}}
+            {{ form_nerves.focal_signs() }}
+          </div>
+          <div class="form-group mb-3">
+            {{form_nerves.speech.label}}
+            {{ form_nerves.speech() }}
+          </div>
+          <div class="form-group mb-3">
+            {{form_nerves.paralysis.label}}
+            {{ form_nerves.paralysis() }}
+          </div>
+          <div class="form-group mb-3">
+            {{form_nerves.sensitivity.label}}
+            {{ form_nerves.sensitivity() }}
+          </div>
+          <div class="d-grid">
+            {{ form_nerves.submit() }} <!--Кнопка отвправить-->
+          </div>
+        </form>
       </section>
       <section id="section_urogenital">
         <h2>Мочеполовая система</h2>
+        <form action ="{{ url_for('card.urogenital')}}" method="POST" class="patien-form">
+          {{ form_urogenital.csrf_token }}
+          <div class="form-group mb-3">
+            {{form_urogenital.urination.label}}
+            {{ form_urogenital.urination() }}
+          </div>
+          <div class="form-group mb-3">
+            {{form_urogenital.pounding_symptom.label}}
+            {{ form_urogenital.pounding_symptom() }}
+          </div>
+          <div class="form-group mb-3">
+            {{form_urogenital.urine.label}}
+            {{ form_urogenital.urine() }}
+          </div>
+
+          <div class="d-grid">
+            {{ form_nerves.submit() }} <!--Кнопка отвправить-->
+          </div>
+          
+        </form>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Et tortor consequat id porta nibh venenatis. Leo vel orci porta non pulvinar. Lorem donec massa sapien faucibus et molestie ac. Justo donec enim diam vulputate. Netus et malesuada fames ac turpis egestas sed tempus. Scelerisque fermentum dui faucibus in ornare quam viverra. Amet volutpat consequat mauris nunc congue nisi vitae suscipit. Nulla facilisi morbi tempus iaculis urna id volutpat lacus laoreet. Aenean vel elit scelerisque mauris. Nunc consequat interdum varius sit amet. Ut sem viverra aliquet eget sit amet tellus. Orci eu lobortis elementum nibh tellus molestie nunc. Purus in mollis nunc sed id semper risus in hendrerit. Maecenas accumsan lacus vel facilisis volutpat est velit. Mauris sit amet massa vitae tortor condimentum lacinia quis. Nec dui nunc mattis enim ut tellus elementum. Morbi non arcu risus quis varius quam quisque. Interdum posuere lorem ipsum dolor sit amet.
 
           Mauris nunc congue nisi vitae suscipit. Urna nec tincidunt praesent semper feugiat nibh sed pulvinar proin. Ut aliquam purus sit amet luctus venenatis lectus magna fringilla. Convallis convallis tellus id interdum. Nec sagittis aliquam malesuada bibendum arcu vitae elementum curabitur. Amet mattis vulputate enim nulla aliquet. Ut sem viverra aliquet eget. Lectus mauris ultrices eros in cursus turpis. Purus in massa tempor nec. Ullamcorper sit amet risus nullam eget felis. Consequat ac felis donec et odio pellentesque diam volutpat commodo. Interdum varius sit amet mattis. Enim nec dui nunc mattis enim ut. Id semper risus in hendrerit gravida rutrum quisque.
