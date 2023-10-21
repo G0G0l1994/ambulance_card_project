@@ -1,4 +1,4 @@
-from flask import render_template, url_for,redirect
+from flask import render_template
 from flask import Blueprint
 from datetime import datetime
 from webapp.patient.forms import NewPatient, Time
