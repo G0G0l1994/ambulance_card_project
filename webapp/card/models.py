@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, String, Date, Time, Float, Boolean, Text, ForeignKey
-from webapp.db import Base, engine 
+from webapp.db import Base
+
 
 class Card(Base):
     __tablename__ = "Card"

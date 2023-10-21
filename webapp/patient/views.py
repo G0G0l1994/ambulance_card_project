@@ -1,18 +1,46 @@
 from flask import render_template, flash
 from flask import Blueprint
+<<<<<<< HEAD
 from webapp.card.forms import CardFormGeneral
 from webapp.patient.forms import NewPatient
 from webapp.card.models import Complaint, Anamnesis, GeneralAssessment
 from webapp.db import db_session
 
+=======
+from datetime import datetime
+from webapp.patient.forms import NewPatient, Time
+from webapp.card.forms import CardFormGeneral
+from webapp.card.models import Complaint, Anamnesis
+from flask import request
+from webapp.db import db_session
+>>>>>>> feature/patient
 
 blueprint = Blueprint('patient', __name__, url_prefix='/new_patient')
 
-@blueprint.route('/create', methods=['POST', "GET"])
+time_dict={"time_of_receipt": None,
+           "transmission_time": None,
+           "departure_time": None,
+           "arrival_time" : None,
+           "start_time_of_hospitalization" : None,
+           "time_of_arrival_at_hospital": None,
+           "call_end_time" : None}
+
+def add_time(index,time_dict):
+  time_dict[index] = datetime.now().strftime("%H:%M")
+  print(time_dict)
+  return time_dict
+
+@blueprint.route('/create', methods=['POST','GET'])
 def create():
   title = "Новый пациент"
   patient_form = NewPatient()
-  return render_template('patient.html', page_title=title, form=patient_form)
+  time_form = Time()
+  if request.method == 'POST':
+    index = request.form["index"]
+    add_time(index,time_dict)
+    return render_template("patient.html",page_title=title, form=patient_form, time_form = time_form, time = time_dict)
+  else:
+    return render_template("patient.html",page_title=title, form=patient_form, time_form = time_form, time = time_dict )
 
 @blueprint.route('/main_card', methods=["GET", 'POST'])
 def main_card():
@@ -29,4 +57,11 @@ def main_card_forms():
     complaint = Complaint(complaint=form.complaints.data)
     db_session.add(complaint)
     db_session.commit()
+<<<<<<< HEAD
     flash("Отправлено")
+=======
+    flash("Отправлено")
+
+         
+    
+>>>>>>> feature/patient
