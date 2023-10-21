@@ -1,19 +1,16 @@
 from flask import render_template, flash
 from flask import Blueprint
-<<<<<<< HEAD
 from webapp.card.forms import CardFormGeneral
 from webapp.patient.forms import NewPatient
 from webapp.card.models import Complaint, Anamnesis, GeneralAssessment
 from webapp.db import db_session
 
-=======
 from datetime import datetime
 from webapp.patient.forms import NewPatient, Time
 from webapp.card.forms import CardFormGeneral
 from webapp.card.models import Complaint, Anamnesis
 from flask import request
-from webapp.db import db_session
->>>>>>> feature/patient
+
 
 blueprint = Blueprint('patient', __name__, url_prefix='/new_patient')
 
@@ -57,11 +54,7 @@ def main_card_forms():
     complaint = Complaint(complaint=form.complaints.data)
     db_session.add(complaint)
     db_session.commit()
-<<<<<<< HEAD
-    flash("Отправлено")
-=======
     flash("Отправлено")
 
          
     
->>>>>>> feature/patient
