@@ -1,7 +1,7 @@
 from flask import render_template, flash
 from flask import Blueprint
 from webapp.card.forms import CardFormGeneral
-from webapp.patient.forms import NewPatient
+from webapp.patient.forms import NewPatient, Time
 from webapp.card.models import Complaint, Anamnesis, GeneralAssessment
 from webapp.db import db_session
 
@@ -14,8 +14,8 @@ from flask import request
 
 blueprint = Blueprint('patient', __name__, url_prefix='/new_patient')
 
-time_dict={"time_of_receipt": None,
-           "transmission_time": None,
+time_dict={"time_of_receipt": datetime.now().strftime("%H:%M"),
+           "transmission_time": datetime.now().strftime("%H:%M"),
            "departure_time": None,
            "arrival_time" : None,
            "start_time_of_hospitalization" : None,
