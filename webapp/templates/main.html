@@ -3,10 +3,13 @@
 {% block content %}
   <div class='container'>
     <button type="button" class="btn btn-primary">
-      <a href="{{ url_for("user.login") }}" class='text-white'>Войти</a>
+      <a href="#" class='text-white'>Кнопка</a>
     </button>
     <button type="button" class="btn btn-primary">
-      <a href="{{ url_for('user.register') }}" class='text-white'>Зарегистрироваться</a>
+      <a href="#" class='text-white'>История</a>
+    </button>
+    <botton type="button" class="btn btn-primary">
+      <a href="{{ url_for('patient.create') }}" class='text-white'>Принять вызов</a>
     </button>
   </div>
 {% endblock %}

@@ -27,7 +27,7 @@ def process_login():
       login_user(user, remember=form.remember_me.data) #запоминание пользователя
       print("Уcпех")
       flash("Вы успешно вошли на сайт")
-      return redirect(url_for('patient.create'))
+      return redirect(url_for('user.main'))
   print("Ошибка")
   flash("Неправильное имя пользователя или пароль")
   return redirect(url_for('user.login'))
@@ -62,3 +62,4 @@ def process_reg():
     return redirect(url_for('user.login'))
   flash("Исправьте ошибки в форме")
   return redirect(url_for('user.register'))
+
