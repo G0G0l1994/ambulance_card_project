@@ -31,9 +31,10 @@ def process_login():
   print("Ошибка")
   flash("Неправильное имя пользователя или пароль")
   return redirect(url_for('user.login'))
-@blueprint.route('/patient')
-def page1():
-  return render_template('patient.html')
+
+@blueprint.route('/main')
+def main():
+  return render_template('main.html')
 
 @blueprint.route('/logout')
 def logout():
@@ -44,7 +45,7 @@ def logout():
 @blueprint.route('/register')
 def register():
   if current_user.is_authenticated:
-    return redirect(url_for('patient.create'))
+    return redirect(url_for('user.login'))
   form = RegistrationForm()
   title = "Регистрация"
   return render_template('registration.html', page_title=title, form=form)
@@ -58,6 +59,6 @@ def process_reg():
     db_session.add(new_user)
     db_session.commit()
     flash("Вы зарегистрировались!")
-    return redirect(url_for('patient.create'))
+    return redirect(url_for('user.login'))
   flash("Исправьте ошибки в форме")
   return redirect(url_for('user.register'))
