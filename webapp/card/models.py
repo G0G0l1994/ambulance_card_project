@@ -90,6 +90,7 @@ class  RespiratorySystem(Base):
     
     respiratory_type = Column(String())
     wheezing = Column(String())# хрипы
+    wheezing_localisation = Column(String())# хрипы
     dyspnea = Column(String()) #одышка
     
     
