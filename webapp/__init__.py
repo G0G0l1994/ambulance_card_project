@@ -5,7 +5,7 @@ from webapp.user.models import Doctors
 from webapp.db import Base, engine, db_session
 from webapp.user.views import blueprint as user_blueprint
 from webapp.patient.views import blueprint as patient_blueprint
-from webapp.card.veiws import blueprint as card_blueprint
+from webapp.card.views import blueprint as card_blueprint
 
 import logging
 

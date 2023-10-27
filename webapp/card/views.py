@@ -10,6 +10,7 @@ blueprint = Blueprint('card', __name__, url_prefix='/cards')
 
 @blueprint.route('/main_card', methods=["GET", 'POST'])
 def main_card():
+  title = "Карта вызова"
   form_general = CardFormGeneral()
   form_skin = SkinForm()
   form_breath = BreathingSysthem()
@@ -17,7 +18,7 @@ def main_card():
   form_digestion = DisgestionSystem()
   form_nerves = NervousSystemForm()
   form_urogenital = UrogentitalSystem()
-  return render_template('main_card.html', form_general=form_general, form_skin = form_skin, form_breath = form_breath, form_heart = form_heart, form_digestion = form_digestion, form_nerves = form_nerves, form_urogenital = form_urogenital)
+  return render_template('main_card.html',page_title = title, form_general=form_general, form_skin = form_skin, form_breath = form_breath, form_heart = form_heart, form_digestion = form_digestion, form_nerves = form_nerves, form_urogenital = form_urogenital)
 
 @blueprint.route('/general', methods=["GET", 'POST'])
 def general():

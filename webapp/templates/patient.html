@@ -1,15 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head> <!--https://codehandbook.org/create-login-page-python-flask-bootstrap/-->
-  <!--button{-webkit-appearance:button}[type=button]:not(:disabled),-->
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  <!--<link rel="stylesheet" href="css/all.min.css">
-  <link rel="stylesheet" href="css/style.css">-->
-  <title>Пациент</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block content %}
   <form action="{{ url_for('card.main_card') }}" methor="POST">
     {{ form.hidden_tag() }}
     <div class="container">
@@ -27,43 +18,54 @@
   </form>
           <h2>Время</h2>
           <div class = "col-8">
-             {{time_form.time_of_receipt.label}}: {{time_form.time_of_receipt(value = time_form.current_time)}}
-             {{time_form.transmission_time.label}}: {{time_form.transmission_time(value = time_form.current_time)}}
-          <form action="{{url_for('patient.create')}}" method="POST">
+            <form action="{{url_for('patient.create')}}" method="POST">
+              <input type = "hidden" name="index" value = "time_of_receipt">
+              <h3><button type="button" class="btn btn-secondary" disabled>Время приёма вызова</button>
+              {{time_form.time_of_receipt(value = time["time_of_receipt"])}}</h3>
+              <br>
+              <input type = "hidden" name="index" value = "transmission_time">
+              <h3><button type="button" class="btn btn-secondary" disabled>Время передачи вызова</button>
+              {{time_form.transmission_time(value = time["transmission_time"])}}</h3>
+              <br>
+            </form>
+
+            <form action="{{url_for('patient.create')}}" method="POST">
             <input type = "hidden" name="index" value = "departure_time">
-            <button type="submit" class="btn btn-primary" >Время принятия вызова</button>
-            {%if time["departure_time"] != None %}<h2>{{time["departure_time"]}}</h2>{%endif%}
+            {%if time["departure_time"] == None %}<button type="submit" class="btn btn-primary">Время принятия вызова</button>{% endif %}
+            {%if time["departure_time"] != None %}<h3><button type="button" class="btn btn-secondary" disabled>Время принятия вызова</button>
+            {{time_form.departure_time(value = time["departure_time"])}}</h3>{%endif%}
             <br>
-          </form>
-          <form action="{{url_for('patient.create')}}" method="POST">
-            <input type = "hidden" name="index" value = "arrival_time">
-            <button type="submit" class="btn btn-primary">Время прибытия на вызов</button>
-            {%if time["arrival_time"] != None %}<h2>{{time["arrival_time"]}}</h2>{%endif%}
-            <br>
-          </form>
-          <form action="{{url_for('patient.create')}}" method="POST">
-            <input type = "hidden" name="index" value = "start_time_of_hospitalization">
-            <button type="submit" class="btn btn-primary">Время начала госпитализации</button>
-            {%if time["start_time_of_hospitalization"] != None %}<h2>{{time["start_time_of_hospitalization"]}}</h2>{%endif%}
-            <br>
-          </form>
-          <form action="{{url_for('patient.create')}}" method="POST">
-            <input type = "hidden" name="index" value = "time_of_arrival_at_hospital">
-            <button type="submit" class="btn btn-primary" >Время прибытия в стационар</button>
-            {%if time["time_of_arrival_at_hospital"] != None %}<h2>{{time["time_of_arrival_at_hospital"]}}</h2>{%endif%}
-            <br>
-          </form>
-          <form action="{{url_for('patient.create')}}" method="POST">
-            <input type = "hidden" name="index" value = "call_end_time">
-            <button type="submit" class="btn btn-primary" >Время окончания</button>
-            {%if time["call_end_time"] != None %}<h2>{{time["call_end_time"]}}</h2>{%endif%}
-          </form>
-          </div> 
-        </div>
-    </div> 
-  
+            </form>
 
+            <form action="{{url_for('patient.create')}}" method="POST">
+              <input type = "hidden" name="index" value = "arrival_time">
+              {%if time["arrival_time"] == None %}<button type="submit" class="btn btn-primary">Время прибытия на вызов</button>{% endif %}
+              {%if time["arrival_time"] != None %}<h3><button type="button" class="btn btn-secondary" disabled>Время прибытия на вызов</button>
+              {{time_form.arrival_time(value = time["arrival_time"])}}</h3>{%endif%}
+              <br>
+            </form>
 
-  <script src="js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+            <form action="{{url_for('patient.create')}}" method="POST">
+              <input type = "hidden" name="index" value = "start_time_of_hospitalization">
+              {%if time["start_time_of_hospitalization"] == None %}<button type="submit" class="btn btn-primary">Время начала госпитализации</button>{% endif %}
+              {%if time["start_time_of_hospitalization"] != None %}<h3><button type="button" class="btn btn-secondary" disabled> Время начала госпитализации </button> 
+              {{time_form.start_time_of_hospitalization(value = time["start_time_of_hospitalization"])}}</h3>{%endif%}
+              <br>
+            </form>
+
+            <form action="{{url_for('patient.create')}}" method="POST">
+              <input type = "hidden" name="index" value = "time_of_arrival_at_hospital">
+              {%if time["time_of_arrival_at_hospital"] == None %}<button type="submit" class="btn btn-primary" >Время прибытия в стационар</button>{% endif %}
+              {%if time["time_of_arrival_at_hospital"] != None %}<h3><button type="button" class="btn btn-secondary" disabled>Время прибытия в стационар</button>
+              {{time_form.time_of_arrival_at_hospital(value = time["time_of_arrival_at_hospital"])}}</h3>{% endif %}
+            
+              <br>
+            </form>
+            <form action="{{url_for('patient.create')}}" method="POST">
+              <input type = "hidden" name="index" value = "call_end_time">
+              {% if time["call_end_time"] == None %}<button type="submit" class="btn btn-primary" >Время окончания</button>{% endif %}
+              {%if time["call_end_time"] != None %}<h3><button type="button" class="btn btn-secondary" disabled>Время окончания</button>
+              {{time_form.call_end_time(value = time["call_end_time"])}}</h3>{%endif%}
+            </form>
+          
+{% endblock %}

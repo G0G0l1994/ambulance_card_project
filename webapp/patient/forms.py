@@ -17,6 +17,11 @@ class Time(FlaskForm):
     current_time=datetime.now().strftime("%H:%M")
     time_of_receipt =  DateTimeField("Время приёма", format = "%H:%M")
     transmission_time = DateTimeField("Время передачи", format = "%H:%M")
+    departure_time = DateTimeField("Время принятия вызова", format = "%H:%M")
+    arrival_time = DateTimeField("Время прибытия", format = "%H:%M")
+    start_time_of_hospitalization = DateTimeField("Время начала госпитализации", format = "%H:%M")
+    time_of_arrival_at_hospital = DateTimeField("Время прибытия в стационар", format = "%H:%M")
+    call_end_time = DateTimeField("Окончание вызова", format = "%H:%M")
     
     
     
