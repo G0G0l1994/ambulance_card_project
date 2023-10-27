@@ -66,6 +66,18 @@
   margin-top: 25px;
 }
 
+.form-group{
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+}
+
+.button-finished{
+  width: 100px;
+  margin-top: 25px;
+  margin-bottom: 50px;
+}
+
 @media (max-width: 1540px) {
   .ms-2{
     white-space: wrap;

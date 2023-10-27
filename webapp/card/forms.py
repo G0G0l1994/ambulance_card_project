@@ -75,19 +75,20 @@ class UrogentitalSystem(FlaskForm):
   urine = SelectMultipleField("Моча", choices=[("Светло-жёлтая", "Светло-жёлтая"), ("Мутная", "Мутная"), ("С включениями", "С включениями"), ("С осадком", "С осадком")])
   submit = SubmitField("Готово!", render_kw={"class": "btn btn-primary"})
 
-class StatusLocalis(FlaskForm):
+class StatusLocalisForm(FlaskForm):
   status_localis = TextAreaField("Локальный статус", render_kw={"class": "form-control", "placeholder" : "Локальный статус..."})
+  submit = SubmitField("Готово!", render_kw={"class": "btn btn-primary"})
 
 class AidForm(FlaskForm):
   ecg_before_aid =  TextAreaField("ЭКГ до оказания помощи", render_kw={"class": "form-control", "placeholder" : "ЭКГ до оказания помощи..."})
   ecg_after_aid =  TextAreaField("ЭКГ после оказания помощи", render_kw={"class": "form-control", "placeholder" : "ЭКГ после оказания помощи..."})
   aid_provided = TextAreaField("Оказанная помощь", render_kw={"class": "form-control", "placeholder" : "Оказанная помощь..."})
   t_body_after_aid = FloatField("Температура тела", default=36.6)
-  breath_frequence_after_aid = IntegerField("ЧДД")
+  respiratory_rate_after_aid = IntegerField("ЧДД")
   oxygen_saturation_after_aid = IntegerField("SpO2")
   heart_rate_after_aid = IntegerField("ЧСС")
   pulse_after_aid = IntegerField("Пульс")
-  sugar_after_aid = FloatField("Сахар крови")
+  blood_glucose_after_aid = FloatField("Сахар крови")
   submit = SubmitField("Готово!", render_kw={"class": "btn btn-primary"})
 
 class DiagnosisForm(FlaskForm):

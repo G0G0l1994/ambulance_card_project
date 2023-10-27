@@ -1,8 +1,8 @@
 from flask import render_template, flash, redirect, url_for
 from flask import Blueprint
-from webapp.card.forms import CardFormGeneral, SkinForm, BreathingSysthem, HeartForm, DisgestionSystem, NervousSystemForm, UrogentitalSystem
+from webapp.card.forms import CardFormGeneral, SkinForm, BreathingSysthem, HeartForm, DisgestionSystem, NervousSystemForm, UrogentitalSystem, DiagnosisForm, StatusLocalisForm, AidForm
 from webapp.patient.forms import NewPatient
-from webapp.card.models import Complaint, Anamnesis, GeneralAssessment, IndicatorsBefore, Skin, RespiratorySystem, CardiovascularSystem, DigestiveSystem, NervousSystem, GenitourinarySystem
+from webapp.card.models import Complaint, Anamnesis, GeneralAssessment, IndicatorsBefore, Skin, RespiratorySystem, CardiovascularSystem, DigestiveSystem, NervousSystem, GenitourinarySystem, Diagnosis, AID, IndicatorsAfter, StatusLocalis, ECG
 from webapp.db import db_session
 
 
@@ -18,7 +18,10 @@ def main_card():
   form_digestion = DisgestionSystem()
   form_nerves = NervousSystemForm()
   form_urogenital = UrogentitalSystem()
-  return render_template('main_card.html',page_title = title, form_general=form_general, form_skin = form_skin, form_breath = form_breath, form_heart = form_heart, form_digestion = form_digestion, form_nerves = form_nerves, form_urogenital = form_urogenital)
+  form_aid = AidForm()
+  form_diagnosis = DiagnosisForm()
+  form_status_localis = StatusLocalisForm()
+  return render_template('main_card.html',page_title = title, form_general=form_general, form_skin = form_skin, form_breath = form_breath, form_heart = form_heart, form_digestion = form_digestion, form_nerves = form_nerves, form_urogenital = form_urogenital, form_aid = form_aid, form_diagnosis = form_diagnosis, form_status_localis = form_status_localis)
 
 @blueprint.route('/general', methods=["GET", 'POST'])
 def general():
@@ -150,3 +153,59 @@ def urogenital():
   db_session.add_all([urination, urine, kidney_punch])
   db_session.commit()
   return render_template('main_card.html', form_general=form_general, form_skin = form_skin, form_breath = form_breath, form_heart = form_heart, form_digestion = form_digestion, form_nerves = form_nerves,  form_urogenital = form_urogenital)
+
+@blueprint.route('/local_status')
+def status_localis():
+  form_general = CardFormGeneral()
+  form_skin = SkinForm()
+  form_breath = BreathingSysthem()
+  form_heart = HeartForm()
+  form_digestion = DisgestionSystem()
+  form_nerves = NervousSystemForm()
+  form_urogenital = UrogentitalSystem()
+  form_status_localis = StatusLocalisForm()
+  form_diagnosis = DiagnosisForm()
+  status_localis = StatusLocalis(status_localis = form_status_localis.status_localis.data)
+  db_session.add(status_localis)
+  db_session.commit()
+  return render_template('main_card.html', form_general=form_general, form_skin = form_skin, form_breath = form_breath, form_heart = form_heart, form_digestion = form_digestion, form_nerves = form_nerves,  form_urogenital = form_urogenital, form_status_localis = form_status_localis)
+
+@blueprint.route("/aid")
+def aid():
+  form_general = CardFormGeneral()
+  form_skin = SkinForm()
+  form_breath = BreathingSysthem()
+  form_heart = HeartForm()
+  form_digestion = DisgestionSystem()
+  form_nerves = NervousSystemForm()
+  form_urogenital = UrogentitalSystem()
+  form_status_localis = StatusLocalisForm()
+  form_aid = AidForm()
+  
+  ecg_before_aid = ECG(ECG_before = form_aid.ecg_before_aid.data)
+  ecg_after_aid = ECG(ECG_after = form_aid.ecg_after_aid.data)
+  aid_provided = AID(aid = form_aid.aid_provided.data)
+  t_body_after_aid = IndicatorsAfter(temperature = form_aid.t_body_after_aid.data)
+  respiratory_rate = IndicatorsAfter(respiratory_rate = form_aid.respiratory_rate_after_aid.data)
+  oxygen_saturation_after_aid = IndicatorsAfter(saturation = form_aid.oxygen_saturation_after_aid.data)
+  heart_rate_after_aid = IndicatorsAfter(heartbite = form_aid.heart_rate_after_aid.data)
+  pulse_after_aid = IndicatorsAfter(pulse = form_aid.pulse_after_aid.data)
+  blood_glucose_after_aid = IndicatorsAfter(blood_glucose = form_aid.blood_glucose_after_aid.data)
+  db_session.add_all([ecg_before_aid, ecg_after_aid, aid_provided, t_body_after_aid, respiratory_rate, oxygen_saturation_after_aid, heart_rate_after_aid, pulse_after_aid, blood_glucose_after_aid])
+  db_session.commit()
+  return render_template('main_card.html', form_general=form_general, form_skin = form_skin, form_breath = form_breath, form_heart = form_heart, form_digestion = form_digestion, form_nerves = form_nerves,  form_urogenital = form_urogenital, form_status_localis = form_status_localis, form_aid = form_aid)
+
+@blueprint.route('/diagnosis')
+def diagnosis():
+  form_general = CardFormGeneral()
+  form_skin = SkinForm()
+  form_breath = BreathingSysthem()
+  form_heart = HeartForm()
+  form_digestion = DisgestionSystem()
+  form_nerves = NervousSystemForm()
+  form_urogenital = UrogentitalSystem()
+  form_diagnosis = DiagnosisForm()
+  diagnosis = Diagnosis(diagnosis = form_diagnosis.diagnosis.data)
+  db_session.add(diagnosis)
+  db_session.commit()
+  return render_template('main_card.html', form_general=form_general, form_skin = form_skin, form_breath = form_breath, form_heart = form_heart, form_digestion = form_digestion, form_nerves = form_nerves,  form_urogenital = form_urogenital, form_diagnosis = form_diagnosis)
