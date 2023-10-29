@@ -256,7 +256,7 @@
           {{ form_heart.heart_pulse() }}
         </div>
         
-        <div class="form-group mb-3">
+        <div class="form-group mb-3 checkbox">
           {{form_heart.heart_rate_deficit.label}}
           {{ form_heart.heart_rate_deficit() }}
         </div>
@@ -276,12 +276,52 @@
         <form action ="{{ url_for('card.digestion')}}" method="POST" class="patien-form">
           {{ form_digestion.csrf_token }}
           <div class="form-group mb-3">
-            {{form_digestion.abdominal_condition.label}}
-            {{ form_digestion.abdominal_condition() }}
+            {{form_digestion.stomach_general.label}}
+            {{ form_digestion.stomach_general() }}
           </div>
           <div class="form-group mb-3">
-            {{form_digestion.peritoneal_irritation_symptoms.label}}
-            {{ form_digestion.peritoneal_irritation_symptoms() }}
+            {{form_digestion.stomach_charasteristics.label}}
+            {{ form_digestion.stomach_charasteristics() }}
+          </div>
+          <div class="form-group mb-3 checkbox">
+            {{form_digestion.stomach_participation_in_breathing.label}}
+            {{ form_digestion.stomach_participation_in_breathing() }}
+          </div>
+          <div class="form-group mb-3 checkbox">
+            {{form_digestion.sypmtom_shchetkin_blumberg.label}}
+            {{ form_digestion.sypmtom_shchetkin_blumberg() }}
+          </div>
+          <div class="form-group mb-3 checkbox">
+            {{form_digestion.symptom_voskresensky.label}}
+            {{ form_digestion.symptom_voskresensky() }}
+          </div>
+          <div class="form-group mb-3 checkbox">
+            {{form_digestion.symptom_ortner.label}}
+            {{ form_digestion.symptom_ortner() }}
+          </div>
+          <div class="form-group mb-3 checkbox">
+            {{form_digestion.symptom_rovzing.label}}
+            {{ form_digestion.symptom_rovzing() }}
+          </div>
+          <div class="form-group mb-3 checkbox">
+            {{form_digestion.symptom_pasternatsky.label}}
+            {{ form_digestion.symptom_pasternatsky() }}
+          </div>
+          <div class="form-group mb-3 checkbox">
+            {{form_digestion.symptom_sitkovsky.label}}
+            {{ form_digestion.symptom_sitkovsky() }}
+          </div>
+          <div class="form-group mb-3 checkbox">
+            {{form_digestion.symptom_obraztsov.label}}
+            {{ form_digestion.symptom_obraztsov() }}
+          </div>
+          <div class="form-group mb-3 checkbox">
+            {{form_digestion.symptom_murphy.label}}
+            {{ form_digestion.symptom_murphy() }}
+          </div>
+          <div class="form-group mb-3">
+            {{form_digestion.other_perritonial_symptoms.label}}
+            {{ form_digestion.other_perritonial_symptoms() }}
           </div>
           <div class="form-group mb-3">
             {{form_digestion.stool_type.label}}
@@ -313,11 +353,23 @@
             {{form_nerves.behaviour.label}}
             {{ form_nerves.behaviour() }}
           </div>
-          <div class="form-group mb-3">
-            {{form_nerves.meningial_symptoms.label}}
-            {{ form_nerves.meningial_symptoms() }}
+          <div class="form-group mb-3 checkbox">
+            {{form_nerves.no_meningeal_symptoms.label}}
+            {{ form_nerves.no_meningeal_symptoms() }}
           </div>
-          <div class="form-group mb-3">
+          <div class="form-group mb-3 checkbox">
+            {{form_nerves.symptom_rigidity.label}}
+            {{ form_nerves.symptom_rigidity() }}
+          </div>
+          <div class="form-group mb-3 checkbox">
+            {{form_nerves.symptom_kerning.label}}
+            {{ form_nerves.symptom_kerning() }}
+          </div>
+          <div class="form-group mb-3 checkbox">
+            {{form_nerves.symptom_brudzinski.label}}
+            {{ form_nerves.symptom_brudzinski() }}
+          </div>
+          <div class="form-group mb-3 checkbox">
             {{form_nerves.reaction_to_light.label}}
             {{ form_nerves.reaction_to_light() }}
           </div>
@@ -325,15 +377,15 @@
             {{form_nerves.pupils.label}}
             {{ form_nerves.pupils() }}
           </div>
-          <div class="form-group mb-3">
+          <div class="form-group mb-3 checkbox">
             {{form_nerves.anisocoria.label}}
             {{ form_nerves.anisocoria() }}
           </div>
-          <div class="form-group mb-3">
+          <div class="form-group mb-3 checkbox">
             {{form_nerves.nystagmus.label}}
             {{ form_nerves.nystagmus() }}
           </div>
-          <div class="form-group mb-3">
+          <div class="form-group mb-3 checkbox">
             {{form_nerves.focal_signs.label}}
             {{ form_nerves.focal_signs() }}
           </div>

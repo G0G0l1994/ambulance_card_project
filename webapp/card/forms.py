@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import  StringField, SubmitField, TextAreaField, SelectField, IntegerField, FloatField, SelectMultipleField
+from wtforms import  StringField, SubmitField, TextAreaField, SelectField, IntegerField, FloatField, SelectMultipleField, BooleanField
 from wtforms.validators import DataRequired
 from webapp import db_session
 
@@ -42,14 +42,25 @@ class HeartForm(FlaskForm):
   heart_sounds = SelectField("Тоны сердца", choices=[("Ритмичные", "Ритмичные"), ("Аритмичные", "Аритмичные")], default=("Ритмичные", "Ритмичные"))
   heart_sounds_type = SelectField("Тоны сердца", choices=[("Ясные", "Ясные"), ("Глухие", "Глухие"), ("Приглушены", "Приглушены"), ("Отсутствуют", "Отсутствуют")], default=("Ясные", "Ясные"))
   heart_murmur = SelectMultipleField("Шум", choices=[("Нет", "Нет"), ("Систолический", "Систолический"),("Диастолический", "Диастолический"), ("Трения перикарда", "Трения перикарда"), ("Другое", "Другое")], default=("Нет", "Нет"))
-  heart_pulse = SelectMultipleField("Пульс", choices=[("Ритмичный", "Ритмичный"), ("Аритмичный", "Аритмичный"), ("Слабого наполнения", "Слабого наполнения"), ("Напряжённый", "Напряжённый"), ("Нитевидный", "Нитевидный"), ("Отсутсвует", "Отсутствует")], default=[("Ритмичный", "Ритмичный"), ("Нормальный", "Нормальный")])
-  heart_rate_deficit = SelectField("Дефицит пульса", choices=[(False, "Нет"), (True, "Да")], default=( [(False, "Нет")]))
+  pulse_rhythm = SelectField("Ритм пульса", choices=[("Ритмичный", "Ритмичный"), ("Аритмичный", "Аритмичный")], default=("Ритмичный", "Ритмичный"))
+  heart_pulse = SelectMultipleField("Пульс", choices=[("Нормальный", "Нормальный"),("Слабого наполнения", "Слабого наполнения"), ("Напряжённый", "Напряжённый"), ("Нитевидный", "Нитевидный"), ("Отсутствует", "Отсутствует")], default=[("Нормальный", "Нормальный")])
+  heart_rate_deficit = BooleanField("Дефицит пульса", default=(""))
   heart_accent_tone = StringField("Акцент тона", default=("Нет хрипов"))
   submit = SubmitField("Готово!", render_kw={"class": "btn btn-primary"})
 
 class DisgestionSystem(FlaskForm):
-  abdominal_condition = SelectMultipleField("Живот", choices=[("Мягкий", "Мягкий"), ("Безболезненный", "Безболезненный"), ("Напряжён", "Напряжён"), ("Участвует в акте дыхания", "Участвует в акте дыхания"), ("Вздут", "Вздут"), ("Болезненный", "Болезненный")], default=[("Мягкий", "Мягкий"), ("Безболезненный", "Безболезненный")])
-  peritoneal_irritation_symptoms = SelectMultipleField("Симптомы раздражения брюшины", choices=[("Отрицательны", "Отрицательны"), ("Щёткина-Блюмберга", "Щёткина-Блюмберга"), ("Воскресенского", "Воскресенского"), ("Ортнера", "Ортнера"), ("Ровзинга", "Ровзинга"), ("Пастернацкого", "Пастернацкого"), ("Ситковского", "Ситковского"), ("Образцова", "Образцова"), ("Мерфи", "Мерфи"), ("Другое", "Другое")], default=[("Отрицательны", "Отрицательны")])
+  stomach_general = SelectField("Живот", choices=[("Болезненный", "Болезненный"), ("Безболезненный", "Безболезненный")], default=(("Безболезненный", "Безболезненный")))
+  stomach_charasteristics = SelectField("Живот", choices=[("Мягкий", "Мягкий"), ("Напряжён", "Напряжён"), ("Вздут", "Вздут")], default=(("Безболезненный", "Безболезненный")))
+  stomach_participation_in_breathing = BooleanField(label="Участвует в акте дыхания", default="")
+  sypmtom_shchetkin_blumberg = BooleanField(label="Щёткина-Блюмберга", default="")
+  symptom_voskresensky = BooleanField(label="Воскресенского", default="")
+  symptom_ortner = BooleanField(label="Ортнера", default="")
+  symptom_rovzing = BooleanField(label="Ровзинга", default="")
+  symptom_pasternatsky = BooleanField(label="Пастернацкого", default="")
+  symptom_sitkovsky = BooleanField(label="Ситковкого", default="")
+  symptom_obraztsov = BooleanField(label="Образцова", default="")
+  symptom_murphy = BooleanField(label="Мёрфи", default="")
+  other_perritonial_symptoms = StringField("Другие симптомы", default=("Нет"))
   liver = StringField("Печень", default=("Не увеличена"))
   stool_type = SelectField("Стул", choices=[("Оформлен", "Оформлен"), ("Разжижен", "Разжижен"), ("Жидкий", "Жидкий"), ("Отсутсвует", "Отсутствует")], default=[("Оформлен", "Оформлен")])
   stool_frequence_general = SelectField("Реглярность", choices=[("Регулярный", "Регулярный"), ("Нерегулярный", "Нерегулярный"), ("отсутствует", "Отсутствует")], default=("Регулярный", "Регулярный"))
@@ -58,18 +69,23 @@ class DisgestionSystem(FlaskForm):
 
 class NervousSystemForm(FlaskForm):
   behaviour = SelectField("Поведение", choices=[("Спокойное", "Спокойное"), ("Возбуждённое", "Возбуждённое"), ("Агрессивное", "Агрессивное"), ("Депрессивное", "Депрессивное")], default=[("Спокойное", "Спокойное")])
-  meningial_symptoms = SelectMultipleField("Менингиальные симптомы", choices=[("Нет", "Нет"), ("Ригидность затылочных мыщц", "Ригидность затылочных мышц"), ("Синдром Кернинга", "Синдром Кернинга"), ("Синдром Брудзинского", "Синдром Брудзинского")], default=[("Нет", "Нет")])
-  reaction_to_light = SelectField("Реакция на свет", choices=[("Есть", "Есть"), ("Нет", "Нет")], default=[("Есть", "Есть")])
+  no_meningeal_symptoms = BooleanField(label="Нет менингиальных симптомов:", default=(''))
+  symptom_rigidity = BooleanField(label="Ригидность затылочных мыщц:", default=(''))
+  symptom_kerning = BooleanField(label="Синдром Кернинга:", default=(''))
+  symptom_brudzinski = BooleanField(label="Синдром Брудзинского:", default=('')) 
+  reaction_to_light = BooleanField("Реакция на свет:", default=("Есть"))
   pupils = SelectField("Зрачки", choices=[("Нормальные", "Нормальные"), ("Широкие", "Широкие"), ("Узкие", "Узкие")], default=[("Нормальные", "Нормальные")])
-  anisocoria = SelectField("Анизокория", choices=[("Есть", "Есть"), ("Нет", "Нет")], default=[("Есть", "Есть")])
-  nystagmus = SelectField("Анизокория", choices=[("Есть", "Есть"), ("Нет", "Нет")], default=[("Есть", "Есть")])
-  focal_signs =  SelectField("Анизокория", choices=[("Есть", "Есть"), ("Нет", "Нет")], default=[("Есть", "Есть")])
+  anisocoria = BooleanField("Анизокория:", default=("Есть"))
+  nystagmus = BooleanField("Нистагм:", default=("Есть"))
+  focal_signs =  BooleanField("Очаговые симптомы:", default=("Есть"))
   speech = SelectField("Речь", choices=[("Внятная", "Внятная"), ("Афазия", "Афазия"), ("Дизартрия", "Дизартрия")], default=[("Внятная", "Внятная")])
   paralysis = SelectField("Параличи, парезы", choices=[("Нет", "Нет"), ("Справа", "Справа"), ("Слева", "Слева")], default=[("Нет", "Нет")])
   sensitivity = SelectMultipleField("Чувствительность", choices=[("Сохранена", "Сохранена"), ("Отсутствует", "Отсутствует"), ("Снижена", "Снижена"), ("Слева", "Слева"), ("Справа", "Справа")], default=[("Сохранена", "Сохранена")])
   submit = SubmitField("Готово!", render_kw={"class": "btn btn-primary"})
 
 class UrogentitalSystem(FlaskForm):
+  #разбить: болезненное и безболезненное
+  #свободно, затруднено отсутствует
   urination =  SelectMultipleField("Мочеиспускание", choices=[("Безболезненное", "Безболезненное"), ("Свободное", "Свободное"), ("Болезненное", "Болезненное"), ("Затруднено", "Затруднено"), ("Отсутствует", "Отсутствует")], default=[("Безболезненное", "Безболезненное"), ("Свободное", "Свободное")])
   pounding_symptom = SelectField("Симптом поколачивания", choices=[("Отрицательный с обеих сторон", "Отрицательный с обеих сторон"), ("Положительный слева", "Положительный слева"), ("Положительный справа", "Положительный справа"), ("Положительный с обеих сторон", "Положительный с обеих сторон"), ("Слабоположительный слева", "Слабоположительный слева"), ("Слабоположительный справа", "Слабоположительный справа"), ("Слабоположительный с обеих сторон", "Слабоположительный с обеих сторон")], default=("Отрицательный с обеих сторон", "Отрицательный с обеих сторон"))
   urine = SelectMultipleField("Моча", choices=[("Светло-жёлтая", "Светло-жёлтая"), ("Мутная", "Мутная"), ("С включениями", "С включениями"), ("С осадком", "С осадком")])

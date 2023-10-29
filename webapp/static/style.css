@@ -71,6 +71,15 @@
   flex-direction: column;
   width: fit-content;
 }
+.checkbox{
+  display: flex;
+  flex-direction: row;
+}
+
+.checkbox input{
+  margin-left: 15px;
+  outline: blue;
+}
 
 .button-finished{
   width: 100px;
