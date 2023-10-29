@@ -2,13 +2,11 @@ from flask import render_template, flash
 from flask import Blueprint
 from webapp.card.forms import CardForm
 from webapp.patient.forms import NewPatient, Time
-from webapp.card.models import Complaint, Anamnesis, GeneralAssessment
 from webapp.db import db_session
 
 from datetime import datetime
 from webapp.patient.forms import NewPatient, Time
 from webapp.card.forms import CardForm
-from webapp.card.models import Complaint, Anamnesis
 from flask import request
 
 

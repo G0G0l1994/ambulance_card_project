@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, url_for
 from flask import Blueprint
 from webapp.card.forms import CardForm
 from webapp.patient.forms import NewPatient
-from webapp.card.models import Complaint, Anamnesis, GeneralAssessment, IndicatorsBefore, Skin, RespiratorySystem, CardiovascularSystem, DigestiveSystem, NervousSystem, GenitourinarySystem, Diagnosis, AID, IndicatorsAfter, StatusLocalis, ECG
+from webapp.card.models import Card
 from webapp.db import db_session
 
 
