@@ -97,8 +97,9 @@
     <div class="main">
       <section id="section_general">
       <h2>Общие сведения</h2>
-        <form action="{{ url_for('card.general')}}" method="POST" class="patien-form">
+        <form action="{{ url_for('card.main_card')}}" method="POST" class="patien-form">
           {{ form_general.csrf_token }}
+          {{ form_general.hidden_tag() }}
           <div class="form-group mb-3">
             {{ form_general.complaints() }}
           </div>
@@ -147,361 +148,309 @@
             {{ form_general.blood_glucose() }}
           </div>
 
-          <div class="d-grid button-finished">
-            {{ form_general.submit() }} <!--Кнопка отвправить-->
-          </div>
-        </form>
       </section>
       <section id="section_skin">
       <h2>Кожные покровы</h2>
-      <form action="{{ url_for('card.skin')}}" method="POST" class="patien-form">
-        {{ form_skin.csrf_token }}
         <div class="form-group mb-3">
-          {{form_skin.skin_dryness.label}}
-          {{ form_skin.skin_dryness() }}
+          {{form_general.skin_dryness.label}}
+          {{ form_general.skin_dryness() }}
         </div>
 
         <div class="form-group mb-3">
-          {{form_skin.skin_colour.label}}
-          {{ form_skin.skin_colour() }}
+          {{form_general.skin_colour.label}}
+          {{ form_general.skin_colour() }}
         </div>
 
         <div class="form-group mb-3">
-          {{form_skin.skin_yellowness.label}}
-          {{ form_skin.skin_yellowness() }}
+          {{form_general.skin_yellowness.label}}
+          {{ form_general.skin_yellowness() }}
         </div>
         <div class="form-group mb-3">
-          {{form_skin.skin_rash.label}}
-          {{ form_skin.skin_rash() }}
+          {{form_general.skin_rash.label}}
+          {{ form_general.skin_rash() }}
         </div>
 
         <div class="form-group mb-3">
-          {{form_skin.skin_throat.label}}
-          {{ form_skin.skin_throat() }}
+          {{form_general.skin_throat.label}}
+          {{ form_general.skin_throat() }}
         </div>
 
         <div class="form-group mb-3">
-          {{form_skin.skin_tonsils.label}}
-          {{ form_skin.skin_tonsils() }}
+          {{form_general.skin_tonsils.label}}
+          {{ form_general.skin_tonsils() }}
         </div>
 
         <div class="form-group mb-3">
-          {{form_skin.skin_lymph_nodes.label}}
-          {{ form_skin.skin_lymph_nodes() }}
+          {{form_general.skin_lymph_nodes.label}}
+          {{ form_general.skin_lymph_nodes() }}
         </div>
 
         <div class="form-group mb-3">
-          {{form_skin.skin_swelling.label}}
-          {{ form_skin.skin_swelling() }}
+          {{form_general.skin_swelling.label}}
+          {{ form_general.skin_swelling() }}
         </div>
 
-        <div class="d-grid button-finished">
-          {{ form_skin.submit() }} <!--Кнопка отвправить-->
-        </div>
-      </form>
       
       </section>
       <section id="section_breath">
       <h2>Дыхательная система</h2>
-      <form action="{{ url_for('card.breath')}}" method="POST" class="patient-form">
-        {{ form_breath.csrf_token }}
+    
         <div class="form-group mb-3">
-          {{form_breath.respiratory_type.label}}
-          {{ form_breath.respiratory_type() }}
+          {{form_general.respiratory_type.label}}
+          {{ form_general.respiratory_type() }}
         </div>
 
         <div class="form-group mb-3">
-          {{form_breath.breath_wheezing.label}}
-          {{ form_breath.breath_wheezing() }}
-        </div>
-
-        
-        <div class="form-group mb-3">
-          {{form_breath.breath_wheezing_localisation.label}}
-          {{ form_breath.breath_wheezing_localisation() }}
+          {{form_general.breath_wheezing.label}}
+          {{ form_general.breath_wheezing() }}
         </div>
 
         
         <div class="form-group mb-3">
-          {{form_breath.breath_dyspnea.label}}
-          {{ form_breath.breath_dyspnea() }}
+          {{form_general.breath_wheezing_localisation.label}}
+          {{ form_general.breath_wheezing_localisation() }}
         </div>
 
-        <div class="d-grid button-finished">
-          {{ form_breath.submit() }} <!--Кнопка отвправить-->
+        
+        <div class="form-group mb-3">
+          {{form_general.breath_dyspnea.label}}
+          {{ form_general.breath_dyspnea() }}
         </div>
-      </form>
+
     
       </section>
       <section id="section_heart">
       <h2>Сердечно сосудистая система</h2>
-      <form action ="{{ url_for('card.heart')}}" method="POST" class="patien-form">
-        {{ form_breath.csrf_token }}
+
         <div class="form-group mb-3">
-          {{form_heart.heart_sounds.label}}
-          {{ form_heart.heart_sounds() }}
+          {{form_general.heart_sounds.label}}
+          {{ form_general.heart_sounds() }}
         </div>
         <div class="form-group mb-3">
-          {{form_heart.heart_sounds_type.label}}
-          {{ form_heart.heart_sounds_type() }}
+          {{form_general.heart_sounds_type.label}}
+          {{ form_general.heart_sounds_type() }}
         </div>
 
         <div class="form-group mb-3">
-          {{form_heart.heart_murmur.label}}
-          {{ form_heart.heart_murmur() }}
+          {{form_general.heart_murmur.label}}
+          {{ form_general.heart_murmur() }}
         </div>
 
         <div class="form-group mb-3">
-          {{form_heart.heart_pulse.label}}
-          {{ form_heart.heart_pulse() }}
+          {{form_general.heart_pulse.label}}
+          {{ form_general.heart_pulse() }}
         </div>
         
         <div class="form-group mb-3 checkbox">
-          {{form_heart.heart_rate_deficit.label}}
-          {{ form_heart.heart_rate_deficit() }}
+          {{form_general.heart_rate_deficit.label}}
+          {{ form_general.heart_rate_deficit() }}
         </div>
 
         <div class="form-group mb-3">
-          {{form_heart.heart_accent_tone.label}}
-          {{ form_heart.heart_accent_tone() }}
+          {{form_general.heart_accent_tone.label}}
+          {{ form_general.heart_accent_tone() }}
         </div>
 
-        <div class="d-grid button-finished">
-          {{ form_heart.submit() }} <!--Кнопка отвправить-->
-        </div>
-      </form>
       </section>
       <section id="section_stomach">
         <h2>Органы пищеварения</h2>
-        <form action ="{{ url_for('card.digestion')}}" method="POST" class="patien-form">
-          {{ form_digestion.csrf_token }}
           <div class="form-group mb-3">
-            {{form_digestion.stomach_general.label}}
-            {{ form_digestion.stomach_general() }}
+            {{form_general.stomach_general.label}}
+            {{ form_general.stomach_general() }}
           </div>
           <div class="form-group mb-3">
-            {{form_digestion.stomach_charasteristics.label}}
-            {{ form_digestion.stomach_charasteristics() }}
+            {{form_general.stomach_charasteristics.label}}
+            {{ form_general.stomach_charasteristics() }}
           </div>
           <div class="form-group mb-3 checkbox">
-            {{form_digestion.stomach_participation_in_breathing.label}}
-            {{ form_digestion.stomach_participation_in_breathing() }}
+            {{form_general.stomach_participation_in_breathing.label}}
+            {{ form_general.stomach_participation_in_breathing() }}
           </div>
           <div class="form-group mb-3 checkbox">
-            {{form_digestion.sypmtom_shchetkin_blumberg.label}}
-            {{ form_digestion.sypmtom_shchetkin_blumberg() }}
+            {{form_general.sypmtom_shchetkin_blumberg.label}}
+            {{ form_general.sypmtom_shchetkin_blumberg() }}
           </div>
           <div class="form-group mb-3 checkbox">
-            {{form_digestion.symptom_voskresensky.label}}
-            {{ form_digestion.symptom_voskresensky() }}
+            {{form_general.symptom_voskresensky.label}}
+            {{ form_general.symptom_voskresensky() }}
           </div>
           <div class="form-group mb-3 checkbox">
-            {{form_digestion.symptom_ortner.label}}
-            {{ form_digestion.symptom_ortner() }}
+            {{form_general.symptom_ortner.label}}
+            {{ form_general.symptom_ortner() }}
           </div>
           <div class="form-group mb-3 checkbox">
-            {{form_digestion.symptom_rovzing.label}}
-            {{ form_digestion.symptom_rovzing() }}
+            {{form_general.symptom_rovzing.label}}
+            {{ form_general.symptom_rovzing() }}
           </div>
           <div class="form-group mb-3 checkbox">
-            {{form_digestion.symptom_pasternatsky.label}}
-            {{ form_digestion.symptom_pasternatsky() }}
+            {{form_general.symptom_pasternatsky.label}}
+            {{ form_general.symptom_pasternatsky() }}
           </div>
           <div class="form-group mb-3 checkbox">
-            {{form_digestion.symptom_sitkovsky.label}}
-            {{ form_digestion.symptom_sitkovsky() }}
+            {{form_general.symptom_sitkovsky.label}}
+            {{ form_general.symptom_sitkovsky() }}
           </div>
           <div class="form-group mb-3 checkbox">
-            {{form_digestion.symptom_obraztsov.label}}
-            {{ form_digestion.symptom_obraztsov() }}
+            {{form_general.symptom_obraztsov.label}}
+            {{ form_general.symptom_obraztsov() }}
           </div>
           <div class="form-group mb-3 checkbox">
-            {{form_digestion.symptom_murphy.label}}
-            {{ form_digestion.symptom_murphy() }}
+            {{form_general.symptom_murphy.label}}
+            {{ form_general.symptom_murphy() }}
           </div>
           <div class="form-group mb-3">
-            {{form_digestion.other_perritonial_symptoms.label}}
-            {{ form_digestion.other_perritonial_symptoms() }}
+            {{form_general.other_perritonial_symptoms.label}}
+            {{ form_general.other_perritonial_symptoms() }}
           </div>
           <div class="form-group mb-3">
-            {{form_digestion.stool_type.label}}
-            {{ form_digestion.stool_type() }}
+            {{form_general.stool_type.label}}
+            {{ form_general.stool_type() }}
           </div>
           <div class="form-group mb-3">
-            {{form_digestion.stool_type.label}}
-            {{ form_digestion.stool_type() }}
+            {{form_general.stool_type.label}}
+            {{ form_general.stool_type() }}
           </div>
           <div class="form-group mb-3">
-            {{form_digestion.stool_frequence_general.label}}
-            {{ form_digestion.stool_frequence_general() }}
+            {{form_general.stool_frequence_general.label}}
+            {{ form_general.stool_frequence_general() }}
           </div>
           <div class="form-group mb-3">
-            {{form_digestion.stool_frequence_specific.label}}
-            {{ form_digestion.stool_frequence_specific() }}
+            {{form_general.stool_frequence_specific.label}}
+            {{ form_general.stool_frequence_specific() }}
           </div>
-          <div class="d-grid button-finished">
-            {{ form_heart.submit() }} <!--Кнопка отвправить-->
-          </div>
-        </form>
         
       </section>
       <section id="section_nerves">
         <h2>Нервная система</h2>
-        <form action ="{{ url_for('card.nerves')}}" method="POST" class="patien-form">
-          {{ form_nerves.csrf_token }}
           <div class="form-group mb-3">
-            {{form_nerves.behaviour.label}}
-            {{ form_nerves.behaviour() }}
+            {{form_general.behaviour.label}}
+            {{ form_general.behaviour() }}
           </div>
           <div class="form-group mb-3 checkbox">
-            {{form_nerves.no_meningeal_symptoms.label}}
-            {{ form_nerves.no_meningeal_symptoms() }}
+            {{form_general.no_meningeal_symptoms.label}}
+            {{ form_general.no_meningeal_symptoms() }}
           </div>
           <div class="form-group mb-3 checkbox">
-            {{form_nerves.symptom_rigidity.label}}
-            {{ form_nerves.symptom_rigidity() }}
+            {{form_general.symptom_rigidity.label}}
+            {{ form_general.symptom_rigidity() }}
           </div>
           <div class="form-group mb-3 checkbox">
-            {{form_nerves.symptom_kerning.label}}
-            {{ form_nerves.symptom_kerning() }}
+            {{form_general.symptom_kerning.label}}
+            {{ form_general.symptom_kerning() }}
           </div>
           <div class="form-group mb-3 checkbox">
-            {{form_nerves.symptom_brudzinski.label}}
-            {{ form_nerves.symptom_brudzinski() }}
+            {{form_general.symptom_brudzinski.label}}
+            {{ form_general.symptom_brudzinski() }}
           </div>
           <div class="form-group mb-3 checkbox">
-            {{form_nerves.reaction_to_light.label}}
-            {{ form_nerves.reaction_to_light() }}
+            {{form_general.reaction_to_light.label}}
+            {{ form_general.reaction_to_light() }}
           </div>
           <div class="form-group mb-3">
-            {{form_nerves.pupils.label}}
-            {{ form_nerves.pupils() }}
+            {{form_general.pupils.label}}
+            {{ form_general.pupils() }}
           </div>
           <div class="form-group mb-3 checkbox">
-            {{form_nerves.anisocoria.label}}
-            {{ form_nerves.anisocoria() }}
+            {{form_general.anisocoria.label}}
+            {{ form_general.anisocoria() }}
           </div>
           <div class="form-group mb-3 checkbox">
-            {{form_nerves.nystagmus.label}}
-            {{ form_nerves.nystagmus() }}
+            {{form_general.nystagmus.label}}
+            {{ form_general.nystagmus() }}
           </div>
           <div class="form-group mb-3 checkbox">
-            {{form_nerves.focal_signs.label}}
-            {{ form_nerves.focal_signs() }}
+            {{form_general.focal_signs.label}}
+            {{ form_general.focal_signs() }}
           </div>
           <div class="form-group mb-3">
-            {{form_nerves.speech.label}}
-            {{ form_nerves.speech() }}
+            {{form_general.speech.label}}
+            {{ form_general.speech() }}
           </div>
           <div class="form-group mb-3">
-            {{form_nerves.paralysis.label}}
-            {{ form_nerves.paralysis() }}
+            {{form_general.paralysis.label}}
+            {{ form_general.paralysis() }}
           </div>
           <div class="form-group mb-3">
-            {{form_nerves.sensitivity.label}}
-            {{ form_nerves.sensitivity() }}
+            {{form_general.sensitivity.label}}
+            {{ form_general.sensitivity() }}
           </div>
-          <div class="d-grid button-finished">
-            {{ form_nerves.submit() }} <!--Кнопка отвправить-->
-          </div>
-        </form>
       </section>
       <section id="section_urogenital">
         <h2>Мочеполовая система</h2>
-        <form action ="{{ url_for('card.urogenital')}}" method="POST" class="patien-form">
-          {{ form_urogenital.csrf_token }}
+        <div class="form-group mb-3">
+          {{form_general.painless_urination.label}}
+          {{ form_general.painless_urination() }}
+        </div>
           <div class="form-group mb-3">
-            {{form_urogenital.urination.label}}
-            {{ form_urogenital.urination() }}
+            {{form_general.urination.label}}
+            {{ form_general.urination() }}
           </div>
           <div class="form-group mb-3">
-            {{form_urogenital.pounding_symptom.label}}
-            {{ form_urogenital.pounding_symptom() }}
+            {{form_general.pounding_symptom.label}}
+            {{ form_general.pounding_symptom() }}
           </div>
           <div class="form-group mb-3">
-            {{form_urogenital.urine.label}}
-            {{ form_urogenital.urine() }}
+            {{form_general.urine.label}}
+            {{ form_general.urine() }}
           </div>
 
-          <div class="d-grid button-finished">
-            {{ form_nerves.submit() }} <!--Кнопка отвправить-->
-          </div>
-          
-        </form>
       </section>
       <section id="section_local_status">
         <h2>Локальный статус</h2>
-        <form action ="{{ url_for('card.status_localis')}}" method="POST" class="patien-form">
-          {{ form_status_localis.csrf_token }}
           <div class="form-group mb-3">
-            {{form_status_localis.status_localis.label}}
-            {{ form_status_localis.status_localis() }}
+            {{form_general.status_localis.label}}
+            {{ form_general.status_localis() }}
           </div>
         
-          <div class="d-grid button-finished">
-            {{ form_status_localis.submit() }} <!--Кнопка отвправить-->
-          </div>
-          
-        </form>
       </section>
       <section id="section_help">
         <h2>Оказанная помощь</h2>
-        <form action ="{{ url_for('card.aid')}}" method="POST" class="patien-form">
-          {{ form_aid.csrf_token }}
           <div class="form-group mb-3">
-            {{form_aid.ecg_before_aid.label}}
-            {{ form_aid.ecg_before_aid() }}
+            {{form_general.ecg_before_aid.label}}
+            {{ form_general.ecg_before_aid() }}
           </div>
           <div class="form-group mb-3">
-            {{form_aid.ecg_after_aid.label}}
-            {{ form_aid.ecg_after_aid() }}
+            {{form_general.ecg_after_aid.label}}
+            {{ form_general.ecg_after_aid() }}
           </div>
           <div class="form-group mb-3">
-            {{form_aid.aid_provided.label}}
-            {{ form_aid.aid_provided() }}
+            {{form_general.aid_provided.label}}
+            {{ form_general.aid_provided() }}
           </div>
           <div class="form-group mb-3">
-            {{form_aid.t_body_after_aid.label}}
-            {{ form_aid.t_body_after_aid() }}
+            {{form_general.t_body_after_aid.label}}
+            {{ form_general.t_body_after_aid() }}
           </div>
           <div class="form-group mb-3">
-            {{form_aid.respiratory_rate_after_aid.label}}
-            {{ form_aid.respiratory_rate_after_aid() }}
+            {{form_general.respiratory_rate_after_aid.label}}
+            {{ form_general.respiratory_rate_after_aid() }}
           </div>
           <div class="form-group mb-3">
-            {{form_aid.oxygen_saturation_after_aid.label}}
-            {{ form_aid.oxygen_saturation_after_aid() }}
+            {{form_general.oxygen_saturation_after_aid.label}}
+            {{ form_general.oxygen_saturation_after_aid() }}
           </div>
           <div class="form-group mb-3">
-            {{form_aid.heart_rate_after_aid.label}}
-            {{ form_aid.heart_rate_after_aid() }}
+            {{form_general.heart_rate_after_aid.label}}
+            {{ form_general.heart_rate_after_aid() }}
           </div>
           <div class="form-group mb-3">
-            {{form_aid.pulse_after_aid.label}}
-            {{ form_aid.pulse_after_aid() }}
+            {{form_general.pulse_after_aid.label}}
+            {{ form_general.pulse_after_aid() }}
           </div>
           <div class="form-group mb-3">
-            {{form_aid.blood_glucose_after_aid.label}}
-            {{ form_aid.blood_glucose_after_aid() }}
+            {{form_general.blood_glucose_after_aid.label}}
+            {{ form_general.blood_glucose_after_aid() }}
           </div>
-        
-          <div class="d-grid button-finished">
-            {{ form_aid.submit() }} <!--Кнопка отвправить-->
-          </div>
-          
-        </form>
       </section>
       <section id="section_diagnosis">
         <h2>Диагноз</h2>
-        <form action ="{{ url_for('card.diagnosis')}}" method="POST" class="patien-form">
-          {{ form_diagnosis.csrf_token }}
           <div class="form-group mb-3">
-            {{form_diagnosis.diagnosis.label}}
-            {{ form_diagnosis.diagnosis() }}
+            {{form_general.diagnosis.label}}
+            {{ form_general.diagnosis() }}
           </div>
         
           <div class="d-grid button-finished">
-            {{ form_diagnosis.submit() }} <!--Кнопка отвправить-->
+            {{ form_general.submit() }} <!--Кнопка отвправить-->
           </div>
       </section>
     </div>

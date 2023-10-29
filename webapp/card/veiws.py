@@ -1,6 +1,6 @@
-from flask import render_template, flash, redirect, url_for
+""" from flask import render_template, flash, redirect, url_for
 from flask import Blueprint
-from webapp.card.forms import CardFormGeneral, SkinForm, BreathingSysthem, HeartForm, DisgestionSystem, NervousSystemForm, UrogentitalSystem, DiagnosisForm
+from webapp.card.forms import CardForm
 from webapp.patient.forms import NewPatient
 from webapp.card.models import Complaint, Anamnesis, GeneralAssessment, IndicatorsBefore, Skin, RespiratorySystem, CardiovascularSystem, DigestiveSystem, NervousSystem, GenitourinarySystem, Diagnosis
 from webapp.db import Base
@@ -190,4 +190,4 @@ def diagnosis():
   diagnosis = Diagnosis(diagnosis = form_diagnosis.diagnosis.data)
   db_session.add(diagnosis)
   db_session.commit()
-  return render_template('main_card.html', form_general=form_general, form_skin = form_skin, form_breath = form_breath, form_heart = form_heart, form_digestion = form_digestion, form_nerves = form_nerves,  form_urogenital = form_urogenital, form_diagnosis = form_diagnosis)
+  return render_template('main_card.html', form_general=form_general, form_skin = form_skin, form_breath = form_breath, form_heart = form_heart, form_digestion = form_digestion, form_nerves = form_nerves,  form_urogenital = form_urogenital, form_diagnosis = form_diagnosis) """

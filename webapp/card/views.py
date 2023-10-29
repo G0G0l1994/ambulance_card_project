@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect, url_for
 from flask import Blueprint
-from webapp.card.forms import CardFormGeneral, SkinForm, BreathingSysthem, HeartForm, DisgestionSystem, NervousSystemForm, UrogentitalSystem, DiagnosisForm, StatusLocalisForm, AidForm
+from webapp.card.forms import CardForm
 from webapp.patient.forms import NewPatient
 from webapp.card.models import Complaint, Anamnesis, GeneralAssessment, IndicatorsBefore, Skin, RespiratorySystem, CardiovascularSystem, DigestiveSystem, NervousSystem, GenitourinarySystem, Diagnosis, AID, IndicatorsAfter, StatusLocalis, ECG
 from webapp.db import db_session
@@ -11,18 +11,18 @@ blueprint = Blueprint('card', __name__, url_prefix='/cards')
 @blueprint.route('/main_card', methods=["GET", 'POST'])
 def main_card():
   title = "Карта вызова"
-  form_general = CardFormGeneral()
-  form_skin = SkinForm()
-  form_breath = BreathingSysthem()
-  form_heart = HeartForm()
-  form_digestion = DisgestionSystem()
-  form_nerves = NervousSystemForm()
-  form_urogenital = UrogentitalSystem()
-  form_aid = AidForm()
-  form_diagnosis = DiagnosisForm()
-  form_status_localis = StatusLocalisForm()
-  return render_template('main_card.html',page_title = title, form_general=form_general, form_skin = form_skin, form_breath = form_breath, form_heart = form_heart, form_digestion = form_digestion, form_nerves = form_nerves, form_urogenital = form_urogenital, form_aid = form_aid, form_diagnosis = form_diagnosis, form_status_localis = form_status_localis)
+  form_general = CardForm()
+  return render_template('main_card.html',page_title = title, form_general=form_general)
 
+
+@blueprint.route('/process-card', methods=['POST'])
+def process_login():
+  form = CardForm()
+  if form.validate_on_submit():
+      #и тут все перечислю)
+      return redirect(url_for('#'))
+  flash("Данные карты сохранены")
+""" 
 @blueprint.route('/general', methods=["GET", 'POST'])
 def general():
   form_general = CardFormGeneral()
@@ -208,4 +208,4 @@ def diagnosis():
   diagnosis = Diagnosis(diagnosis = form_diagnosis.diagnosis.data)
   db_session.add(diagnosis)
   db_session.commit()
-  return render_template('main_card.html', form_general=form_general, form_skin = form_skin, form_breath = form_breath, form_heart = form_heart, form_digestion = form_digestion, form_nerves = form_nerves,  form_urogenital = form_urogenital, form_diagnosis = form_diagnosis)
+  return render_template('main_card.html', form_general=form_general, form_skin = form_skin, form_breath = form_breath, form_heart = form_heart, form_digestion = form_digestion, form_nerves = form_nerves,  form_urogenital = form_urogenital, form_diagnosis = form_diagnosis) """
