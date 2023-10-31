@@ -108,8 +108,13 @@
           </div>
 
           <div class="form-group mb-3">
-            {{form_general.condition.label}}
-            {{ form_general.condition() }}
+            {{form_general.general_assessment.label}}
+            {{ form_general.general_assessment() }}
+          </div>
+
+          <div class="form-group mb-3">
+            {{form_general.сonsciousness.label}}
+            {{ form_general.сonsciousness() }}
           </div>
 
           <div class="form-group mb-3">
@@ -135,12 +140,32 @@
             {{ form_general.respiratory_rate() }}
           </div>
           <div class="form-group mb-3">
-            {{form_general.heart_rate.label}}
-            {{ form_general.heart_rate() }}
+            {{form_general.heartbite.label}}
+            {{ form_general.heartbite() }}
           </div>
           <div class="form-group mb-3">
             {{form_general.pulse.label}}
             {{ form_general.pulse() }}
+          </div>
+
+          <div class="form-group mb-3">
+            {{form_general.blood_pressure_systolic.label}}
+            {{ form_general.blood_pressure_systolic() }}
+          </div>
+
+          <div class="form-group mb-3">
+            {{form_general.blood_pressure_diastolic.label}}
+            {{ form_general.blood_pressure_diastolic() }}
+          </div>
+
+          <div class="form-group mb-3">
+            {{form_general.normal_blood_pressure_systolic.label}}
+            {{ form_general.normal_blood_pressure_systolic() }}
+          </div>
+
+          <div class="form-group mb-3">
+            {{form_general.normal_blood_pressure_diastolic.label}}
+            {{ form_general.normal_blood_pressure_diastolic() }}
           </div>
 
           <div class="form-group mb-3">
@@ -152,18 +177,18 @@
       <section id="section_skin">
       <h2>Кожные покровы</h2>
         <div class="form-group mb-3">
-          {{form_general.skin_dryness.label}}
-          {{ form_general.skin_dryness() }}
+          {{form_general.dry_skin.label}}
+          {{ form_general.dry_skin() }}
         </div>
 
         <div class="form-group mb-3">
-          {{form_general.skin_colour.label}}
-          {{ form_general.skin_colour() }}
+          {{form_general.colour_skin.label}}
+          {{ form_general.colour_skin() }}
         </div>
 
         <div class="form-group mb-3">
-          {{form_general.skin_yellowness.label}}
-          {{ form_general.skin_yellowness() }}
+          {{form_general.jaundice.label}}
+          {{ form_general.jaundice() }}
         </div>
         <div class="form-group mb-3">
           {{form_general.skin_rash.label}}
@@ -171,23 +196,23 @@
         </div>
 
         <div class="form-group mb-3">
-          {{form_general.skin_throat.label}}
-          {{ form_general.skin_throat() }}
+          {{form_general.throat.label}}
+          {{ form_general.throat() }}
         </div>
 
         <div class="form-group mb-3">
-          {{form_general.skin_tonsils.label}}
-          {{ form_general.skin_tonsils() }}
+          {{form_general.tonsils.label}}
+          {{ form_general.tonsils() }}
         </div>
 
         <div class="form-group mb-3">
-          {{form_general.skin_lymph_nodes.label}}
-          {{ form_general.skin_lymph_nodes() }}
+          {{form_general.lymph_nodes.label}}
+          {{ form_general.lymph_nodes() }}
         </div>
 
         <div class="form-group mb-3">
-          {{form_general.skin_swelling.label}}
-          {{ form_general.skin_swelling() }}
+          {{form_general.swelling.label}}
+          {{ form_general.swelling() }}
         </div>
 
       
@@ -201,14 +226,14 @@
         </div>
 
         <div class="form-group mb-3">
-          {{form_general.breath_wheezing.label}}
-          {{ form_general.breath_wheezing() }}
+          {{form_general.wheezing.label}}
+          {{ form_general.wheezing() }}
         </div>
 
         
         <div class="form-group mb-3">
-          {{form_general.breath_wheezing_localisation.label}}
-          {{ form_general.breath_wheezing_localisation() }}
+          {{form_general.wheezing_localisation.label}}
+          {{ form_general.wheezing_localisation() }}
         </div>
 
         
@@ -315,8 +340,8 @@
             {{ form_general.stool_frequence_general() }}
           </div>
           <div class="form-group mb-3">
-            {{form_general.stool_frequence_specific.label}}
-            {{ form_general.stool_frequence_specific() }}
+            {{form_general.frequency_of_bowel_movement.label}}
+            {{ form_general.frequency_of_bowel_movement() }}
           </div>
         
       </section>
@@ -331,8 +356,8 @@
             {{ form_general.no_meningeal_symptoms() }}
           </div>
           <div class="form-group mb-3 checkbox">
-            {{form_general.symptom_rigidity.label}}
-            {{ form_general.symptom_rigidity() }}
+            {{form_general. nuchal_rigidity.label}}
+            {{ form_general. nuchal_rigidity() }}
           </div>
           <div class="form-group mb-3 checkbox">
             {{form_general.symptom_kerning.label}}
@@ -386,8 +411,8 @@
             {{ form_general.urination() }}
           </div>
           <div class="form-group mb-3">
-            {{form_general.pounding_symptom.label}}
-            {{ form_general.pounding_symptom() }}
+            {{form_general.kidney_punch.label}}
+            {{ form_general.kidney_punch() }}
           </div>
           <div class="form-group mb-3">
             {{form_general.urine.label}}
@@ -418,8 +443,8 @@
             {{ form_general.aid_provided() }}
           </div>
           <div class="form-group mb-3">
-            {{form_general.t_body_after_aid.label}}
-            {{ form_general.t_body_after_aid() }}
+            {{form_general.temperature_after_aid.label}}
+            {{ form_general.temperature_after_aid() }}
           </div>
           <div class="form-group mb-3">
             {{form_general.respiratory_rate_after_aid.label}}
@@ -430,13 +455,24 @@
             {{ form_general.oxygen_saturation_after_aid() }}
           </div>
           <div class="form-group mb-3">
-            {{form_general.heart_rate_after_aid.label}}
-            {{ form_general.heart_rate_after_aid() }}
+            {{form_general.heartbite_after_aid.label}}
+            {{ form_general.heartbite_after_aid() }}
           </div>
           <div class="form-group mb-3">
             {{form_general.pulse_after_aid.label}}
             {{ form_general.pulse_after_aid() }}
           </div>
+
+          <div class="form-group mb-3">
+            {{form_general.blood_pressure_systolic_after_aid.label}}
+            {{ form_general.blood_pressure_systolic_after_aid() }}
+          </div>
+
+          <div class="form-group mb-3">
+            {{form_general.blood_pressure_diastolic_after_aid.label}}
+            {{ form_general.blood_pressure_diastolic_after_aid() }}
+          </div>
+
           <div class="form-group mb-3">
             {{form_general.blood_glucose_after_aid.label}}
             {{ form_general.blood_glucose_after_aid() }}

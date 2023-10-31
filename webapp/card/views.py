@@ -1,27 +1,53 @@
-from flask import render_template, flash, redirect, url_for
+from flask import render_template, flash, redirect, url_for, request, session
 from flask import Blueprint
 from webapp.card.forms import CardForm
 from webapp.patient.forms import NewPatient
-from webapp.card.models import Card
+from webapp.card.models import CardOne
 from webapp.db import db_session
+import psycopg2
 
+conn = psycopg2.connect(user="vqklygsa", password='5C42T__du4u1BsNdcbgU9e5P8jNmpGyk', host='cornelius.db.elephantsql.com', port='5432')
 
 blueprint = Blueprint('card', __name__, url_prefix='/cards')
 
 @blueprint.route('/main_card', methods=["GET", 'POST'])
 def main_card():
-  title = "Карта вызова"
-  form_general = CardForm()
-  return render_template('main_card.html',page_title = title, form_general=form_general)
-
-
-@blueprint.route('/process-card', methods=['POST'])
-def process_login():
   form = CardForm()
-  if form.validate_on_submit():
-      #и тут все перечислю)
-      return redirect(url_for('#'))
-  flash("Данные карты сохранены")
+  title = "Карта"
+  newform = CardOne()
+  con = request.form
+  print(con)
+  keys = con.keys()
+  columns = ','.join(keys)
+  values = ','.join(['%({})s'.format(k) for k in keys])
+  cursor = conn.cursor()
+  insert = 'insert into Card_one ({0}) values ({1})'.format(columns, values)
+  print(cursor.mogrify(insert, con), "Готово по бд")
+  print(form.jaundice.data)
+  """ newform.complaint = form.complaints.data
+  newform.anamnesis = form.anamnesis.data
+  newform.general_assessment = form.general_assessment.data
+  newform.сonsciousness = form.сonsciousness.data
+  newform.glasgow_scale = form.glazgow_scale.data
+  newform.body_position = form.body_position.data
+  newform.temperature = form.t_body.data
+  newform.respiratory_rate = form.respiratory_rate.data
+  newform.saturation = form.oxygen_saturation.data
+  
+  db_session.add(newform)
+  db_session.commit() """
+  
+  print("Сохранено")
+  flash("Сохранено")
+  return render_template('main_card.html',page_title = title, form_general=form)
+
+""" 
+@blueprint.route('/process-card')
+def process_card():
+  if "anamnesis" in session:
+    anamnesis = session['anamnesis']
+    return f"<h1>{anamnesis}</h1>"
+"""
 """ 
 @blueprint.route('/general', methods=["GET", 'POST'])
 def general():

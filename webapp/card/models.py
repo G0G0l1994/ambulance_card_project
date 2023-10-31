@@ -1,9 +1,9 @@
 from sqlalchemy import Column, Integer, String, Date, Time, Float, Boolean, Text, ForeignKey
-from webapp.db import Base
+from webapp.db import Base, engine
 
 
-class Card(Base):
-    __tablename__ = "Card"
+class CardOne(Base):
+    __tablename__ = "Card_one"
     
     id = Column(Integer, primary_key = True)
     patient_id = Column(Integer,  index=True)
@@ -18,7 +18,7 @@ class Card(Base):
     time_of_arrival_at_hospital = Column(Time) #время прибытия в больницу
     call_end_time = Column(Time) # время окончания вызова
     
-    сomplaint = Column(Text)
+    complaint = Column(Text)
     anamnesis = Column(Text)
     general_assessment = Column(String())
     сonsciousness = Column(String()) #сознание
@@ -42,10 +42,14 @@ class Card(Base):
     tonsils = Column(String())#миндалины
     lymph_nodes = Column(String()) #лимфоузлы
     swelling = Column(String()) #отёки
+    
+    #breathing system
     respiratory_type = Column(String())
     wheezing = Column(String())# хрипы
     wheezing_localisation = Column(String())# хрипы
     dyspnea = Column(String()) #одышка
+    
+    #cardiovascular system
     heart_rate_deficit = Column(Boolean)
     heart_tone_accent = Column(Boolean) #акцент тона
     rhythmic_tone = Column(Boolean)
@@ -64,6 +68,8 @@ class Card(Base):
     thready = Column(Boolean)# нитевидный
     tense = Column(Boolean)# напряжённый
     non_pulse = Column(Boolean)
+    
+    #abdominal
     liver = Column(String()) # печень
     frequency_of_bowel_movement = Column(String())# частота стула
     abdomens_soft = Column(Boolean)
@@ -85,6 +91,8 @@ class Card(Base):
     is_sitkovsky = Column(Boolean)
     is_obraztsova = Column(Boolean)
     is_murphy = Column(Boolean)
+    
+    #nervous system
     behavior = Column(String())
     reaction_to_light = Column(String())
     pupils_of_the_eyes = Column(String())
@@ -104,6 +112,8 @@ class Card(Base):
     reduced = Column(Boolean)
     left_sens = Column(Boolean)
     right_sens = Column(Boolean)
+    
+    #urogenital ssytem
     kidney_punch = Column(String) #симптом покалачивания
     urine = Column(String)
     painless = Column(Boolean)
@@ -115,7 +125,12 @@ class Card(Base):
     cloudy = Column(Boolean)
     with_inclusions = Column(Boolean)
     with_sediment = Column(Boolean)
+    
+    #local status
     status_localis = Column(Text)
+    
+    
+    #aid
     ecg_before = Column(Text)
     ecg_after = Column(Text)
     aid = Column(Text)
@@ -128,3 +143,5 @@ class Card(Base):
     blood_pressure_diastolic_after = Column(Integer)
     blood_glucose_after = Column(Float)
     diagnosis = Column(String)
+    
+Base.metadata.create_all(bind=engine)

@@ -3,7 +3,6 @@ from webapp.db import Base, engine
 
 #-------------------Основные сущности-------------------
 
-      
 class PatientCardHistory(Base):
     __tablename__ = "Patient_Card_History"
     
@@ -21,5 +20,7 @@ class DoctorCardHistory(Base):
     doctor_id = Column(Integer, index=True)
 
 #-------------------Раздел составных частей карт-------------------
+
+
 
 Base.metadata.create_all(bind=engine)
