@@ -22,5 +22,3 @@ class DoctorCardHistory(Base):
 #-------------------Раздел составных частей карт-------------------
 
 
-
-Base.metadata.create_all(bind=engine)

@@ -1,9 +1,8 @@
 from sqlalchemy import Column, Integer, String, Date, Time, Float, Boolean, Text
-from webapp.db import Base
-
+from webapp.db import Base, engine
 
 class CardOne(Base):
-    __tablename__ = "Card_one"
+    __tablename__ = "card_united"
     
     id = Column(Integer, primary_key = True)
     patient_id = Column(Integer,  index=True)
@@ -18,7 +17,7 @@ class CardOne(Base):
     time_of_arrival_at_hospital = Column(Time) #время прибытия в больницу
     call_end_time = Column(Time) # время окончания вызова
     #общие сведения
-    сomplaint = Column(Text)
+    zhaloby = Column(Text)
     anamnesis = Column(Text)
     general_assessment = Column(String)
     сonsciousness = Column(String) #сознание
@@ -108,5 +107,6 @@ class CardOne(Base):
     blood_glucose_after = Column(Float)
     #диагноз
     diagnosis = Column(String)
-    
+
+
 Base.metadata.create_all(bind=engine)
