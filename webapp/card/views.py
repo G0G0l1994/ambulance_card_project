@@ -32,5 +32,6 @@ def main_card():
       print(cursor.mogrify(insert_query, values), "Готово по бд")
       print(form.jaundice.data)
   except psycopg2.DatabaseError as error:
+    conn.rollback()
     print("Error: ", error)
   return render_template('main_card.html',page_title = title, form_general=form)

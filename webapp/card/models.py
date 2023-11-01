@@ -72,12 +72,12 @@ class CardOne(Base):
     is_obraztsova = Column(Boolean)
     is_murphy = Column(Boolean)
     #нервная система
-    behavior = Column(String)
+    behaviour = Column(String)
     reaction_to_light = Column(String)
     pupils_of_the_eyes = Column(String)
     anisocoria = Column(Boolean)
     nystagmus = Column(Boolean)
-    focal_sings = Column(Boolean)
+    focal_signs = Column(Boolean)
     speech = Column(String)
     none_symptoms = Column(Boolean)
     nuchal_rigidity = Column(Boolean)
@@ -107,6 +107,7 @@ class CardOne(Base):
     blood_glucose_after = Column(Float)
     #диагноз
     diagnosis = Column(String)
+    submit = Column(Boolean)
 
 
 Base.metadata.create_all(bind=engine)
