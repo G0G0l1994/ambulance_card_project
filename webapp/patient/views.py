@@ -1,16 +1,20 @@
-from flask import render_template, flash
+from flask import render_template, flash,redirect,url_for
 from flask import Blueprint
 from webapp.card.forms import CardForm
 from webapp.patient.forms import NewPatient, Time
 from webapp.db import db_session
 
+from webapp.utilits import add_time
 from datetime import datetime
 from webapp.patient.forms import NewPatient, Time
 from webapp.card.forms import CardForm
+from webapp.utilits import save_patient
 from flask import request
+import psycopg2
 
 
 blueprint = Blueprint('patient', __name__, url_prefix='/new_patient')
+
 
 time_dict={"time_of_receipt": datetime.now().strftime("%H:%M"),
            "transmission_time": datetime.now().strftime("%H:%M"),
@@ -20,39 +24,19 @@ time_dict={"time_of_receipt": datetime.now().strftime("%H:%M"),
            "time_of_arrival_at_hospital": None,
            "call_end_time" : None}
 
-def add_time(index,time_dict):
-  time_dict[index] = datetime.now().strftime("%H:%M")
-  print(time_dict)
-  return time_dict
 
 @blueprint.route('/create', methods=['POST','GET'])
 def create():
   title = "Пациент"
-  patient_form = NewPatient()
   time_form = Time()
+  patient_form = NewPatient()
   if request.method == 'POST':
     index = request.form["index"]
     add_time(index,time_dict)
     return render_template("patient.html",page_title=title, form=patient_form, time_form = time_form, time = time_dict)
   else:
-    return render_template("patient.html",page_title=title, form=patient_form, time_form = time_form, time = time_dict )
-
-# @blueprint.route('/main_card', methods=["GET", 'POST'])
-# def main_card():
-#   form = CardFormGeneral()
-#   return render_template('main_card.html', form=form)
-
-# @blueprint.route('/main_card', methods=["GET", 'POST'])
-# def main_card_forms():
-#   form = CardFormGeneral()
-#   if form.validate_on_submit():
-#     anamnesis = Anamnesis(anamnesis=form.anamnesis.data)
-#     db_session.add(anamnesis)
-#     db_session.commit()
-#     complaint = Complaint(complaint=form.complaints.data)
-#     db_session.add(complaint)
-#     db_session.commit()
-#     flash("Отправлено")
+    save_patient(patient_form)
+    return render_template("patient.html",page_title=title, form=patient_form, time_form = time_form, time = time_dict)
 
          
     
