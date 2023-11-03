@@ -3,7 +3,7 @@ from flask import Blueprint
 from webapp.card.forms import CardForm
 from webapp.patient.forms import NewPatient, Time
 from webapp.db import db_session
-
+from webapp.config import time_dict
 from webapp.utilits import add_time
 from datetime import datetime
 from webapp.patient.forms import NewPatient, Time
@@ -16,13 +16,13 @@ import psycopg2
 blueprint = Blueprint('patient', __name__, url_prefix='/new_patient')
 
 
-time_dict={"time_of_receipt": datetime.now().strftime("%H:%M"),
-           "transmission_time": datetime.now().strftime("%H:%M"),
-           "departure_time": None,
-           "arrival_time" : None,
-           "start_time_of_hospitalization" : None,
-           "time_of_arrival_at_hospital": None,
-           "call_end_time" : None}
+# time_dict={"time_of_receipt": datetime.now().strftime("%H:%M"),
+#            "transmission_time": datetime.now().strftime("%H:%M"),
+#            "departure_time": None,
+#            "arrival_time" : None,
+#            "start_time_of_hospitalization" : None,
+#            "time_of_arrival_at_hospital": None,
+#            "call_end_time" : None}
 
 
 @blueprint.route('/create', methods=['POST','GET'])

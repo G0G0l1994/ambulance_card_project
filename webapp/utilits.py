@@ -36,7 +36,7 @@ def add_time(index: any ,time_dict: dict) -> dict:
     return time_dict
 
 
-def save_card(form, table_name,conn):
+def save_card(form, table_name,conn, time_dict={}):
     """
     Сохранение в БД
     [Args]:
@@ -47,9 +47,9 @@ def save_card(form, table_name,conn):
     try:
         con = request.form
         cursor = conn.cursor()
-        keys = list(con.keys())
+        keys = list(con.keys())+list(time_dict.keys())
         print(keys)
-        values = list(con.values())
+        values = list(con.values())+list(time_dict.values())
         print(values)
         columns = ', '.join(keys)
         placeholders = ', '.join(['%s' for _ in range(len(keys))])
