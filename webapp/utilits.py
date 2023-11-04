@@ -1,10 +1,14 @@
 from faker import Faker
 from flask import request
 from datetime import datetime
+
 import psycopg2
 from psycopg2 import Error
 from webapp.patient.models import Patient
 from webapp.db import db_session
+
+
+
 
 def create_patient():
     """Генерирует данные пациента, моделируя действия диспетчера службы СМП
@@ -36,7 +40,7 @@ def add_time(index: any ,time_dict: dict) -> dict:
     return time_dict
 
 
-def save_card(form, table_name,conn, time_dict={}):
+def save_card(form, table_name,conn, data_dict={}):
     """
     Сохранение в БД
     [Args]:
@@ -47,9 +51,9 @@ def save_card(form, table_name,conn, time_dict={}):
     try:
         con = request.form
         cursor = conn.cursor()
-        keys = list(con.keys())+list(time_dict.keys())
+        keys = list(con.keys())+list(data_dict.keys())
         print(keys)
-        values = list(con.values())+list(time_dict.values())
+        values = list(con.values())+list(data_dict.values())
         print(values)
         columns = ', '.join(keys)
         placeholders = ', '.join(['%s' for _ in range(len(keys))])
@@ -62,13 +66,28 @@ def save_card(form, table_name,conn, time_dict={}):
         conn.rollback()
         print("Error: ", error)
 
-def save_patient(patient_form):
-    patient = Patient(first_name = patient_form.first_name.data,
-                        last_name = patient_form.last_name.data,
-                        surname = patient_form.surname.data,
-                        address = patient_form.address.data,
-                        date_of_birth = patient_form.date_of_birth.data)
-    db_session.add(patient)
-    db_session.commit()
-    print(f"{patient} сохранён")
+def save_patient(patient_form,data_dict):
     
+    """сохранение пациента в БД
+
+    Args:
+        patient_form (wtf.form): Any
+    """
+    current_patient = Patient.query.filter(Patient.last_name == patient_form.last_name.data).first()
+    if current_patient:
+        print(current_patient)
+        data_dict['patient_id'] = current_patient.id
+        return data_dict
+    else:
+        patient = Patient(first_name = patient_form.first_name.data,
+                            last_name = patient_form.last_name.data,
+                            surname = patient_form.surname.data,
+                            address = patient_form.address.data,
+                            date_of_birth = patient_form.date_of_birth.data)
+        db_session.add(patient)
+        db_session.commit()
+        current_patient = Patient.query.filter(Patient.last_name == patient_form.last_name.data).first()
+        print(f"{patient} сохранён")
+        data_dict['patient_id'] = current_patient.id
+        return data_dict
+

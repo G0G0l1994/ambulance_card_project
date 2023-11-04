@@ -1,5 +1,7 @@
 from sqlalchemy import Column, Integer, String, Date
 from webapp.db import Base
+from sqlalchemy.orm import relationship
+
 
 
 class Patient(Base):
@@ -11,6 +13,7 @@ class Patient(Base):
     surname = Column(String)
     address = Column(String)
     date_of_birth = Column(Date)
+    
     
 
     def __repr__(self):

@@ -1,14 +1,14 @@
-from sqlalchemy import Column, Integer, String, Date, Time, Float, Boolean, Text, ForeignKey
+from sqlalchemy import Column, Integer, String, Date, Time, Float, Boolean, Text
 from webapp.db import Base, engine
-from webapp.patient.models import Patient
-from webapp.user.models import Doctors
+
 
 class CardOne(Base):
     __tablename__ = "card_united"
     
     id = Column(Integer, primary_key = True)
-    patient_id = Column(Integer,ForeignKey(Patient.id),  index=True, nullable=False )
-    doctor_id = Column(Integer,ForeignKey(Doctors.id), index=True, nullable=False)
+    patient_id = Column(Integer,  index=True )
+    doctor_id = Column(Integer,index=True)
+    
     #время
     date_card = Column(Date) # дата карты
     time_of_receipt = Column(Time) # время приёма

@@ -1,5 +1,5 @@
 from werkzeug.security import generate_password_hash, check_password_hash
-from sqlalchemy import Column, Integer, String, DATE, DateTime, Float, Boolean, Text
+from sqlalchemy import Column, Integer, String
 from webapp.models import Base
 from flask_login import UserMixin
 
