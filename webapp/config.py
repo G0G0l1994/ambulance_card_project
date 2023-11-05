@@ -10,5 +10,6 @@ data_dict={"time_of_receipt": datetime.now().strftime("%H:%M"),
            "start_time_of_hospitalization" : None,
            "time_of_arrival_at_hospital": None,
            "call_end_time" : None,
+           'doctor_id' : None,
            "patient_id": None}
 

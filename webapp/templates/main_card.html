@@ -419,6 +419,10 @@
             {{ form_general.kidney_punch() }}
           </div>
           <div class="form-group mb-3">
+            {{form_general.painless_urination.label}}
+            {{ form_general.painless_urination() }}
+          </div>
+          <div class="form-group mb-3">
             {{form_general.characteristic_urine.label}}
             {{ form_general.characteristic_urine() }}
           </div>
@@ -492,6 +496,7 @@
           <div class="d-grid button-finished">
             {{ form_general.submit() }} <!--Кнопка отвправить-->
           </div>
+          <span class="login-link"><a href="{{ url_for('card.finished_card') }}" class="login-btn px-2">Готовая карта</a></span>
       </section>
     </div>
 

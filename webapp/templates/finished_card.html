@@ -1,16 +1,208 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head> <!--https://codehandbook.org/create-login-page-python-flask-bootstrap/-->
+  <!--button{-webkit-appearance:button}[type=button]:not(:disabled),-->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel='stylesheet' href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='font-awesome.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  
+  <title>Готовая карта</title>
+  <style>
+    html, body {
+      font-size: 14px;
+    }
+    h2, h3, h4 {
+      font-size: 16px;
+    }
+    body{
+      height:297mm;
+      width:210mm;
+      background: #c7d8ff;
+      margin: 20mm 10mm 20mm 20mm;
+    }
 
-{% block content %}
+    .wrapper-small {
+      display: flex;
+      flex-wrap: wrap;
+    }
 
-<table border="1">
-  {% for key, value in input_values.items() %}
-  <tr>
-    <th>
-      {{key}}
-    </th>
-    <td>
-      {{value}}
-    </td>
-  </tr>
-  {% endfor %}
-{% endblock %}
+    .wrapper-small p{
+      width: fit-content;
+      white-space: nowrap;
+      margin-right: 15px;
+    }
+
+  </style>
+</head>
+<body>
+<h1>Готовая карта</h1>
+  <section>
+    <div class='wrapper-small'>
+      {% for row in data %}
+      <div><p>Приема вызова</p><p>{{row[4]}}</p></div>
+      <div><p>Передачи вызова бригаде</p><p>{{row[5]}}</p></div>
+      <div><p>Выезда на вызов</p><p>{{row[6]}}</p></div>
+      <div><p>Прибытия на место вызова</p><p>{{row[7]}}</p></div>
+      <div><p>Начало госпитализации</p><p>{{row[8]}}</p></div>
+      <div><p>Прибытие в стационар</p><p>{{row[9]}}</p></div>
+      <div><p>Окончания вызова</p><p>{{row[10]}}</p></div>
+      <div><p></p><p></p></div>
+      {% endfor %}
+    </div>
+    <section>
+      {% for row in data %}
+      <p>Дата: {{row[3]}}</p>
+      <div class='wrapper-small'>
+        <p>Фамилия: </p>
+        <p>Имя: </p>
+        <p>Отчество: </p>
+        <p>Дата рождения: </p>
+        <p>Адрес проживания: </p>
+        <p>Жалобы: {{row[11]}}</p>
+        <p>Анамнез: {{row[12]}}</p>
+      </div>
+      {% endfor %}
+    </section>  
+        <section>
+          <h3>Показатели до оказания помощи</h3>
+          <div class='wrapper-small'>
+            {% for row in data %}
+            <div><p>АД</p><p>{{row[22]}}/{{row[23]}}</p></div>
+            <div><p>АД привычное</p><p>{{row[24]}}/{{row[25]}}</p></div>
+            <div><p>ЧСС</p><p>{{row[19]}}</p></div>
+            <div><p>Пульс</p><p>{{row[21]}}</p></div>
+            <div><p>ЧДД</p><p>{{row[18]}}</p></div>
+            <div><p>SpO2</p><p>{{row[20]}}</p></div>
+            <div><p>Сахар крови</p><p>{{row[26]}}</p></div>
+            {% endfor %}
+          </div>
+        </section>
+      <section>
+        <h3>Объективно:</h3>
+        <div class='wrapper-small'>
+        {% for row in data %}
+          <p>Общее состоние: {{row[13]}}</p>
+          <p>Сознание: {{row[14]}}</p>
+          <p>Шкало Глазго: {{row[15]}}</p>
+          <p >Положение тела: {{row[16]}}</p>
+        </div>
+        <div class='wrapper-small'>
+          <p>Кожные покровы: {{row[27]}}</p>
+          <p>Желтушность: {{row[29]}}</p>
+          <p>Цвет: {{row[28]}}</p>
+          <p>Сыпь: {{row[30]}}</p>
+          <p>Зев: {{row[31]}}</p>
+          <p>Миндалины: {{row[32]}}</p>
+          <p>Лимфоузлы: {{row[33]}}</p>
+          <p>Отеки: {{row[34]}}</p>
+        </div>
+      {% endfor %}
+      </section>
+      <section>
+        <h4>Дыхательная система:</h4>
+        <div class='wrapper-small'>
+          {% for row in data %}
+          <p>Тип дыхания: {{row[35]}}</p>
+          <p>Хрипы: {{row[36]}}</p>
+          <p>Локализация хрипов: {{row[37]}}</p> 
+          <p>Одышка: {{row[38]}}</p>
+          {% endfor %}
+        </div>
+      </section>
+      <h4>Сердечно-сосудистая система:</h4>
+      <div class='wrapper-small'>
+        {% for row in data %}
+        <p>Тоны сердца: {{row[42]}}</p>
+        <p>Ритмичность: {{row[41]}} </p>
+        <p>Шум: {{row[43]}}</p>
+        <p>Пульс: {{row[45]}}</p>
+        <p>Ритмичность пульса: {{row[44]}}</p>
+        <p>Дефицит пульса: {{row[39]}}</p>
+        <p>Акцент тона: {{row[40]}}</p>
+        {% endfor %}
+      </div>
+      <section>
+        <h4>Органы пищеварения:</h4>
+        <div class='wrapper-small'>
+          {% for row in data %}
+          <p>Живот: {{row[47]}} {{row[48]}}</p>
+          <p>Симптомы раздражения брюшины: </p>
+          <p>Стул: {{row[50]}}</p>
+          <p>Регулярность: {{row[51]}}</p>
+          <p>Частота: {{row[52]}}</p>
+          {% endfor %}
+        </div>
+      </section>
+      <section>
+        <h4>Нервная система:</h4>
+        <div class='wrapper-small'>
+          {% for row in data %}
+          <p>Поведение: {{row[61]}}</p>
+          <p>Менингиальные симптомы: </p>
+          <p>Реакция на свет: {{row[62]}}</p>
+          <p>Зрачки: {{row[63]}}</p>
+          <p>Анизокория: {{row[64]}}</p>
+          <p>Нистагм: {{row[65]}}</p>
+          <p>Речь: {{row[67]}}</p>
+          <p>Параличи/парезы: {{row[72]}}</p>
+          <p>Чувствительность: {{row[73]}}</p>
+          {% endfor %}
+        </div>
+      </section>
+      <section>
+        <h4>Мочеполовая система</h4>
+        <div class='wrapper-small'>
+          {% for row in data %}
+          <p>Мочеиспускание: {{row[76]}}</p>
+          <p>Симптом поколачивания: {{row[74]}} </p>
+          <p>Моча: {{row[75]}}</p>
+          {% endfor %}
+        </div>
+      </section>
+      <section>
+        <h4>Локальный статус:</h4>
+        {% for row in data %}
+        <p>Локальный статус: {{row[77]}}</p>
+        {% endfor %}
+      </section>
+      <section>
+        <h4>Оказанная помощь:</h4>
+        {% for row in data %}
+        <p>{{row[80]}}</p>
+        {% endfor %}
+      </section>
+      <section>
+        <div class='wrapper-small'>
+          {% for row in data %}
+          <p>ЭКГ до оказания помощи: {{row[78]}}</p>
+          <p>ЭКГ после оказания помощи: {{row[79]}}</p>
+          {% endfor %}
+        </div>
+      </section>
+      <section>
+        <h4>Показатели после оказания помощи</h4>
+        <div class='wrapper-small'>
+          {% for row in data %}
+          <p>АД: {{row[86]}}/{{row[87]}}</p>
+          <p>ЧСС: {{row[83]}}</p>
+          <p>Пульс: {{row[85]}}</p>
+          <p>ЧДД: {{row[82]}}</p>
+          <p>SpO2: {{row[84]}}</p>
+          <p>Сахар крови: {{row[88]}}</p>
+          {% endfor %}
+        </div>
+      </section>
+      <section>
+        {% for row in data %}
+        <h4>Диагноз:</h4>
+        <p>{{row[89]}}</p>
+        {% endfor %}
+      </section>
+      <section>
+        <p>ФИО врача: </p>
+      </section>
+</table>
+</body>

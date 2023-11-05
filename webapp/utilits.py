@@ -1,7 +1,7 @@
 from faker import Faker
 from flask import request
 from datetime import datetime
-
+from flask_login import current_user
 import psycopg2
 from psycopg2 import Error
 from webapp.patient.models import Patient
@@ -60,11 +60,16 @@ def save_card(form, table_name,conn, data_dict={}):
         insert_query = f'INSERT INTO {table_name} ({columns}) VALUES ({placeholders})'
         cursor.execute(insert_query, values)
         conn.commit()
-        print(cursor.mogrify(insert_query, values), "Готово по бд")
-        print(form.jaundice.data)
+        print(cursor.mogrify(insert_query, values), "Готово добавление в БД")
     except psycopg2.DatabaseError as error:
         conn.rollback()
         print("Error: ", error)
+
+def save_doctor(data_dict):
+    current_doctor = current_user.id 
+    data_dict['doctor_id'] = current_doctor
+    print("Доктор сохранен")
+    return data_dict
 
 def save_patient(patient_form,data_dict):
     

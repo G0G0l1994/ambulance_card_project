@@ -90,6 +90,7 @@ class CardOne(Base):
     #мочеполовая система
     kidney_punch = Column(String) #симптом покалачивания
     characteristic_urine = Column(String)
+    painless_urination = Column(String)
     characteristic_urination = Column(String)
     #статус локалис
     status_localis = Column(Text)

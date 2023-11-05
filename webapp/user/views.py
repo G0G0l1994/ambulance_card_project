@@ -4,6 +4,7 @@ from flask import Blueprint
 from webapp.user.forms import LoginForm, RegistrationForm
 from webapp.user.models import Doctors
 from webapp.db import Base, db_session
+from webapp.config import data_dict
 import sys
 
 blueprint = Blueprint('user', __name__, url_prefix='/users')
@@ -27,6 +28,7 @@ def process_login():
       login_user(user, remember=form.remember_me.data) #запоминание пользователя
       print("Уcпех")
       flash("Вы успешно вошли на сайт")
+      print(f"ID текущего доктора: {current_user.id}")
       return redirect(url_for('user.main'))
   print("Ошибка")
   flash("Неправильное имя пользователя или пароль")
@@ -45,6 +47,7 @@ def logout():
 @blueprint.route('/register')
 def register():
   if current_user.is_authenticated:
+    print(f"ID текущего доктора: {current_user.id}")
     return redirect(url_for('user.login'))
   form = RegistrationForm()
   title = "Регистрация"
@@ -59,6 +62,7 @@ def process_reg():
     db_session.add(new_user)
     db_session.commit()
     flash("Вы зарегистрировались!")
+    print(f"ID текущего доктора: {current_user.id}")
     return redirect(url_for('user.login'))
   flash("Исправьте ошибки в форме")
   return redirect(url_for('user.register'))
