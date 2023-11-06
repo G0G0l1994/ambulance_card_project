@@ -11,13 +11,13 @@ class CardOne(Base):
     
     #время
     date_card = Column(Date) # дата карты
-    time_of_receipt = Column(Time) # время приёма
-    transmission_time = Column(Time) # время передачи
-    departure_time = Column(Time) #время выезда бригады
-    arrival_time = Column(Time) #время прибытия
-    start_time_of_hospitalization = Column(Time) #время начала госпитализации
-    time_of_arrival_at_hospital = Column(Time) #время прибытия в больницу
-    call_end_time = Column(Time) # время окончания вызова
+    time_of_receipt = Column(String) # время приёма
+    transmission_time = Column(String) # время передачи
+    departure_time = Column(String) #время выезда бригады
+    arrival_time = Column(String) #время прибытия
+    start_time_of_hospitalization = Column(String) #время начала госпитализации
+    time_of_arrival_at_hospital = Column(String) #время прибытия в больницу
+    call_end_time = Column(String) # время окончания вызова
     #общие сведения
     zhaloby = Column(Text)
     anamnesis = Column(Text)
@@ -110,7 +110,10 @@ class CardOne(Base):
     blood_glucose_after = Column(Float)
     #диагноз
     diagnosis = Column(String)
-    submit = Column(Boolean)
+    submit = Column(String)
+
+    csrf_token = Column(Text)
+
 
 
 Base.metadata.create_all(bind=engine)

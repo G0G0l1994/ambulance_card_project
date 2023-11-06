@@ -28,8 +28,6 @@ def create():
                            time = data_dict)
   else:
     save_patient(patient_form,data_dict)
-    # get_patient_id(patient_form)
-    # print(patient_id)
     
     return render_template("patient.html",page_title=title, 
                            form=patient_form, time_form = time_form, 
