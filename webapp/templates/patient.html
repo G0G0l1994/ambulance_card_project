@@ -66,6 +66,9 @@
               {% if time["call_end_time"] == None %}<button type="submit" class="btn btn-primary" >Время окончания</button>{% endif %}
               {%if time["call_end_time"] != None %}<h3><button type="button" class="btn btn-secondary" disabled>Время окончания</button>
               {{time_form.call_end_time(value = time["call_end_time"])}}</h3>{%endif%}
+              <br>
             </form>
-          
+            <form action="{{url_for('card.update')}}" method="POST">
+              <button tyoe="submit" class="btn btn-primary"> Завершить вызов<button>
+            </form>
 {% endblock %}

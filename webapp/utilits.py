@@ -6,7 +6,7 @@ import psycopg2
 from psycopg2 import Error
 from webapp.patient.models import Patient
 from webapp.db import db_session
-from webapp.config import form_dict
+
 
 
 
@@ -36,7 +36,7 @@ def add_time(index: any ,time_dict: dict) -> dict:
     Returns:
         dict: saved time
     """
-    time_dict[index] = datetime.now().strftime('%H:%M')
+    time_dict[index] = datetime.now().strftime('%H-%M')
     print(time_dict)
     return time_dict
 
@@ -51,26 +51,36 @@ def save_card(table_name:str,conn, data_dict={}):
     """
     try:
         con = request.form
-        cursor = conn.cursor()
-        keys = list(con.keys())+list(data_dict.keys())
-        print(keys)
-        values = list(con.values())+list(data_dict.values())
-        print(values)
-        columns = ', '.join(keys)
-        placeholders = ', '.join(['%s' for _ in range(len(keys))])
-        insert_query = f'INSERT INTO {table_name} ({columns}) VALUES ({placeholders})'
-        print(insert_query)
-        cursor.execute(insert_query, values)
-        conn.commit()
-        print(cursor.mogrify(insert_query, values), "Готово добавление в БД")
-        db_session.close()
+        
+        if len(con)>0:
+            for k,v in con.items():
+                if v.isdigit():
+                    data_dict.setdefault(k,int(v))
+                elif "." in v and k!="csrf_token":
+                    data_dict.setdefault(k,float(v))
+                elif v=='y':
+                    data_dict.setdefault(k,True)
+                else:
+                    data_dict.setdefault(k,v)
+            print(data_dict)
+            cursor = conn.cursor()
+            keys = list(data_dict.keys())
+            print(keys)
+            values = list(data_dict.values())
+            print(values)
+            columns = ', '.join(keys)
+            placeholders = ', '.join(['%s' for _ in range(len(keys))])
+            insert_query = f'INSERT INTO {table_name} ({columns}) VALUES ({placeholders})'
+            print(insert_query)
+            cursor.execute(insert_query, values)
+            conn.commit()
+            print(cursor.mogrify(insert_query, values), "Готово добавление в БД")
+            db_session.close()
+            return data_dict
     except psycopg2.DatabaseError as error:
         conn.rollback()
         print("Error: ", error)
-    finally:
-        form_dict = dict(request.form)
-        print(form_dict)
-        return form_dict
+    
 
 def save_doctor(data_dict):
     current_doctor = current_user.id 
@@ -108,7 +118,7 @@ def save_patient(patient_form,data_dict):
         print(data_dict)
         return data_dict
 
-def update_data(table_name: str,conn, data_dict={},form_dict=form_dict):
+def update_time(table_name: str,conn, data_dict={}):
     """
     Сохранение в БД
     [Args]:
@@ -117,11 +127,10 @@ def update_data(table_name: str,conn, data_dict={},form_dict=form_dict):
     conn : connect for DB
     """
     try:
+        
         cursor = conn.cursor()
-        keys = list(form_dict.keys())+list(data_dict.keys())
-        print(keys)
-        values = list(form_dict.values())+list(data_dict.values())
-        print(values)
+        keys = list(data_dict.keys())
+        values = list(data_dict.values())
         columns = ', '.join(keys)
         placeholders = ', '.join(['%s' for _ in range(len(keys))])
         update_query = f'UPDATE {table_name} SET ({columns}) = ( select {placeholders} ) WHERE patient_id = {data_dict["patient_id"]}'
@@ -130,6 +139,7 @@ def update_data(table_name: str,conn, data_dict={},form_dict=form_dict):
         conn.commit()
         print(cursor.mogrify(update_query, values), "Обновление в БД")
         db_session.close()
+        
     except psycopg2.DatabaseError as error:
         conn.rollback()
         print("Error: ", error)

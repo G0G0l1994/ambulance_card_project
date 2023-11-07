@@ -3,8 +3,9 @@ SECRET_KEY = "ewfrejugjrtgbjrtbtrhnbnrtbnttbtjgijitgejv nrjergegtgnrtrtjrirtjgrn
 
 REMEMBER_COOKIE_DURATION = timedelta(days=30)
 
-data_dict={"time_of_receipt": datetime.now().strftime('%H:%M'),
-           "transmission_time": datetime.now().strftime('%H:%M'),
+data_dict={"date_card": datetime.now().strftime('%d-%m-%y'),
+           "time_of_receipt": datetime.now().strftime('%H-%M'),
+           "transmission_time": datetime.now().strftime('%H-%M'),
            "departure_time": None,
            "arrival_time" : None,
            "start_time_of_hospitalization" : None,
@@ -13,4 +14,3 @@ data_dict={"time_of_receipt": datetime.now().strftime('%H:%M'),
            'doctor_id' : None,
            "patient_id": None}
 
-form_dict = {}

@@ -3,10 +3,10 @@ from flask import Blueprint
 from webapp.card.forms import CardForm
 
 
-from webapp.utilits import save_card, save_doctor,update_data
+from webapp.utilits import save_card, save_doctor,update_time
 import psycopg2
 from psycopg2 import Error
-from webapp.config import data_dict, form_dict
+from webapp.config import data_dict
 
 conn = psycopg2.connect(user="vqklygsa", password='5C42T__du4u1BsNdcbgU9e5P8jNmpGyk', host='cornelius.db.elephantsql.com', port='5432')
 my_cur = conn.cursor()
@@ -21,7 +21,6 @@ def main_card():
   print(form.validate_on_submit())
   save_card(table_name="card_united", conn=conn,data_dict=data_dict)
   save_doctor(data_dict=data_dict)
-  
   return render_template('main_card.html',page_title = title, form_general=form)
 
 @blueprint.route('/finished_card')
@@ -30,8 +29,11 @@ def finished_card():
   data = my_cur.fetchall()
   return render_template('finished_card.html', data=data)
 
-@blueprint.route("/update_card", methods=["GET", 'POST'])
-def update_card():
-  update_data(table_name="card_united", conn=conn,data_dict=data_dict,form_dict=form_dict)
-  return redirect(url_for("card.finished_card"))
+@blueprint.route("/update_time", methods=["GET", 'POST'])
+def update():
+  if request.method=="POST":
+    update_time("card_united", conn=conn,data_dict=data_dict)
+    return redirect(url_for("card.finished_card"))
+  else:
+    return redirect(url_for("patient.create"))
   

@@ -10,7 +10,7 @@ class CardOne(Base):
     doctor_id = Column(Integer,index=True)
     
     #время
-    date_card = Column(Date) # дата карты
+    date_card = Column(String) # дата карты
     time_of_receipt = Column(String) # время приёма
     transmission_time = Column(String) # время передачи
     departure_time = Column(String) #время выезда бригады
