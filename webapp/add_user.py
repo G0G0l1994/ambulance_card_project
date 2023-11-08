@@ -1,8 +1,8 @@
 from db import db_session
-from webapp.user.models import Doctors
+from webapp.user.models import doctors
 from getpass import getpass
 
-doctor = Doctors(id_table = 2, first_name = "Olga", last_name = "Ivanova", username = "Olga_new_11")
+doctor = doctors(id_table = 2, first_name = "Olga", last_name = "Ivanova", username = "Olga_new_11")
 password = getpass("Введите пароль")
 doctor.set_password(password)
 db_session.add(doctor)

@@ -3,8 +3,8 @@ from sqlalchemy import Column, Integer, String
 from webapp.models import Base
 from flask_login import UserMixin
 
-class Doctors(Base, UserMixin):
-    __tablename__ = "Doctors"
+class doctors(Base, UserMixin):
+    __tablename__ = "doctors"
     
     id = Column(Integer, primary_key = True)
     first_name = Column(String())

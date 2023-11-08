@@ -1,7 +1,7 @@
 from flask import Flask, render_template, flash, redirect, url_for
 from webapp.user.forms import LoginForm
 from flask_login import LoginManager
-from webapp.user.models import Doctors
+from webapp.user.models import doctors
 from webapp.db import Base, engine, db_session
 from webapp.user.views import blueprint as user_blueprint
 from webapp.patient.views import blueprint as patient_blueprint
@@ -25,7 +25,7 @@ def create_app():
   
   @login_manager.user_loader
   def load_user(user_id):
-    return Doctors.query.get(user_id)
+    return doctors.query.get(user_id)
   
 
   @app.route('/')

@@ -2,7 +2,7 @@ from flask import flash, render_template, redirect, url_for
 from flask_login import login_user, logout_user, current_user
 from flask import Blueprint
 from webapp.user.forms import LoginForm, RegistrationForm
-from webapp.user.models import Doctors
+from webapp.user.models import doctors
 from webapp.db import Base, db_session
 from webapp.config import data_dict
 import sys
@@ -21,7 +21,7 @@ def process_login():
   form = LoginForm()
   if form.validate_on_submit():
     password = form.password_entry.data
-    user = Doctors.query.filter(Doctors.username == form.username.data).first()
+    user = doctors.query.filter(doctors.username == form.username.data).first()
     sys.stdout.flush()
     print(f'Результат работы функции check_password: {user.check_password(password)}')
     if user and user.check_password(password):
@@ -57,7 +57,7 @@ def register():
 def process_reg():
   form = RegistrationForm()
   if form.validate_on_submit():
-    new_user = Doctors(username=form.username.data, first_name=form.name.data, last_name=form.surname.data)
+    new_user = doctors(username=form.username.data, first_name=form.name.data, last_name=form.surname.data)
     new_user.set_password(form.password.data)
     db_session.add(new_user)
     db_session.commit()
