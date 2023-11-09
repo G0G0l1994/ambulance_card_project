@@ -3,43 +3,41 @@
 {% block content %}
 
   <div class="container">
-    <div class="row mt-5">
-      <div class="col-lg-4 bg-white m-auto rounded-top">
-        <h2 class="text-center pt-3 header-title">Зарегистрироваться</h2>
-        <p class="text-center text-muted lead mt-3 mb-4 fs-5">
-          Уже есть аккаунт? 
-          <span class="login-link"><a href="{{url_for('user.login')}}" class="login-btn px-2">Войти</a></span>
-        </p>
-        <!--Form start-->
-        <form action="#" method="POST">
-          {{ form.csrf_token }}
-          <div class="input-group mb-3">
-            <span class="input-group-text"><i class="fa fa-user-circle-o"><img src="images/account_circle_FILL0_wght400_GRAD0_opsz24.svg" alt=""></i></span>
-            {{ form.username() }} <!--Ник-->
-          </div>
-          <div class="input-group mb-3">
-            <span class="input-group-text"><i class="fa fa-user-circle-o"><img src="images/person_FILL0_wght400_GRAD0_opsz24.svg" alt=""></i></span>
-            {{ form.name()}} <!--Имя-->
-          </div>
-          <div class="input-group mb-3">
-            <span class="input-group-text"><i class="fa fa-user-circle-o"><img src="images/person_FILL0_wght400_GRAD0_opsz24.svg" alt=""></i></span>
-            {{ form.surname() }} <!--Фамилия-->
-          </div>
-          <div class="input-group mb-3">
-            <span class="input-group-text"><i class="fa fa-user-circle-o"><img src="images/lock_FILL0_wght400_GRAD0_opsz24.svg" alt=""></i></span>
-            {{ form.password() }} <!--Пароль-->
-          </div>
-          <div class="input-group mb-3">
-            <span class="input-group-text"><i class="fa fa-user-circle-o"><img src="images/lock_FILL0_wght400_GRAD0_opsz24.svg" alt=""></i></span>
-            {{ form.password_2() }} <!--Повторить пароль-->
-          </div>
+    <div class="col-lg-4 bg-white m-auto rounded-top">
+      <h2 class="text-center pt-3 header-title">Зарегистрироваться</h2>
+      <p class="text-center text-muted lead mt-3 mb-4 fs-5">
+        Уже есть аккаунт? 
+        <span class="login-link"><a href="{{url_for('user.login')}}" class="login-btn px-2">Войти</a></span>
+      </p>
+      <!--Form start-->
+      <form action="#" method="POST">
+        {{ form.csrf_token }}
+        <div class="input-group mb-3">
+          <span class="input-group-text"><img src="{{ url_for('static', filename='images/account_circle_FILL0_wght400_GRAD0_opsz24.svg') }}" alt=""></span>
+          {{ form.username() }} <!--Ник-->
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text"><img src="{{ url_for('static', filename='images/person_FILL0_wght400_GRAD0_opsz24.svg') }}" alt=""></span>
+          {{ form.name()}} <!--Имя-->
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text"><img src="{{ url_for('static', filename='images/person_FILL0_wght400_GRAD0_opsz24.svg') }}"> </span>
+          {{ form.surname() }} <!--Фамилия-->
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text"><img src="{{ url_for('static', filename='images/lock_FILL0_wght400_GRAD0_opsz24.svg') }}" alt=""></span>
+          {{ form.password() }} <!--Пароль-->
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text"><img src="{{ url_for('static', filename='images/lock_FILL0_wght400_GRAD0_opsz24.svg') }}" alt=""></span>
+          {{ form.password_2() }} <!--Повторить пароль-->
+        </div>
 
-          <div class="d-grid">
-            {{ form.submit() }} <!--Кнопка отвправить-->
-          </div>
+        <div class="d-grid">
+          {{ form.submit() }} <!--Кнопка отвправить-->
+        </div>
 
-        </form>
-      </div>
+      </form>
     </div>
   </div>
 
