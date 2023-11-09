@@ -46,12 +46,13 @@ def logout():
 
 @blueprint.route('/register')
 def register():
-  if current_user.is_authenticated:
-    print(f"ID текущего доктора: {current_user.id}")
-    return redirect(url_for('user.login'))
-  form = RegistrationForm()
-  title = "Регистрация"
-  return render_template('registration.html', page_title=title, form=form)
+  if  not current_user.is_authenticated:
+    form = RegistrationForm()
+    title = "Регистрация"
+    return render_template('registration.html', page_title=title, form=form)
+  print(f"ID текущего доктора: {current_user.id}")
+  return redirect(url_for('user.login'))
+  
 
 @blueprint.route('/register', methods=["POST", "GET"])
 def process_reg():
@@ -62,7 +63,7 @@ def process_reg():
     db_session.add(new_user)
     db_session.commit()
     flash("Вы зарегистрировались!")
-    print(f"ID текущего доктора: {current_user.id}")
+    
     return redirect(url_for('user.login'))
   flash("Исправьте ошибки в форме")
   return redirect(url_for('user.register'))

@@ -25,7 +25,9 @@ def create_app():
   
   @login_manager.user_loader
   def load_user(user_id):
-    return doctors.query.get(user_id)
+    user_query = doctors.query.get(user_id)
+    db_session.close()
+    return user_query
   
 
   @app.route('/')
