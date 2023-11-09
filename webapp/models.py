@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Date, Time, Float, Boolean, Text, ForeignKey
+from sqlalchemy import Column, Integer, String, Date
 from webapp.db import Base, engine 
 
 #-------------------Основные сущности-------------------
@@ -10,7 +10,6 @@ class PatientCardHistory(Base):
     patient_id = Column(Integer, index=True)
     card_id = Column(Integer, index=True)
     date_card = Column(Date)
-
 
 class DoctorCardHistory(Base):
     __tablename__ = "Doctor_Card_History"

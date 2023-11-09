@@ -1,6 +1,5 @@
-from sqlalchemy import Column, Integer, String, Date, Time, Float, Boolean, Text
+from sqlalchemy import Column, Integer, String, Float, Boolean, Text
 from webapp.db import Base, engine
-
 
 class CardOne(Base):
     __tablename__ = "card_united"
@@ -8,7 +7,6 @@ class CardOne(Base):
     id = Column(Integer, primary_key = True)
     patient_id = Column(Integer,  index=True )
     doctor_id = Column(Integer,index=True)
-    
     #время
     date_card = Column(String) # дата карты
     time_of_receipt = Column(String) # время приёма
@@ -111,9 +109,7 @@ class CardOne(Base):
     #диагноз
     diagnosis = Column(String)
     submit = Column(String)
-
     csrf_token = Column(Text)
 
-
-
-Base.metadata.create_all(bind=engine)
+if __name__ == "__main__":
+    Base.metadata.create_all(bind=engine)

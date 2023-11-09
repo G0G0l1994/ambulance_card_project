@@ -4,7 +4,7 @@ from flask import Blueprint
 from webapp.user.forms import LoginForm, RegistrationForm
 from webapp.user.models import doctors
 from webapp.db import Base, db_session
-from webapp.config import data_dict
+from webapp.utilits import data_dict
 import sys
 
 blueprint = Blueprint('user', __name__, url_prefix='/users')

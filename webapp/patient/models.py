@@ -2,8 +2,6 @@ from sqlalchemy import Column, Integer, String, Date
 from webapp.db import Base
 
 
-
-
 class Patient(Base):
     __tablename__ = "patient"
     
@@ -14,8 +12,6 @@ class Patient(Base):
     address = Column(String)
     date_of_birth = Column(Date)
     
-    
-
     def __repr__(self):
         return f"Patient {self.id} {self.first_name} {self.last_name}"
 

@@ -1,16 +1,7 @@
-from datetime import timedelta, datetime
+from datetime import timedelta
+import psycopg2
 SECRET_KEY = "ewfrejugjrtgbjrtbtrhnbnrtbnttbtjgijitgejv nrjergegtgnrtrtjrirtjgrngrogorjgorhgrhr"
 
 REMEMBER_COOKIE_DURATION = timedelta(days=30)
 
-data_dict={"date_card": datetime.now().strftime('%d-%m-%y'),
-           "time_of_receipt": datetime.now().strftime('%H-%M'),
-           "transmission_time": datetime.now().strftime('%H-%M'),
-           "departure_time": None,
-           "arrival_time" : None,
-           "start_time_of_hospitalization" : None,
-           "time_of_arrival_at_hospital": None,
-           "call_end_time" : None,
-           'doctor_id' : None,
-           "patient_id": None}
-
+conn = psycopg2.connect(user="vqklygsa", password='5C42T__du4u1BsNdcbgU9e5P8jNmpGyk', host='cornelius.db.elephantsql.com', port='5432')
