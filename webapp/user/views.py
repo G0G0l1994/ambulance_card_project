@@ -4,7 +4,7 @@ from flask import Blueprint
 from webapp.user.forms import LoginForm, RegistrationForm
 from webapp.user.models import doctors
 from webapp.db import Base, db_session
-from webapp.utilits import data_dict
+from webapp.utilits import data_dict,save_doctor
 import sys
 
 blueprint = Blueprint('user', __name__, url_prefix='/users')
@@ -29,6 +29,7 @@ def process_login():
       print("Уcпех")
       flash("Вы успешно вошли на сайт")
       print(f"ID текущего доктора: {current_user.id}")
+      save_doctor(data_dict=data_dict)
       return redirect(url_for('user.main'))
   print("Ошибка")
   flash("Неправильное имя пользователя или пароль")

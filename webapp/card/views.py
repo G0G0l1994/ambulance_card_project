@@ -1,9 +1,11 @@
 from flask import render_template,redirect,url_for,request
 from flask import Blueprint
 from webapp.card.forms import CardForm
+from webapp.patient.models import Patient
+from webapp.card.models import CardOne
 
 from webapp.config import conn
-from webapp.utilits import save_card, save_doctor,update_time,data_dict
+from webapp.utilits import save_card,update_time,data_dict
 from psycopg2 import Error
 
 my_cur = conn.cursor()
@@ -15,7 +17,6 @@ def main_card():
   form = CardForm()
   title = "Карта"
   save_card(table_name="card_united", conn=conn,data_dict=data_dict)
-  save_doctor(data_dict=data_dict)
   return render_template('main_card.html',page_title = title, form_general=form)
 
 @blueprint.route('/finished_card')
@@ -35,4 +36,22 @@ def update():
     return redirect(url_for("card.finished_card"))
   else:
     return redirect(url_for("patient.create"))
+
+@blueprint.route("/history",methods=["GET",'POST'])
+def history():
+  data = CardOne.query.filter(CardOne.doctor_id == data_dict['doctor_id']).all()
+  patient_data = []
+  if request.method == "GET":
+    print(len(data))
+    for i in data:
+      qu = Patient.query.filter(Patient.id == i.patient_id).first()
+      if qu == None:
+        continue
+      else:
+        print(qu.last_name, qu.date_of_birth)
+    #   patient_data.append(qu.last_name)
+    #   qu=None
+    # print(patient_data)
+    return render_template("main.html", data = data)
+  return render_template('main.html', data=data)
   

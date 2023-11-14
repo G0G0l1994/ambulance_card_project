@@ -61,32 +61,42 @@ def save_card(table_name:str,conn, data_dict={}):
     """
     try:
         con = request.form
-        
         if len(con)>0:
-            for k,v in con.items():
-                if v.isdigit():
-                    data_dict.setdefault(k,int(v))
-                elif "." in v and k!="csrf_token":
-                    data_dict.setdefault(k,float(v))
-                elif v=='y':
-                    data_dict.setdefault(k,True)
+
+            for key,value in con.items():
+                if key in ["glasgow_scale","respiratory_rate_before",
+                             "saturation_before","heartbite_before",
+                             "pulse_before","blood_pressure_systolic_before",
+                             "blood_pressure_diastolic_before","normal_blood_pressure_systolic",
+                             "normal_blood_pressure_diastolic","rate_stool",
+                             "respiratory_rate_after","saturation_after",
+                             "heartbite_after","pulse_after",
+                             "blood_pressure_systolic_after","blood_pressure_diastolic_after"
+                             ]:
+                    data_dict.setdefault(key,int(value))
+                elif key in ["blood_glucose_after","blood_glucose_before",
+                             "temperature_before",
+                             "temperature_after"]:
+                    data_dict.setdefault(key,float(value))
+                elif value=='y':
+                    data_dict.setdefault(key,True)
                 else:
-                    data_dict.setdefault(k,v)
-            print(data_dict)
-            cursor = conn.cursor()
-            keys = list(data_dict.keys())
-            print(keys)
-            values = list(data_dict.values())
-            print(values)
-            columns = ', '.join(keys)
-            placeholders = ', '.join(['%s' for _ in range(len(keys))])
-            insert_query = f'INSERT INTO {table_name} ({columns}) VALUES ({placeholders})'
-            print(insert_query)
-            cursor.execute(insert_query, values)
-            conn.commit()
-            print(cursor.mogrify(insert_query, values), "Готово добавление в БД")
-            db_session.close()
-            return data_dict
+                    data_dict.setdefault(key,value)
+        print(data_dict)
+        cursor = conn.cursor()
+        keys = list(data_dict.keys())
+        print(keys)
+        values = list(data_dict.values())
+        print(values)
+        columns = ', '.join(keys)
+        placeholders = ', '.join(['%s' for _ in range(len(keys))])
+        insert_query = f'INSERT INTO {table_name} ({columns}) VALUES ({placeholders})'
+        print(insert_query)
+        cursor.execute(insert_query, values)
+        conn.commit()
+        print(cursor.mogrify(insert_query, values), "Готово добавление в БД")
+        db_session.close()
+        return data_dict
     except psycopg2.DatabaseError as error:
         conn.rollback()
         print("Error: ", error)

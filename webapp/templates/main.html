@@ -5,9 +5,8 @@
     <button type="button" class="btn btn-primary">
       <a href="#" class='text-white'>Кнопка</a>
     </button>
-    <button type="button" class="btn btn-primary">
-      <a href="#" class='text-white'>История</a>
-    </button>
+    <button type="button" class="btn btn-primary"><a href="{{url_for("card.history")}}" class='text-white'>История</a></button>
+
     <botton type="button" class="btn btn-primary">
       <a href="{{ url_for('patient.create') }}" class='text-white'>Принять вызов</a>
     </button>
