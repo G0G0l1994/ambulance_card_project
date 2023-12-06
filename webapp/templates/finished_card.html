@@ -246,7 +246,9 @@
         </section>
         <section>
           {% for row in data %}
+          <p>Код МКБ-10: {{row[-1]}}</p>
           <p>Диагноз: {{row[90]}}</p>
+          
           {% endfor %}
         </section>
         <section>

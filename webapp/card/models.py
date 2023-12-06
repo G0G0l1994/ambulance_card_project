@@ -108,6 +108,7 @@ class CardOne(Base):
     blood_glucose_after = Column(Float)
     #диагноз
     diagnosis = Column(String)
+    mkb = Column(String)
     submit = Column(String)
     csrf_token = Column(Text)
 

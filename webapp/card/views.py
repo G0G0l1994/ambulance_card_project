@@ -1,5 +1,6 @@
 from flask import render_template,redirect,url_for,request
 from flask import Blueprint
+from webapp.models import DiagnosisCode
 from webapp.card.forms import CardForm
 from webapp.patient.models import Patient
 from webapp.card.models import CardOne
@@ -16,13 +17,17 @@ blueprint = Blueprint('card', __name__, url_prefix='/cards')
 def main_card():
   form = CardForm()
   title = "Карта"
-  save_card(table_name="card_united", conn=conn,data_dict=data_dict)
-  return render_template('main_card.html',page_title = title, form_general=form)
+  mkb_code =  DiagnosisCode.query.all()
+  if request.method == "POST":
+    mkb = request.form.get('mkb')
+    save_card(table_name="card_united", conn=conn,data_dict=data_dict)
+  return render_template('main_card.html',page_title = title, form_general=form, mkb_code=mkb_code)
 
 @blueprint.route('/finished_card')
 def finished_card():
   my_cur.execute("SELECT * FROM card_united WHERE id IN (SELECT MAX(id) FROM card_united)")
   data = my_cur.fetchall()
+  print(data)
   my_cur.execute("SELECT * FROM doctors WHERE id = (SELECT doctor_id FROM card_united ORDER BY id DESC LIMIT 1)")
   data_doctor = my_cur.fetchall()
   my_cur.execute("SELECT * FROM patient WHERE id = (SELECT patient_id FROM card_united ORDER BY id DESC LIMIT 1)")

@@ -489,8 +489,20 @@
           <div class="form-group mb-3">
             {{form_general.diagnosis.label}}
             {{ form_general.diagnosis() }}
+            
           </div>
-        
+          
+          <label for="exampleDataList" class="form-label">Код МКБ-10</label>
+          <input class="form-control" list="datalistOptions" id="exampleDataList" name="mkb" placeholder="Введите для поиска...">
+          <datalist id="datalistOptions">
+            {% for code in mkb_code%}
+
+              <li><option value="{{code.code}}"></li>
+              
+            {%endfor%}
+            
+          </datalist>
+          
           <div class="d-grid button-finished">
             {{ form_general.submit() }} <!--Кнопка отвправить-->
           </div>

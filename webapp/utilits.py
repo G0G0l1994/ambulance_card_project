@@ -61,6 +61,7 @@ def save_card(table_name:str,conn, data_dict={}):
     """
     try:
         con = request.form
+        print(con['mkb'])
         if len(con)>0:
 
             for key,value in con.items():
@@ -82,19 +83,16 @@ def save_card(table_name:str,conn, data_dict={}):
                     data_dict.setdefault(key,True)
                 else:
                     data_dict.setdefault(key,value)
-        print(data_dict)
         cursor = conn.cursor()
         keys = list(data_dict.keys())
-        print(keys)
         values = list(data_dict.values())
-        print(values)
         columns = ', '.join(keys)
         placeholders = ', '.join(['%s' for _ in range(len(keys))])
         insert_query = f'INSERT INTO {table_name} ({columns}) VALUES ({placeholders})'
-        print(insert_query)
+        # print(insert_query)
         cursor.execute(insert_query, values)
         conn.commit()
-        print(cursor.mogrify(insert_query, values), "Готово добавление в БД")
+        print("Готово добавление в БД")
         db_session.close()
         return data_dict
     except psycopg2.DatabaseError as error:
