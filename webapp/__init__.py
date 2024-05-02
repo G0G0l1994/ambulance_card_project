@@ -2,7 +2,7 @@ from flask import Flask, render_template, flash, redirect, url_for
 from webapp.user.forms import LoginForm
 from flask_login import LoginManager
 from flask_migrate import Migrate
-from webapp.user.models import doctors
+from webapp.user.models import Users
 from webapp.db import Base, engine, db_session
 from webapp.user.views import blueprint as user_blueprint
 from webapp.patient.views import blueprint as patient_blueprint
@@ -14,7 +14,7 @@ logging.basicConfig(filename = "mylog.log", level=logging.INFO)
 def create_app():
   app = Flask(__name__, template_folder="templates", static_folder="static")
   app.config.from_pyfile("config.py")
-  migrate_card = Migrate(app,Base)
+  migrate = Migrate(app,Base)
 
   login_manager = LoginManager()
   login_manager.init_app(app)
@@ -25,7 +25,7 @@ def create_app():
   
   @login_manager.user_loader
   def load_user(user_id):
-    user_query = doctors.query.get(user_id)
+    user_query = Users.query.get(user_id)
     db_session.close()
     return user_query
   

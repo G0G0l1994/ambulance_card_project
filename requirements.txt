@@ -16,7 +16,7 @@ Flask-Login==0.6.2
 Flask-Migrate==2.3.1
 Flask-SQLAlchemy==2.5.1
 Flask-WTF==1.2.1
-greenlet==2.0.2
+greenlet==3.0.2
 idna==3.4
 ipykernel==6.27.1
 ipython==8.18.1

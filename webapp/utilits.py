@@ -1,10 +1,12 @@
 from faker import Faker
+import copy
 from flask import request
 from datetime import datetime
 from flask_login import current_user
 import psycopg2
 from psycopg2 import Error
 from webapp.patient.models import Patient
+from webapp.card.models import CardOne
 from webapp.db import db_session
 
 data_dict={"date_card": datetime.now().strftime('%d-%m-%y'),
@@ -15,7 +17,6 @@ data_dict={"date_card": datetime.now().strftime('%d-%m-%y'),
            "start_time_of_hospitalization" : None,
            "time_of_arrival_at_hospital": None,
            "call_end_time" : None,
-           'doctor_id' : None,
            "patient_id": None}
 
 
@@ -36,7 +37,7 @@ def create_patient():
             'address': patient.street_address()
             }
 
-def add_time(index: any ,time_dict: dict) -> dict:
+def add_time(index: any ,data_dict: dict) -> dict:
     """
     Добавляет время в словаря для сохранения и использования на front-end
     Args:
@@ -46,9 +47,9 @@ def add_time(index: any ,time_dict: dict) -> dict:
     Returns:
         dict: saved time
     """
-    time_dict[index] = datetime.now().strftime('%H-%M')
-    print(time_dict)
-    return time_dict
+    data_dict[index] = datetime.now().strftime('%H-%M')
+    print(id(data_dict))
+    return data_dict
 
 
 def save_card(table_name:str,conn, data_dict={}):
@@ -61,7 +62,6 @@ def save_card(table_name:str,conn, data_dict={}):
     """
     try:
         con = request.form
-        print(con['mkb'])
         if len(con)>0:
 
             for key,value in con.items():
@@ -89,7 +89,6 @@ def save_card(table_name:str,conn, data_dict={}):
         columns = ', '.join(keys)
         placeholders = ', '.join(['%s' for _ in range(len(keys))])
         insert_query = f'INSERT INTO {table_name} ({columns}) VALUES ({placeholders})'
-        # print(insert_query)
         cursor.execute(insert_query, values)
         conn.commit()
         print("Готово добавление в БД")
@@ -134,6 +133,7 @@ def save_patient(patient_form,data_dict):
         print(f"{patient} сохранён")
         data_dict['patient_id'] = current_patient.id
         print(data_dict)
+        print(id(data_dict))
         return data_dict
 
 def update_time(table_name: str,conn, data_dict={}):
@@ -145,15 +145,20 @@ def update_time(table_name: str,conn, data_dict={}):
     conn : connect for DB
     """
     try:
-        
+        card_query = CardOne.query.filter(CardOne.patient_id==data_dict['patient_id']).all()
+        print(card_query)
+        if len(card_query)>1:
+            card_id = card_query[-1].id
+        else:
+            card_query = CardOne.query.filter(CardOne.patient_id==data_dict['patient_id']).first()
+            print(card_query)
+            card_id = card_query.id
         cursor = conn.cursor()
         keys = list(data_dict.keys())
         values = list(data_dict.values())
         columns = ', '.join(keys)
         placeholders = ', '.join(['%s' for _ in range(len(keys))])
-        update_query = f'UPDATE {table_name} SET ({columns}) = ( select {placeholders} ) WHERE patient_id = {data_dict["patient_id"]}'
-        print(update_query)
-        cursor.execute(update_query, values)
+        update_query = f'UPDATE {table_name} SET ({columns}) = ( select {placeholders} ) WHERE patient_id = {data_dict["patient_id"]} AND id = {card_id}'
         conn.commit()
         print(cursor.mogrify(update_query, values), "Обновление в БД")
         db_session.close()
@@ -161,3 +166,19 @@ def update_time(table_name: str,conn, data_dict={}):
     except psycopg2.DatabaseError as error:
         conn.rollback()
         print("Error: ", error)
+
+def remove_data_dict(data_dict):
+    clear_data_dict={"date_card": datetime.now().strftime('%d-%m-%y'),
+           "time_of_receipt": datetime.now().strftime('%H-%M'),
+           "transmission_time": datetime.now().strftime('%H-%M'),
+           "departure_time": None,
+           "arrival_time" : None,
+           "start_time_of_hospitalization" : None,
+           "time_of_arrival_at_hospital": None,
+           "call_end_time" : None,
+           'doctor_id' : current_user.id,
+           "patient_id": None}
+    data_dict=copy.deepcopy(clear_data_dict)
+    print(data_dict)
+    print(id(data_dict))
+    return data_dict
