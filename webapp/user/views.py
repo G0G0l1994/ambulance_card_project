@@ -28,9 +28,14 @@ def process_login():
       login_user(user, remember=form.remember_me.data) #запоминание пользователя
       print("Уcпех")
       flash("Вы успешно вошли на сайт")
-      print(f"ID текущего доктора: {current_user.id}")
+      print(f"ID пользователя: {current_user.id}, {current_user.role}")
       save_doctor(data_dict=data_dict)
-      return redirect(url_for('user.main'))
+      if current_user.role == "Врач":
+        return redirect(url_for('user.main'))
+      elif current_user.role == "Админ":
+        return redirect(url_for("user.main"))
+      else:
+        return redirect(url_for("user.dispatcher"))
   print("Ошибка")
   flash("Неправильное имя пользователя или пароль")
   return redirect(url_for('user.login'))
@@ -68,4 +73,8 @@ def process_reg():
     return redirect(url_for('user.login'))
   flash("Исправьте ошибки в форме")
   return redirect(url_for('user.register'))
+
+@blueprint.route('/dispatcher', methods=["POST","GET"])
+def dispatcher():
+  return render_template("dispatcher.html")
 
