@@ -13,12 +13,7 @@ def create():
   title = "Пациент"
   time_form = Time()
   patient_form = NewPatient()
-  # if request.method == "GET":
-  #   print("GET")
-  #   print(id(data_dict))
-  #   return render_template("patient.html",page_title=title, 
-  #                          form=patient_form, time_form = time_form, 
-  #                          time = data_dict)
+  
   if request.method == 'POST':
     print(id(data_dict))
     index = request.form["index"]

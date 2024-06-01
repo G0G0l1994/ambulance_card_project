@@ -3,6 +3,7 @@ from flask_login import login_user, logout_user, current_user
 from flask import Blueprint
 from webapp.user.forms import LoginForm, RegistrationForm
 from webapp.user.models import Users
+from webapp.patient.forms import NewPatient
 from webapp.db import Base, db_session
 from webapp.utilits import data_dict,save_doctor
 import sys
@@ -76,5 +77,7 @@ def process_reg():
 
 @blueprint.route('/dispatcher', methods=["POST","GET"])
 def dispatcher():
-  return render_template("dispatcher.html")
+  form = NewPatient()
+  
+  return render_template("dispatcher.html", form = form)
 

@@ -7,3 +7,10 @@
   font-weight: 700;
 
 }
+
+li::marker{
+  content:"";
+}
+li{
+  list-style-type: none;
+}
