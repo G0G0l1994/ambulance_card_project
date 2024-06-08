@@ -53,11 +53,27 @@
       margin-bottom: 2px;
     }
 
+    
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      .print, .print * {
+        visibility: visible;
+      }
+      .print {
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+    }
+
   </style>
 </head>
 <body>
   <h1>Страница готовой карты</h1>
   <div class='page'>
+    <div class='print'>
     <section>
       <div class='wrapper-small'>
         {% for row in data %}
@@ -68,9 +84,9 @@
         <div><p>Начало госпитализации</p>{% if row[8]!= None %}<p>{{row[8]}}</p>{% else %}<p>00-00</p>{% endif %}</div>
         <div><p>Прибытие в стационар</p>{% if row[9]!= None %}<p>{{row[9]}}</p>{% else %}<p>00-00</p>{% endif %}</div>
         <div><p>Окончания вызова</p><p>{{row[10]}}</p></div>
-        <div><p></p><p></p></div>
         {% endfor %}
       </div>
+    </section>
       <section>
         {% for row in data %}
         <p>Дата: {{row[3]}}</p>
@@ -230,7 +246,9 @@
         </section>
         <section>
           {% for row in data %}
+          <p>Код МКБ-10: {{row[-1]}}</p>
           <p>Диагноз: {{row[90]}}</p>
+          
           {% endfor %}
         </section>
         <section>
@@ -240,4 +258,22 @@
         </section>
   </table>
 </div>
+</div>
+<button onclick="printpage()" style="color:white; 
+                   background-color: red;  
+                   font-weight: bold;">Click to Print 
+    </button> 
+  <script>
+    function printpage() {
+      var printContent = document.querySelector('.print').innerHTML;
+      var originalContent = document.body.innerHTML;
+      document.body.innerHTML = '<div class="print">' + printContent + '</div>';
+      window.print();
+      document.body.innerHTML = originalContent;
+    }
+  </script>
+  <div>
+    <form actiron="{{url_for('card.finished_card')}}" method="POST">
+      <button type="submit" class="btn btn-primary">На главную </button>
 </body>
+</html>

@@ -21,8 +21,16 @@
           {{ form.name()}} <!--Имя-->
         </div>
         <div class="input-group mb-3">
+          <span class="input-group-text"><img src="{{ url_for('static', filename='images/person_FILL0_wght400_GRAD0_opsz24.svg') }}" alt=""></span>
+          {{ form.surname()}} <!--Отчество-->
+        </div>
+        <div class="input-group mb-3">
           <span class="input-group-text"><img src="{{ url_for('static', filename='images/person_FILL0_wght400_GRAD0_opsz24.svg') }}"> </span>
-          {{ form.surname() }} <!--Фамилия-->
+          {{ form.lastname() }} <!--Фамилия-->
+        </div>
+        <div class="form-group mb-3">
+          <span class="input-radio" list-style="none"><img src="{{ url_for('static', filename='images/person_FILL0_wght400_GRAD0_opsz24.svg') }}"></span>
+          {{ form.role()}} <!--Должность-->
         </div>
         <div class="input-group mb-3">
           <span class="input-group-text"><img src="{{ url_for('static', filename='images/lock_FILL0_wght400_GRAD0_opsz24.svg') }}" alt=""></span>

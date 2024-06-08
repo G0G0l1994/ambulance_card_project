@@ -6,13 +6,14 @@ from datetime import datetime
 
 
 class NewPatient(FlaskForm):
-    patient = create_patient()
-    first_name = StringField("Имя", validators=[DataRequired()],default=(patient['first_name']), render_kw={"class": "form-control"})
-    last_name = StringField("Фамилия", validators=[DataRequired()],default=(patient['last_name']), render_kw={"class": "form-control"})
-    surname = StringField("Отчество", validators=[DataRequired()],default=(patient['last_name']), render_kw={"class": "form-control"})
-    date_of_birth = StringField("Дата рождения", validators=[DataRequired()],default=(patient['date_of_birth']), render_kw={"class": "form-control"})
-    address = StringField("Адрес", validators=[DataRequired()],default=(patient['address']), render_kw={"class": "form-control"})
-    submit = SubmitField("Заполнить карту вызова", render_kw={"class": "btn btn-primary"})
+    #patient = create_patient()
+    first_name = StringField("Имя", validators=[DataRequired()], render_kw={"class": "form-control"})
+    last_name = StringField("Фамилия", validators=[DataRequired()], render_kw={"class": "form-control"})
+    surname = StringField("Отчество", validators=[DataRequired()], render_kw={"class": "form-control"})
+    date_of_birth = StringField("Дата рождения", validators=[DataRequired()], render_kw={"class": "form-control"})
+    address = StringField("Адрес", validators=[DataRequired()], render_kw={"class": "form-control"})
+    cause = StringField("Повод к вызову", validators=[DataRequired()], render_kw={"class":"form-control"})
+    submit = SubmitField("Создать карту вызова", render_kw={"class": "btn btn-primary"})
 
 class Time(FlaskForm):
     current_time=datetime.now().strftime("%H:%M")

@@ -1,0 +1,20 @@
+{%  extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="patient col-6" style='margin-top: 35px;'>
+    <h1>История</h1>
+        <form action="{{ url_for('card.history') }}" method="GET">
+            {% for row in data %}
+            <div><p>Пациент: {{row[0]}} {{row[1]}} {{row[2]}} {{row[3]}}
+                <from action ='{{ url_for("card.update") }}' method="POST"><button>Редактировать</button>
+                </from>
+                </p>
+            </div>
+            {% endfor %}
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}

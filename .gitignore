@@ -1,5 +1,9 @@
 mylog.log
 run.bat
+.env
+mkb_10.txt
+add_mkb.py
+parsing.py
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

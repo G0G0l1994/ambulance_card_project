@@ -12,6 +12,7 @@ class Patient(Base):
     address = Column(String)
     date_of_birth = Column(Date)
     
+    
     def __repr__(self):
         return f"Patient {self.id} {self.first_name} {self.last_name}"
 

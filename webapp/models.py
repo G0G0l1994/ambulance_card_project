@@ -1,22 +1,18 @@
-from sqlalchemy import Column, Integer, String, Date
+from sqlalchemy import Column, Integer, String, Date, Text
 from webapp.db import Base, engine 
 
 #-------------------Основные сущности-------------------
-
-class PatientCardHistory(Base):
-    __tablename__ = "Patient_Card_History"
+class DiagnosisCode(Base):
+    __tablename__ = "МКБ-10"
     
     id = Column(Integer, primary_key = True)
-    patient_id = Column(Integer, index=True)
-    card_id = Column(Integer, index=True)
-    date_card = Column(Date)
+    code = Column(Text)
 
-class DoctorCardHistory(Base):
-    __tablename__ = "Doctor_Card_History"
+    def __repr__(self):
+        return f'{self.code}'
     
-    id = Column(Integer, primary_key = True)
-    card_id = Column(Integer, index=True)
-    doctor_id = Column(Integer, index=True)
+if __name__ == "__main__":
+    Base.metadata.create_all(bind=engine)
 
 #-------------------Раздел составных частей карт-------------------
 

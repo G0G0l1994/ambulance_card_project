@@ -7,6 +7,8 @@ class CardOne(Base):
     id = Column(Integer, primary_key = True)
     patient_id = Column(Integer,  index=True )
     doctor_id = Column(Integer,index=True)
+    #повод к вызову
+    cause = Column(String)
     #время
     date_card = Column(String) # дата карты
     time_of_receipt = Column(String) # время приёма
@@ -108,6 +110,7 @@ class CardOne(Base):
     blood_glucose_after = Column(Float)
     #диагноз
     diagnosis = Column(String)
+    mkb = Column(String)
     submit = Column(String)
     csrf_token = Column(Text)
 
