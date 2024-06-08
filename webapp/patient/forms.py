@@ -12,6 +12,7 @@ class NewPatient(FlaskForm):
     surname = StringField("Отчество", validators=[DataRequired()], render_kw={"class": "form-control"})
     date_of_birth = StringField("Дата рождения", validators=[DataRequired()], render_kw={"class": "form-control"})
     address = StringField("Адрес", validators=[DataRequired()], render_kw={"class": "form-control"})
+    cause = StringField("Повод к вызову", validators=[DataRequired()], render_kw={"class":"form-control"})
     submit = SubmitField("Создать карту вызова", render_kw={"class": "btn btn-primary"})
 
 class Time(FlaskForm):

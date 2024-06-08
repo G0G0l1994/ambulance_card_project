@@ -1,11 +1,11 @@
-from flask import flash, render_template, redirect, url_for
+from flask import flash, render_template, redirect, url_for, request
 from flask_login import login_user, logout_user, current_user
 from flask import Blueprint
 from webapp.user.forms import LoginForm, RegistrationForm
 from webapp.user.models import Users
 from webapp.patient.forms import NewPatient
 from webapp.db import Base, db_session
-from webapp.utilits import data_dict,save_doctor
+from webapp.utilits import data_dict,save_doctor, save_patient
 import sys
 
 blueprint = Blueprint('user', __name__, url_prefix='/users')
@@ -78,6 +78,8 @@ def process_reg():
 @blueprint.route('/dispatcher', methods=["POST","GET"])
 def dispatcher():
   form = NewPatient()
+  if request.method == "POST":
+    save_patient()
   
   return render_template("dispatcher.html", form = form)
 

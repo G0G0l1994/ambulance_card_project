@@ -48,16 +48,21 @@ def update():
 
 @blueprint.route("/history",methods=["GET",'POST'])
 def history():
-  data = CardOne.query.filter(CardOne.doctor_id == data_dict['doctor_id']).all()
+  card_data = CardOne.query.filter(CardOne.doctor_id == data_dict['doctor_id']).all()
   patient_data = []
   if request.method == "GET":
-    print(len(data))
-    for i in data:
+    print(len(card_data))
+    for i in card_data:
+      print(i.diagnosis)
       qu = Patient.query.filter(Patient.id == i.patient_id).first()
+      join = [i.date_card, qu.last_name,qu.first_name,i.diagnosis]
+      patient_data.append(join)
       if qu == None:
         continue
-      else:
-        print(qu.last_name, qu.date_of_birth)
-    return render_template("main.html", data = data)
-  return render_template('main.html', data=data)
+      # else:
+      #   print(qu.last_name, qu.date_of_birth)
+    patient_data = sorted(patient_data, key = lambda x: x[0][-2:])
+    print(patient_data)
+    return render_template("history.html", data = patient_data, card_data = card_data)
+  return render_template('history.html', data=patient_data, card_data = card_data)
   
