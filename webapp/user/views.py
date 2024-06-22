@@ -1,12 +1,18 @@
+import sys
+from datetime import datetime
+
 from flask import flash, render_template, redirect, url_for, request
 from flask_login import login_user, logout_user, current_user
 from flask import Blueprint
+
 from webapp.user.forms import LoginForm, RegistrationForm
 from webapp.user.models import Users
-from webapp.patient.forms import NewPatient
+from webapp.card.forms import CardForm
+from webapp.card.models import CardOne
 from webapp.db import Base, db_session
 from webapp.utilits import data_dict,save_doctor, save_patient
-import sys
+
+
 
 blueprint = Blueprint('user', __name__, url_prefix='/users')
 
@@ -36,7 +42,7 @@ def process_login():
       elif current_user.role == "Админ":
         return redirect(url_for("user.main"))
       else:
-        return redirect(url_for("user.dispatcher"))
+        return redirect(url_for("user.main_dispatcher"))
   print("Ошибка")
   flash("Неправильное имя пользователя или пароль")
   return redirect(url_for('user.login'))
@@ -75,11 +81,35 @@ def process_reg():
   flash("Исправьте ошибки в форме")
   return redirect(url_for('user.register'))
 
-@blueprint.route('/dispatcher', methods=["POST","GET"])
-def dispatcher():
-  form = NewPatient()
+@blueprint.route('/dispatcher/new_card', methods=["POST","GET"])
+def new_card():
+  current_time=datetime.now().strftime("%H:%M")
+  form = CardForm(current_time=current_time)
   if request.method == "POST":
-    save_patient()
-  
+    form.save_card(request)
+    return redirect(url_for("user.main_dispatcher"))
   return render_template("dispatcher.html", form = form)
+  
+  
+
+@blueprint.route('/dispatcher/main', methods=["POST","GET"])
+def main_dispatcher():
+  data_card = CardOne.query.filter(CardOne.status == "Принят").all()
+  form = CardForm()
+  data = []
+  for card in data_card:
+      print(card)
+      join = [card.last_name,card.first_name,card.surname,card.status, card.crew]
+      data.append(join)
+  if request.method == "POST":
+    return redirect(url_for('user.new_card'))
+  elif request.method == "GET":
+    print("GET")
+    print(data)
+    return render_template("dispatcher_main.html", data=data, form = form)
+
+# def card_process():
+#   card = CardForm()
+
+
 

@@ -2,9 +2,9 @@
 
 {%  block content %}
 <div class="container">
-    <div class="patient col-4" style='margin-top: 35px;'>
+    <div class="patient col-6" style='margin-top: 35px;'>
       <h1>Данные пациента</h1>
-      <form action="{{ url_for('user.dispatcher') }}" method="POST">
+      <form action="{{ url_for('user.new_card') }}" method="POST">
         
         {{form.last_name.label()}}{{form.last_name()}}
         {{form.first_name.label()}}{{form.first_name()}}
@@ -12,8 +12,11 @@
         {{form.date_of_birth.label()}}{{form.date_of_birth()}}
         {{form.address.label()}}{{form.address()}}<br>
         {{form.cause.label()}}{{form.cause()}}<br>
+        {{form.status.label()}}{{form.status()}}<br>
+        <br>
         {{form.submit}}
       </form>
+
     </div>
 </div>
 {%  endblock    %}

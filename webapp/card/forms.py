@@ -1,10 +1,36 @@
-from flask_wtf import FlaskForm
-from wtforms import  StringField, SubmitField, TextAreaField, SelectField, IntegerField, FloatField, SelectMultipleField, BooleanField
-from wtforms.validators import DataRequired
-from webapp import db_session
+from datetime import datetime
 
+from flask import request
+from flask_wtf import FlaskForm
+from wtforms import  StringField, SubmitField, TextAreaField, SelectField, IntegerField, FloatField, SelectMultipleField, BooleanField, DateTimeField
+from wtforms.validators import DataRequired
+
+from webapp import db_session
+from webapp.config import conn
+from webapp.card.models import CardOne
+from webapp.user.models import Users
 
 class CardForm(FlaskForm):
+  #данные пациента
+  first_name = StringField("Имя", validators=[DataRequired()], render_kw={"class": "form-control"})
+  last_name = StringField("Фамилия", validators=[DataRequired()], render_kw={"class": "form-control"})
+  surname = StringField("Отчество", validators=[DataRequired()], render_kw={"class": "form-control"})
+  date_of_birth = StringField("Дата рождения", validators=[DataRequired()], render_kw={"class": "form-control"})
+  address = StringField("Адрес", validators=[DataRequired()], render_kw={"class": "form-control"})
+  cause = TextAreaField("Повод", validators=[DataRequired()], render_kw={"class": "form-control"})
+  status = SelectField("Статус", choices=[("Принят","Принят"),("Назначен бригаде","Назначен бригаде"), ("Завершен","Завершен")],default=("Принят"))
+  crew = SelectField("Бригада", choices=Users.list_doctors())
+  goto_create = SubmitField("Создать вызов", render_kw={"class": "btn btn-primary"}) 
+  #время
+  time_of_receipt =  DateTimeField("Время приёма", format = "%H:%M")
+  transmission_time = DateTimeField("Время передачи", format = "%H:%M")
+  departure_time = DateTimeField("Время принятия вызова", format = "%H:%M")
+  arrival_time = DateTimeField("Время прибытия", format = "%H:%M")
+  start_time_of_hospitalization = DateTimeField("Время начала госпитализации", format = "%H:%M")
+  
+  #карта вызова
+  time_of_arrival_at_hospital = DateTimeField("Время прибытия в стационар", format = "%H:%M")
+  call_end_time = DateTimeField("Окончание вызова", format = "%H:%M")
   zhaloby = TextAreaField("Жалобы", validators=[DataRequired()], render_kw={"class": "form-control", "placeholder" : "Жалобы пациента..."})
   anamnesis = TextAreaField("Анамнез", validators=[DataRequired()], render_kw={"class": "form-control", "placeholder" : "Анамнез..."})
   general_assessment = SelectField("Общее состояние", choices=[("Удовлетворительное", "Удовлетворительное"), ("Средней степени тяжести", "Средней степени тяжести"), ("Тяжелое", "Тяжелое"), ("Терминальное", "Терминальное")], default=("Удовлетворительное"))
@@ -104,4 +130,22 @@ class CardForm(FlaskForm):
   
   #diagnosis
   diagnosis = TextAreaField("Диагноз", render_kw={"class": "form-control", "placeholder" : "Диагноз..."})
-  submit = SubmitField("Готово!", render_kw={"class": "btn btn-primary"})
+  submit = SubmitField(label="Готово!", render_kw={"class": "btn btn-primary"})
+
+  def save_card(self,request = request):
+    
+    new_patient_dict = dict(request.form)
+    try:
+      patient = CardOne()
+      for attr, value in new_patient_dict.items():
+        if hasattr(patient,attr):
+          setattr(patient, attr,value)
+      db_session.add(patient)
+      db_session.commit()
+      print("Done!")
+    except  Exception:
+      print(Exception.__name__)
+
+
+
+    

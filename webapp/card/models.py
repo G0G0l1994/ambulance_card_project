@@ -1,14 +1,20 @@
-from sqlalchemy import Column, Integer, String, Float, Boolean, Text
+from sqlalchemy import Column, Integer, String, Float, Boolean, Text,Date
 from webapp.db import Base, engine
 
 class CardOne(Base):
     __tablename__ = "card_united"
     
     id = Column(Integer, primary_key = True)
-    patient_id = Column(Integer,  index=True )
     doctor_id = Column(Integer,index=True)
+    first_name = Column(String)
+    last_name = Column(String)
+    surname = Column(String)
+    address = Column(String)
+    date_of_birth = Column(Date)
+    crew = Column(Integer)
     #повод к вызову
     cause = Column(String)
+    status = Column(String)
     #время
     date_card = Column(String) # дата карты
     time_of_receipt = Column(String) # время приёма

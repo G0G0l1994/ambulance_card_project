@@ -12,7 +12,7 @@ import logging
 logging.basicConfig(filename = "mylog.log", level=logging.INFO)
 
 def create_app():
-  app = Flask(__name__, template_folder="templates", static_folder="static")
+  app = Flask(__name__, template_folder='templates', static_folder='static')
   app.config.from_pyfile("config.py")
   migrate = Migrate(app,Base)
 
@@ -34,5 +34,6 @@ def create_app():
   def main():
     title = "Главная страница"
     return render_template('main.html', page_title=title)
+  
   
   return app

@@ -23,5 +23,18 @@ class Users(Base, UserMixin):
         print(f'Введенный пароль{password}')
         print(f'Результат проверки функции {check_password_hash(self.password, password)}')
         return check_password_hash(self.password, password)
+    
     def __repr__(self):
         return f"User: {self.id}, {self.username}, {self.role}"
+    
+    def list_doctors():
+        choice = []
+        doctors = Users.query.all()
+        for doctor in doctors:
+            if doctor.role == "Врач":
+                item = (doctor.id,doctor.last_name)
+                print(item)
+                choice.append(item)
+        print(choice)
+        return choice
+

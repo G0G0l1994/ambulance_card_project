@@ -1,0 +1,20 @@
+{%  extends "base.html" %}
+
+{%  block content %}
+<div class="container">
+    <div class="patient col-6" style='margin-top: 35px;'>
+      <h1>Вызова</h1>
+      <form action="{{ url_for('user.new_card') }}" methods="POST">
+        
+        {{form.goto_create}}
+      </form>
+      
+    </div>
+    <form action="{{url_for('user.main_dispatcher')}}" methods="GET">
+        <button type="button" class="btn btn-primary">Обновить</button>
+            {%for card in data%}
+            <h2>{{card[0]}} {{card[1]}} {{card[2]}} {{card[3]}} {{form.crew}}</h2><br>
+            {% endfor %}
+    </form>
+</div>
+{%  endblock    %}
